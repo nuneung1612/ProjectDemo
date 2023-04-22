@@ -12,7 +12,7 @@ public class Home implements ActionListener {
     private JLabel l1,l2,l3,l4,l5;
     private JScrollPane scrollPane;
     private JComboBox cbStart, cbEnd, cbDay,cbMonth,cbYear,cbTourType,cbSeat;
-    private LinkedList tourData = new LinkedList();
+    private LinkedList <Tour> tourData = new LinkedList<Tour>();
     
     public Home(){
         fr = new JFrame();
@@ -121,7 +121,7 @@ public class Home implements ActionListener {
         
         cbYear.addItem("2023");
         cbTourType.addItem("Economy");
-        cbTourType.addItem("Businuss");
+        cbTourType.addItem("Business");
         cbTourType.addItem("FirstClass");
         
         cbSeat.addItem(1);      cbSeat.addItem(2);      cbSeat.addItem(3);
@@ -172,31 +172,36 @@ public class Home implements ActionListener {
     }
     public LinkedList filterSearch(String start, String end, String type, String time, int seat){
         LinkedList filter = new LinkedList();
+        int num;
         for (int i = 0; i < tourData.size() && tourData.size() != 0; i++){
-            if (((Tour)tourData.get(i)).getStart().equals(start)){
+            if ((tourData.get(i)).getStart().equals(start)){
                 filter.add(i);
         }
             }
         for (int i = 0; i < filter.size() && filter.size() != 0 ; i++){
-            if (!((Tour)tourData.get(i)).getEnd().equals(end)){
+            num = (int)filter.get(i);
+            if (!(tourData.get(num)).getEnd().equals(end)){
                 filter.remove(i);
                 i -= 1;
             }
         }
         for (int i = 0; i < filter.size() && filter.size() != 0 ; i++){
-            if (!((Tour)tourData.get(i)).getType().equals(type)){
+            num = (int)filter.get(i);
+            if (!(tourData.get(num)).getType().equals(type)){
                 filter.remove(i);
                 i -= 1;
             }
         }
         for (int i = 0; i < filter.size() && filter.size() != 0 ; i++){
-            if (!((Tour)tourData.get(i)).getTime().equals(time)){
+            num = (int)filter.get(i);
+            if (!(tourData.get(num)).getTime().equals(time)){
                 filter.remove(i);
                 i -= 1;
             }
         }
         for (int i = 0; i < filter.size() && filter.size() != 0 ; i++){
-            if (((Tour)tourData.get(i)).getSeat() < seat){
+            num = (int)filter.get(i);
+            if ((tourData.get(num)).getSeatAvailable() < seat){
                 filter.remove(i);
                 i -= 1;
             }
@@ -205,7 +210,9 @@ public class Home implements ActionListener {
     }
     public void actionPerformed(ActionEvent ae){
         if (ae.getSource().equals(bSearch)){
+            
             String date = (String)cbDay.getSelectedItem()+"/"+(String)cbMonth.getSelectedItem()+"/"+(String)cbYear.getSelectedItem();
+            fr.remove(p1);
             p1 = new JPanel();
             
             scrollPane = new JScrollPane();
@@ -229,13 +236,13 @@ public class Home implements ActionListener {
                 int num = (int)filter.get(i);
                 int row = table.getRowCount();
                 model.addRow(new Object[0]);
-                model.setValueAt(((Tour)tourData.get(num)).getBusID(), row, 0);
-                model.setValueAt(((Tour)tourData.get(num)).getTime(), row, 1);
-                model.setValueAt(((Tour)tourData.get(num)).getStart(), row, 2);
-                model.setValueAt(((Tour)tourData.get(num)).getEnd(), row, 3);
-                model.setValueAt(((Tour)tourData.get(num)).getType(), row, 4);
-                model.setValueAt(((Tour)tourData.get(num)).getSeat()+"", row, 5);
-                model.setValueAt(((Tour)tourData.get(num)).getSeatAvailable()+"", row, 6);
+                model.setValueAt((tourData.get(num)).getBusID(), row, 0);
+                model.setValueAt((tourData.get(num)).getTime(), row, 1);
+                model.setValueAt((tourData.get(num)).getStart(), row, 2);
+                model.setValueAt((tourData.get(num)).getEnd(), row, 3);
+                model.setValueAt((tourData.get(num)).getType(), row, 4);
+                model.setValueAt((tourData.get(num)).getSeat()+"", row, 5);
+                model.setValueAt((tourData.get(num)).getSeatAvailable()+"", row, 6);
            }
             fr.remove(tourTable);
             fr.add(p1);

@@ -16,10 +16,11 @@ public class Admin implements ActionListener{
     private JFrame fr;
     private JPanel p1,p2,p3,p4,tourTable,userTable;
     private JButton b1,b2,b3;
-    private JLabel l1,l2,l3;
-    private JComboBox cbStart, cbEnd, cbDay,cbMonth,cbYear,cbTourType,cbSeat;
+    private JLabel l1,l2,l3,l4;
+    private JComboBox cbStart, cbEnd, cbDay,cbMonth,cbYear,cbTourType;
     private int num = 0;
-    private LinkedList tourData = new LinkedList();
+    private LinkedList <Tour> tourData = new LinkedList<Tour>();
+    private Tour tour;
     
     public Admin(){
         fr = new JFrame();
@@ -33,12 +34,12 @@ public class Admin implements ActionListener{
         l1 = new JLabel("start");
         l2 = new JLabel("End");
         l3 = new JLabel("date");
+        l4 = new JLabel("Type");
         cbStart = new JComboBox();
         cbEnd = new JComboBox();
         cbDay = new JComboBox();
         cbMonth = new JComboBox();
         cbYear = new JComboBox();
-        cbSeat = new JComboBox();
         cbTourType = new JComboBox();
         
         tourTable = new TourTable().getTable();
@@ -112,21 +113,9 @@ public class Admin implements ActionListener{
         
         cbYear.addItem("2023");
         cbTourType.addItem("Economy");
-        cbTourType.addItem("Businuss");
+        cbTourType.addItem("Business");
         cbTourType.addItem("FirstClass");
-        
-        cbSeat.addItem(1);      cbSeat.addItem(2);      cbSeat.addItem(3);
-        cbSeat.addItem(4);      cbSeat.addItem(5);      cbSeat.addItem(6);
-        cbSeat.addItem(7);      cbSeat.addItem(8);      cbSeat.addItem(9);
-        cbSeat.addItem(10);      cbSeat.addItem(11);      cbSeat.addItem(12);
-        cbSeat.addItem(13);      cbSeat.addItem(14);      cbSeat.addItem(14);
-        cbSeat.addItem(15);      cbSeat.addItem(16);      cbSeat.addItem(17);
-        cbSeat.addItem(18);      cbSeat.addItem(19);      cbSeat.addItem(20);
-        cbSeat.addItem(21);      cbSeat.addItem(22);      cbSeat.addItem(23);
-        cbSeat.addItem(24);      cbSeat.addItem(25);      cbSeat.addItem(26);
-        cbSeat.addItem(27);      cbSeat.addItem(28);      cbSeat.addItem(29);
-        cbSeat.addItem(30);      cbSeat.addItem(31);          
-        
+                  
         b1.addActionListener(this);
         b2.addActionListener(this);
         b3.addActionListener(this);
@@ -138,7 +127,8 @@ public class Admin implements ActionListener{
         p2.add(l1);     p2.add(cbStart);    p2.add(l2);     p2.add(cbEnd);
         
         p3.setLayout(new FlowLayout());
-        p3.add(l3);     p3.add(cbDay);    p3.add(cbMonth);    p3.add(cbYear);    p3.add(cbSeat);    p3.add(b3);
+        p3.add(l3);     p3.add(cbDay);    p3.add(cbMonth);    p3.add(cbYear);    p3.add(l4);
+        p3.add(cbTourType); p3.add(b3);
         
         p4.setLayout(new GridLayout(2,1));
         p4.add(p2);     p4.add(p3);
@@ -161,7 +151,7 @@ public class Admin implements ActionListener{
             System.out.println(e);
         }
         if (tourData.size() != 0){
-            num = Integer.parseInt(((Tour)tourData.get(tourData.size() - 1)).getBusID());
+            num = Integer.parseInt((tourData.get(tourData.size() - 1)).getBusID());
         }
         num += 1;
         String id = String.format("%04d", num);
@@ -179,7 +169,28 @@ public class Admin implements ActionListener{
             fr.revalidate();
         }
         else if (ae.getSource().equals(b3)){
-            new Tour(date, id, (String)cbStart.getSelectedItem(),(String)cbEnd.getSelectedItem(),30,30,(String)cbTourType.getSelectedItem());
+            if (cbTourType.getSelectedItem().equals("Economy")){
+                tour = new EconomyTour(date, id, (String)cbStart.getSelectedItem(),(String)cbEnd.getSelectedItem());
+            }
+            else if (cbTourType.getSelectedItem().equals("Business")){
+                tour = new BusinessTour(date, id, (String)cbStart.getSelectedItem(),(String)cbEnd.getSelectedItem());
+            }
+            else if (cbTourType.getSelectedItem().equals("FirstClass")){
+                tour = new FirstClassTour(date, id, (String)cbStart.getSelectedItem(),(String)cbEnd.getSelectedItem());
+            }
+            try(FileInputStream fin = new FileInputStream("TourData.dat");
+                ObjectInputStream in = new ObjectInputStream(fin);){
+                tourData = ((LinkedList)in.readObject());
+            }catch(IOException | ClassNotFoundException e){
+                System.out.println(e);
+            }
+            tourData.add(tour);
+            try(FileOutputStream fOut = new FileOutputStream("TourData.dat");
+                ObjectOutputStream oout = new ObjectOutputStream(fOut);){
+                oout.writeObject(tourData);
+        }catch(IOException e){
+            System.out.println(e);
+        }
             fr.remove(tourTable);
             tourTable = new TourTable().getTable();
             fr.add(tourTable);

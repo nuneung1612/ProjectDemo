@@ -16,7 +16,7 @@ public class TourTable {
     private JPanel p;
     private JScrollPane scrollPane;
     private JTable table;
-    private LinkedList tourData = new LinkedList();
+    private LinkedList <Tour>tourData = new LinkedList<Tour>();
     
     public TourTable() {
         p = new JPanel();
@@ -45,13 +45,13 @@ public class TourTable {
         for (int i = 0; i < tourData.size() && tourData.size() != 0; i++){
             int row = table.getRowCount();
             model.addRow(new Object[0]);
-            model.setValueAt(((Tour)tourData.get(i)).getBusID(), row, 0);
-            model.setValueAt(((Tour)tourData.get(i)).getTime(), row, 1);
-            model.setValueAt(((Tour)tourData.get(i)).getStart(), row, 2);
-            model.setValueAt(((Tour)tourData.get(i)).getEnd(), row, 3);
-            model.setValueAt(((Tour)tourData.get(i)).getType(), row, 4);
-            model.setValueAt(((Tour)tourData.get(i)).getSeat()+"", row, 5);
-            model.setValueAt(((Tour)tourData.get(i)).getSeatAvailable()+"", row, 6);
+            model.setValueAt((tourData.get(i)).getBusID(), row, 0);
+            model.setValueAt((tourData.get(i)).getTime(), row, 1);
+            model.setValueAt((tourData.get(i)).getStart(), row, 2);
+            model.setValueAt((tourData.get(i)).getEnd(), row, 3);
+            model.setValueAt((tourData.get(i)).getType(), row, 4);
+            model.setValueAt((tourData.get(i)).getSeat()+"", row, 5);
+            model.setValueAt((tourData.get(i)).getSeatAvailable()+"", row, 6);
         }
        }
     public JPanel getTable(){

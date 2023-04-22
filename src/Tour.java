@@ -13,47 +13,29 @@
  */
 import java.io.*;
 import java.util.*;
-public class Tour implements Serializable{
+public abstract class Tour implements Serializable{
     private String time;
     private String busID;
     private String start;
     private String end;
-    private int seat;
-    private int seatAvailable;
-    private String type;
+    protected String type;
     private LinkedList tourData = new LinkedList();
+    private static final long serialVersionUID = 1234567890L;
     
     public Tour(){
         time = "";
         busID = "";
         start = "";
         end = "";
-        seat = 0;
-        seatAvailable = 0;
         type = "";
     }
     
-    public Tour(String time, String busID, String start, String end,int seat, int seatAvailable, String type){
+    public Tour(String time, String busID, String start, String end, String type){
         this.time = time;
         this.busID = busID;
         this.start = start;
         this.end = end;
-        this.seat = seat;
         this.type = type;
-        this.seatAvailable = seat;
-        try(FileInputStream fin = new FileInputStream("TourData.dat");
-            ObjectInputStream in = new ObjectInputStream(fin);){
-            tourData = (LinkedList)in.readObject();
-        }catch(IOException | ClassNotFoundException e){
-            System.out.println(e);
-        }
-        tourData.add(this);
-        try(FileOutputStream fOut = new FileOutputStream("TourData.dat");
-            ObjectOutputStream oout = new ObjectOutputStream(fOut);){
-            oout.writeObject(tourData);
-        }catch(IOException e){
-            System.out.println(e);
-        }
     }
 
     public String getTime() {
@@ -88,20 +70,12 @@ public class Tour implements Serializable{
         this.end = end;
     }
 
-    public int getSeat() {
-        return seat;
+    public LinkedList getTourData() {
+        return tourData;
     }
 
-    public void setSeat(int seat) {
-        this.seat = seat;
-    }
-
-    public int getSeatAvailable() {
-        return seatAvailable;
-    }
-
-    public void setSeatAvailable(int seatAvailable) {
-        this.seatAvailable = seatAvailable;
+    public void setTourData(LinkedList tourData) {
+        this.tourData = tourData;
     }
 
     public String getType() {
@@ -111,4 +85,7 @@ public class Tour implements Serializable{
     public void setType(String type) {
         this.type = type;
     }
+    
+    public abstract int getSeat();
+    public abstract int getSeatAvailable();
 }
