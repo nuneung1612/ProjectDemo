@@ -40,7 +40,7 @@ public class Login implements ActionListener {
         passtxt = new JLabel("Password:");
         adminbtn = new JButton("Admin");
         logo = new JLabel("JAVA Tour");
-        invalid = new JLabel("Incorrect username or password, try again.");
+        invalid = new JLabel("Incorrect username or password.");
 
 
         fr.setSize(300, 500);

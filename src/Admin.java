@@ -9,6 +9,7 @@
  */
 import java.awt.*;
 import java.awt.event.*;
+import java.io.*;
 import javax.swing.*;
 import java.util.*;
 public class Admin implements ActionListener{
@@ -16,7 +17,8 @@ public class Admin implements ActionListener{
     private JPanel p1,p2,p3,p4,tourTable,userTable;
     private JButton b1,b2,b3;
     private JLabel l1,l2,l3;
-    private JComboBox cb1, cb2, cb3,cb4,cb5,cb6;
+    private JComboBox cbStart, cbEnd, cbDay,cbMonth,cbYear,cbTourType,cbSeat;
+    private int num = 0;
     private LinkedList tourData = new LinkedList();
     
     public Admin(){
@@ -31,25 +33,99 @@ public class Admin implements ActionListener{
         l1 = new JLabel("start");
         l2 = new JLabel("End");
         l3 = new JLabel("date");
-        cb1 = new JComboBox();
-        cb2 = new JComboBox();
-        cb3 = new JComboBox();
-        cb4 = new JComboBox();
-        cb5 = new JComboBox();
-        cb6 = new JComboBox();
+        cbStart = new JComboBox();
+        cbEnd = new JComboBox();
+        cbDay = new JComboBox();
+        cbMonth = new JComboBox();
+        cbYear = new JComboBox();
+        cbSeat = new JComboBox();
+        cbTourType = new JComboBox();
+        
         tourTable = new TourTable().getTable();
         userTable = new UserTable().getTable();
-        cb1.addItem("Bankkok");
-        cb2.addItem("ChaingMai");
-        cb3.addItem("1");
-        cb3.addItem("2");
-        cb3.addItem("3");
-        cb4.addItem("Jun");
-        cb4.addItem("Feb");
-        cb5.addItem("2023");
-        cb6.addItem("Economy");
-        cb6.addItem("Businuss");
-        cb6.addItem("FirstClass");
+        
+        cbStart.addItem("Bankkok"); cbStart.addItem("Krabi"); cbStart.addItem("Kanchanaburi");
+        cbStart.addItem("Kalasin"); cbStart.addItem("Kamphaeng Phet"); cbStart.addItem("Khon Kaen");
+        cbStart.addItem("Chanthaburi"); cbStart.addItem("Chachoengsao"); cbStart.addItem("Chonburi");
+        cbStart.addItem("Chainat"); cbStart.addItem("Chaiyaphum"); cbStart.addItem("Khon Kaen");
+        cbStart.addItem("Chiang Rai"); cbStart.addItem("Chiang Mai"); cbStart.addItem("Trang");
+        cbStart.addItem("Trat"); cbStart.addItem("Tak"); cbStart.addItem("Nakhon Nayok");
+        cbStart.addItem("Nakhon Pathom"); cbStart.addItem("Nakhon Phanom"); cbStart.addItem("Nakhon Ratchasima");
+        cbStart.addItem("Nakhon Si Thammarat"); cbStart.addItem("Nakhon Sawan"); cbStart.addItem("Nonthaburi");
+        cbStart.addItem("Narathiwat"); cbStart.addItem("Nan"); cbStart.addItem("Bueng Kan");
+        cbStart.addItem("Prachinburi"); cbStart.addItem("Pattani"); cbStart.addItem("Phra Nakhon Si Ayutthaya");
+        cbStart.addItem("Phayao"); cbStart.addItem("Phang Nga"); cbStart.addItem("Phatthalung");
+        cbStart.addItem("Phichit"); cbStart.addItem("Phitsanulok"); cbStart.addItem("Phetchaburi");
+        cbStart.addItem("Phetchabun"); cbStart.addItem("Phrae"); cbStart.addItem("Phuket");
+        cbStart.addItem("Maha Sarakham "); cbStart.addItem("Mukdahan"); cbStart.addItem("Mae Hong Son");
+        cbStart.addItem("Yasothon"); cbStart.addItem("Yala"); cbStart.addItem("Roi Et");
+        cbStart.addItem("Ranong"); cbStart.addItem("Rayong"); cbStart.addItem("Ratchaburi");
+        cbStart.addItem("Loei"); cbStart.addItem("Sisaket"); cbStart.addItem("Sakon Nakhon");
+        cbStart.addItem("Songkhla"); cbStart.addItem("Satun"); cbStart.addItem("Samut Prakan");
+        cbStart.addItem("Samut Songkhram"); cbStart.addItem("Samut Sakhon"); cbStart.addItem("Sa Kaeo");
+        cbStart.addItem("Saraburi"); cbStart.addItem("Sing Buri"); cbStart.addItem("Sukhothai");
+        cbStart.addItem("Suphan Buri"); cbStart.addItem("Surat Thani"); cbStart.addItem("Surin");
+        cbStart.addItem("Nong Khai"); cbStart.addItem("Nong Bua Lamphu"); cbStart.addItem("Ang Thong");
+        cbStart.addItem("Amnat Charoen"); cbStart.addItem("Udon Thani"); cbStart.addItem("Uttaradit");
+        cbStart.addItem("Uthai Thani"); cbStart.addItem("Ubon Ratchathani");
+        
+        cbEnd.addItem("Bankkok"); cbEnd.addItem("Krabi"); cbEnd.addItem("Kanchanaburi");
+        cbEnd.addItem("Kalasin"); cbEnd.addItem("Kamphaeng Phet"); cbEnd.addItem("Khon Kaen");
+        cbEnd.addItem("Chanthaburi"); cbEnd.addItem("Chachoengsao"); cbEnd.addItem("Chonburi");
+        cbEnd.addItem("Chainat"); cbEnd.addItem("Chaiyaphum"); cbEnd.addItem("Khon Kaen");
+        cbEnd.addItem("Chiang Rai"); cbEnd.addItem("Chiang Mai"); cbEnd.addItem("Trang");
+        cbEnd.addItem("Trat"); cbEnd.addItem("Tak"); cbEnd.addItem("Nakhon Nayok");
+        cbEnd.addItem("Nakhon Pathom"); cbEnd.addItem("Nakhon Phanom"); cbEnd.addItem("Nakhon Ratchasima");
+        cbEnd.addItem("Nakhon Si Thammarat"); cbEnd.addItem("Nakhon Sawan"); cbEnd.addItem("Nonthaburi");
+        cbEnd.addItem("Narathiwat"); cbEnd.addItem("Nan"); cbEnd.addItem("Bueng Kan");
+        cbEnd.addItem("Prachinburi"); cbEnd.addItem("Pattani"); cbEnd.addItem("Phra Nakhon Si Ayutthaya");
+        cbEnd.addItem("Phayao"); cbEnd.addItem("Phang Nga"); cbEnd.addItem("Phatthalung");
+        cbEnd.addItem("Phichit"); cbEnd.addItem("Phitsanulok"); cbEnd.addItem("Phetchaburi");
+        cbEnd.addItem("Phetchabun"); cbEnd.addItem("Phrae"); cbEnd.addItem("Phuket");
+        cbEnd.addItem("Maha Sarakham "); cbEnd.addItem("Mukdahan"); cbEnd.addItem("Mae Hong Son");
+        cbEnd.addItem("Yasothon"); cbEnd.addItem("Yala"); cbEnd.addItem("Roi Et");
+        cbEnd.addItem("Ranong"); cbEnd.addItem("Rayong"); cbEnd.addItem("Ratchaburi");
+        cbEnd.addItem("Loei"); cbEnd.addItem("Sisaket"); cbEnd.addItem("Sakon Nakhon");
+        cbEnd.addItem("Songkhla"); cbEnd.addItem("Satun"); cbEnd.addItem("Samut Prakan");
+        cbEnd.addItem("Samut Songkhram"); cbEnd.addItem("Samut Sakhon"); cbEnd.addItem("Sa Kaeo");
+        cbEnd.addItem("Saraburi"); cbEnd.addItem("Sing Buri"); cbEnd.addItem("Sukhothai");
+        cbEnd.addItem("Suphan Buri"); cbEnd.addItem("Surat Thani"); cbEnd.addItem("Surin");
+        cbEnd.addItem("Nong Khai"); cbEnd.addItem("Nong Bua Lamphu"); cbEnd.addItem("Ang Thong");
+        cbEnd.addItem("Amnat Charoen"); cbEnd.addItem("Udon Thani"); cbEnd.addItem("Uttaradit");
+        cbEnd.addItem("Uthai Thani"); cbEnd.addItem("Ubon Ratchathani");
+        
+        cbDay.addItem("1"); cbDay.addItem("2"); cbDay.addItem("3");
+        cbDay.addItem("4"); cbDay.addItem("5"); cbDay.addItem("6");
+        cbDay.addItem("7"); cbDay.addItem("8"); cbDay.addItem("9");
+        cbDay.addItem("10"); cbDay.addItem("11"); cbDay.addItem("12");
+        cbDay.addItem("13"); cbDay.addItem("14"); cbDay.addItem("15"); 
+        cbDay.addItem("16"); cbDay.addItem("17"); cbDay.addItem("18"); 
+        cbDay.addItem("19"); cbDay.addItem("20"); cbDay.addItem("21"); 
+        cbDay.addItem("22"); cbDay.addItem("23"); cbDay.addItem("24"); 
+        cbDay.addItem("25"); cbDay.addItem("26"); cbDay.addItem("27"); 
+        cbDay.addItem("28"); cbDay.addItem("29"); cbDay.addItem("30"); 
+        cbDay.addItem("31");
+        cbMonth.addItem("Jun"); cbMonth.addItem("Feb"); cbMonth.addItem("Mar");
+        cbMonth.addItem("Apr"); cbMonth.addItem("May"); cbMonth.addItem("Jun");
+        cbMonth.addItem("Jul"); cbMonth.addItem("Aug"); cbMonth.addItem("Sep");
+        cbMonth.addItem("Oct"); cbMonth.addItem("Nov"); cbMonth.addItem("Dec");
+        
+        cbYear.addItem("2023");
+        cbTourType.addItem("Economy");
+        cbTourType.addItem("Businuss");
+        cbTourType.addItem("FirstClass");
+        
+        cbSeat.addItem(1);      cbSeat.addItem(2);      cbSeat.addItem(3);
+        cbSeat.addItem(4);      cbSeat.addItem(5);      cbSeat.addItem(6);
+        cbSeat.addItem(7);      cbSeat.addItem(8);      cbSeat.addItem(9);
+        cbSeat.addItem(10);      cbSeat.addItem(11);      cbSeat.addItem(12);
+        cbSeat.addItem(13);      cbSeat.addItem(14);      cbSeat.addItem(14);
+        cbSeat.addItem(15);      cbSeat.addItem(16);      cbSeat.addItem(17);
+        cbSeat.addItem(18);      cbSeat.addItem(19);      cbSeat.addItem(20);
+        cbSeat.addItem(21);      cbSeat.addItem(22);      cbSeat.addItem(23);
+        cbSeat.addItem(24);      cbSeat.addItem(25);      cbSeat.addItem(26);
+        cbSeat.addItem(27);      cbSeat.addItem(28);      cbSeat.addItem(29);
+        cbSeat.addItem(30);      cbSeat.addItem(31);          
         
         b1.addActionListener(this);
         b2.addActionListener(this);
@@ -59,10 +135,10 @@ public class Admin implements ActionListener{
         p1.add(b1);     p1.add(b2);
         
         p2.setLayout(new FlowLayout());
-        p2.add(l1);     p2.add(cb1);    p2.add(l2);     p2.add(cb2);
+        p2.add(l1);     p2.add(cbStart);    p2.add(l2);     p2.add(cbEnd);
         
         p3.setLayout(new FlowLayout());
-        p3.add(l3);     p3.add(cb3);    p3.add(cb4);    p3.add(cb5);    p3.add(cb6);    p3.add(b3);
+        p3.add(l3);     p3.add(cbDay);    p3.add(cbMonth);    p3.add(cbYear);    p3.add(cbSeat);    p3.add(b3);
         
         p4.setLayout(new GridLayout(2,1));
         p4.add(p2);     p4.add(p3);
@@ -72,14 +148,24 @@ public class Admin implements ActionListener{
         fr.add(tourTable);
         
         fr.setSize(1000,600);
-        fr.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        fr.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         fr.setVisible(true);
         
     }
     
     public void actionPerformed(ActionEvent ae){
-        String id = String.format("%04d", tourData.size());
-        String date = (String)cb3.getSelectedItem()+"/"+(String)cb4.getSelectedItem()+"/"+(String)cb5.getSelectedItem();
+        try(FileInputStream fin = new FileInputStream("TourData.dat");
+            ObjectInputStream in = new ObjectInputStream(fin);){
+            tourData = (LinkedList)in.readObject();
+        }catch(IOException | ClassNotFoundException e){
+            System.out.println(e);
+        }
+        if (tourData.size() != 0){
+            num = Integer.parseInt(((Tour)tourData.get(tourData.size() - 1)).getBusID());
+        }
+        num += 1;
+        String id = String.format("%04d", num);
+        String date = (String)cbDay.getSelectedItem()+"/"+(String)cbMonth.getSelectedItem()+"/"+(String)cbYear.getSelectedItem();
         if (ae.getSource().equals(b1)){
             fr.remove(tourTable);
             fr.remove(p4);
@@ -93,7 +179,7 @@ public class Admin implements ActionListener{
             fr.revalidate();
         }
         else if (ae.getSource().equals(b3)){
-            new Tour(date, id, (String)cb1.getSelectedItem(),(String)cb2.getSelectedItem(),30,30,(String)cb6.getSelectedItem());
+            new Tour(date, id, (String)cbStart.getSelectedItem(),(String)cbEnd.getSelectedItem(),30,30,(String)cbTourType.getSelectedItem());
             fr.remove(tourTable);
             tourTable = new TourTable().getTable();
             fr.add(tourTable);

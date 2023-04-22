@@ -225,7 +225,6 @@ public class Home implements ActionListener {
             model.addColumn("Available");
             
             LinkedList filter = filterSearch((String)cbStart.getSelectedItem(), (String)cbEnd.getSelectedItem(), (String)cbTourType.getSelectedItem(),date,(int)cbSeat.getSelectedItem());
-            System.out.println(filter);
             for (int i = 0; i < filter.size() ; i++){
                 int num = (int)filter.get(i);
                 int row = table.getRowCount();
