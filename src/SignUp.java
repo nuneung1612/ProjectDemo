@@ -16,7 +16,7 @@ import java.io.ObjectInputStream;
 import java.util.LinkedList;
 public class SignUp implements ActionListener {
 
-    private JFrame fr;
+    private JDialog fr;
     private JPanel pa; 
     private JTextField username, email, tel, name, lastname;
     private JPasswordField pass;
@@ -30,7 +30,7 @@ public class SignUp implements ActionListener {
     
     public SignUp(){
  
-        fr = new JFrame("Java tour-sign up");
+        fr = new JDialog(fr,"Java tour-sign up",true);
         pa = new JPanel(); 
         username= new JTextField();
         name = new JTextField();
