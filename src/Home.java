@@ -24,6 +24,7 @@ public class Home implements ActionListener {
         bSearch = new JButton("Search");
         //b2 = new JButton("Tour");
         //b3 = new JButton("User");
+        
         imch = new ImageIcon(getClass().getResource("images/home.png"));
         imcp = new ImageIcon(getClass().getResource("images/profile.png"));
         imcs = new ImageIcon(getClass().getResource("images/setting.png"));
@@ -39,11 +40,21 @@ public class Home implements ActionListener {
         home.setContentAreaFilled(false);
         profile.setContentAreaFilled(false);
         setting.setContentAreaFilled(false);
-        l1 = new JLabel("start");
+        home.setBorderPainted(false);
+        profile.setBorderPainted(false);
+        setting.setBorderPainted(false);
+        
+        l1 = new JLabel("Start");
         l2 = new JLabel("End");
-        l3 = new JLabel("date");
+        l3 = new JLabel("Date");
         l4 = new JLabel("Type");
         l5 = new JLabel("Seat");
+        l1.setFont(new Font("Sarabun", Font.BOLD, 14));
+        l2.setFont(new Font("Sarabun", Font.BOLD, 14));
+        l3.setFont(new Font("Sarabun", Font.BOLD, 14));
+        l4.setFont(new Font("Sarabun", Font.BOLD, 14));
+        l5.setFont(new Font("Sarabun", Font.BOLD, 14));
+        
         cbStart = new JComboBox();
         cbEnd = new JComboBox();
         cbDay = new JComboBox();
