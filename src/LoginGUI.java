@@ -40,7 +40,7 @@ public class LoginGUI implements ActionListener {
         passtxt = new JLabel("Password:");
         adminbtn = new JButton("Admin");
         logo = new JLabel("JAVA Tour");
-        invalid = new JLabel("Invalid username or password, try again.");
+        invalid = new JLabel("Incorrect username or password, try again.");
 
 
         fr.setSize(300, 500);
@@ -139,6 +139,10 @@ public class LoginGUI implements ActionListener {
         if(ev.getSource()==signupbtn){
             System.out.println("Sign up");
             new SignupGUI();
+            invalid.setVisible(false);
+            username.setText("");
+            pass.setText("");
+                   
         }
         if(ev.getSource() == adminbtn){
            new Admin();
