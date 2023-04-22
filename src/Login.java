@@ -99,6 +99,9 @@ public class Login implements ActionListener {
     }
      public boolean checkUser(String username, String password){
         String text = "";
+        if(username.equals("") || password.equals("")){
+            return false;
+        }
         try(FileInputStream fin = new FileInputStream("UserData.dat");
             ObjectInputStream in = new ObjectInputStream(fin);){
             userData = (LinkedList)in.readObject();
