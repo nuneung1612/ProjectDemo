@@ -8,7 +8,7 @@ public class Home implements ActionListener {
     private JFrame fr;
     private JPanel p1,p2,p3,p4,p5,tourTable;
     private JButton bSearch,b2,b3, profile, home, setting;
-    private ImageIcon imch, imcp, imcs, imch1;
+    private ImageIcon imch, imcp, imcs, imch1, imcp1, imcs1;
     private JLabel l1,l2,l3,l4,l5;
     private JScrollPane scrollPane;
     private JComboBox cbStart, cbEnd, cbDay,cbMonth,cbYear,cbTourType,cbSeat;
@@ -25,14 +25,20 @@ public class Home implements ActionListener {
         //b2 = new JButton("Tour");
         //b3 = new JButton("User");
         imch = new ImageIcon(getClass().getResource("images/home.png"));
+        imcp = new ImageIcon(getClass().getResource("images/profile.png"));
+        imcs = new ImageIcon(getClass().getResource("images/setting.png"));
         Image sizeh = imch.getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH);
+        Image sizep = imcp.getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH);
+        Image sizes = imcs.getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH);
         imch1 = new ImageIcon(sizeh);
-        //imch = new ImageIcon(getClass().getResource("profile.jpg"));
-        //imcs = new ImageIcon(getClass().getResource("setting.png"));
-        //profile = new JButton("proflie");
+        imcp1 = new ImageIcon(sizep);
+        imcs1 = new ImageIcon(sizes);
+        profile = new JButton(imcp1);
         home = new JButton(imch1);
+        setting = new JButton(imcs1);
         home.setContentAreaFilled(false);
-        //setting = new JButton("Search");
+        profile.setContentAreaFilled(false);
+        setting.setContentAreaFilled(false);
         l1 = new JLabel("start");
         l2 = new JLabel("End");
         l3 = new JLabel("date");
@@ -144,7 +150,7 @@ public class Home implements ActionListener {
         p4.add(p2);     p4.add(p3);
         
         p5.setLayout(new GridLayout(6,1));
-        p5.add(home);
+        p5.add(profile); p5.add(home); p5.add(setting);
         
         fr.add(p4, BorderLayout.NORTH);
         fr.add(p5, BorderLayout.WEST);
