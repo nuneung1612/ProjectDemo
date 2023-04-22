@@ -100,6 +100,18 @@ public class SignupGUI  implements ActionListener {
         fr.pack();
         fr.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 }
+    public boolean checkName(String name){
+        for (int i = 0; i < name.length(); i++){
+            if(Character.isAlphabetic(name.charAt(i)) == false){
+                return false;
+            }
+        }
+        return true;
+    }
+    public boolean checkEmail(String em){
+        return true;
+    }
+
     public void actionPerformed(ActionEvent ev){
         if (ev.getSource() == signupbtn){
             new User(name.getText(),lastname.getText(),email.getText(),tel.getText(),username.getText(),String.valueOf(pass.getPassword()));

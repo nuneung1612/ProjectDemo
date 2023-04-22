@@ -40,6 +40,7 @@ public class SignUp implements ActionListener {
         d1.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         d1.setVisible(true);
     }
+        
     
     public void actionPerformed(ActionEvent ae){
         if (ae.getSource().equals(b1)){
