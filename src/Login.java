@@ -5,44 +5,99 @@
 
 /**
  *
- * @author s6203101111142
+ * @author User
  */
 import java.awt.*;
-import java.awt.event.*;
 import javax.swing.*;
-import java.util.*;
+import java.awt.event.*;
 import java.io.*;
+import java.util.*;
+
 public class Login implements ActionListener {
+    private JButton loginbtn;
     private JFrame fr;
-    private JPanel p1;
-    private JTextField txt1, txt2;
-    private JButton b1,b2,b3;
+    private JPanel pa; 
+    private JTextField username;
+    private JPasswordField pass;
+    private JButton signupbtn;
+    private JButton adminbtn;
+    private JLabel usertxt;
+    private JLabel passtxt;
+    private Font logofont = new Font("Times New Roman", Font.BOLD, 40);
+    private JLabel logo;
     private LinkedList userData = new LinkedList();
+    private JLabel invalid;
+    
     
     public Login(){
-        fr = new JFrame();
-        txt1 = new JTextField("Username");
-        txt2 = new JTextField("Password");
-        b1 = new JButton("Login");
-        b2 = new JButton("Admin");
-        b3 = new JButton("Sign Up");
-        p1 = new JPanel();
-        b1.addActionListener(this);
-        b2.addActionListener(this);
-        b3.addActionListener(this);
+        loginbtn = new JButton("Log in");
+        fr = new JFrame("Java tour-log in");
+        pa = new JPanel(); 
+        username= new JTextField();
+        pass = new JPasswordField();
+        signupbtn = new JButton("Sign up");
+        usertxt = new JLabel("Username:");
+        passtxt = new JLabel("Password:");
+        adminbtn = new JButton("Admin");
+        logo = new JLabel("JAVA Tour");
+        invalid = new JLabel("Incorrect username or password, try again.");
+
+
+        fr.setSize(300, 500);
+        pa.setBackground(Color.WHITE);
         
-        p1.setLayout(new FlowLayout());
-        p1.add(b2);    p1.add(b3);
+        logo.setFont(logofont);
+        logo.setBounds(53, 60, 250,40);
+        logo.setForeground(Color.orange);
         
-        fr.setLayout(new GridLayout(4,1));
-        fr.add(txt1);   fr.add(txt2);   fr.add(b1); fr.add(p1);
+     
         
+        usertxt.setBounds(50, 150, 80, 25);
+        usertxt.setBackground(Color.black);
+        username.setLocation(50, 170);
+        username.setSize(200, 30);
+        
+        passtxt.setBounds(50, 200, 80, 25);
+        passtxt.setBackground(Color.black);
+        pass.setLocation(50,220);
+        pass.setSize(200,30);
+        
+        invalid.setBounds(50, 250, 230, 25);
+        invalid.setForeground(Color.RED);
+        invalid.setVisible(false);
+        
+       
+        
+        loginbtn.setBackground(Color.orange);
+        loginbtn.setBounds(108,280,80,25);
+        
+        signupbtn.setBackground(Color.white);
+        signupbtn.setBorder(null);
+        signupbtn.setBounds(108,310,80,25);
+        
+        adminbtn.setBounds(200,450,80,25);
+        adminbtn.setBackground(Color.lightGray);
+        
+        pa.setLayout(null);
+        pa.setPreferredSize(new Dimension(300,500));
+        pa.add(logo);
+        pa.add(usertxt); pa.add(username); pa.add(passtxt); pa.add(pass);
+        pa.add(loginbtn); pa.add(signupbtn); pa.add(adminbtn);
+        pa.add(invalid);
+        
+        loginbtn.addActionListener(this);
+        signupbtn.addActionListener(this);
+        adminbtn.addActionListener(this);
+        
+        fr.setResizable(false);
+        fr.setContentPane(pa);
+        fr.setVisible(true);
         fr.pack();
         fr.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        fr.setVisible(true);
+        
+        
     }
-    
-    public boolean checkUser(String username, String password){
+     public boolean checkUser(String username, String password){
         String text = "";
         try(FileInputStream fin = new FileInputStream("UserData.dat");
             ObjectInputStream in = new ObjectInputStream(fin);){
@@ -55,26 +110,47 @@ public class Login implements ActionListener {
                 if (((User)userData.get(i)).getPassword().equals(password)){
                     return true;
                 }
-                text = "WrongPassword" ;
+                else{
+                    text = "WrongPassword" ;
+                    System.out.println(text);
+                    return false;
+                }
+                
             }
             text = "UserNotFound";
         }
         System.out.println(text);
         return false;
-    }
-    
-    public void actionPerformed(ActionEvent ae){
-        if (ae.getSource().equals(b1)){
-            if (checkUser(txt1.getText(), txt2.getText())){
+     }
+    @Override
+    public void actionPerformed(ActionEvent ev){
+        if(ev.getSource() == loginbtn){
+          
+            if (checkUser(username.getText(), String.valueOf(pass.getPassword()))){
                 new Home();
                 fr.dispose();
+            
+        }
+            else{
+                invalid.setVisible(true);
+            
             }
         }
-        else if (ae.getSource().equals(b2)){
-            new Admin();
-        }
-        else if (ae.getSource().equals(b3)){
+        if(ev.getSource()==signupbtn){
+            System.out.println("Sign up");
             new SignUp();
+            invalid.setVisible(false);
+            username.setText("");
+            pass.setText("");
+                   
         }
+        if(ev.getSource() == adminbtn){
+           new Admin();
+        }
+    
     }
+    public static void main(String[] args) {
+        new Login();
+    }
+    
 }
