@@ -27,6 +27,7 @@ public class Login implements ActionListener {
     private JLabel logo;
     private LinkedList userData = new LinkedList();
     private JLabel invalid;
+    private ImageIcon logo1, logo2;
     
     
     public Login(){
@@ -39,16 +40,20 @@ public class Login implements ActionListener {
         usertxt = new JLabel("Username:");
         passtxt = new JLabel("Password:");
         adminbtn = new JButton("Admin");
-        logo = new JLabel("JAVA Tour");
+        //logo = new JLabel("JAVA Tour");
         invalid = new JLabel("Incorrect username or password.");
+        logo1 = new ImageIcon(getClass().getResource("images/logo.png"));
+        Image size = logo1.getImage().getScaledInstance(150, 150, Image.SCALE_SMOOTH);
+        logo2 = new ImageIcon(size);
+        logo = new JLabel(logo2);
 
 
         fr.setSize(300, 500);
         pa.setBackground(Color.WHITE);
         
-        logo.setFont(logofont);
-        logo.setBounds(53, 60, 250,40);
-        logo.setForeground(Color.orange);
+       // logo.setFont(logofont);
+        logo.setBounds(55, 5, 200,170);
+        //logo.setForeground(Color.orange);
         
      
         
@@ -99,6 +104,9 @@ public class Login implements ActionListener {
     }
      public boolean checkUser(String username, String password){
         String text = "";
+        if(username.equals("") || password.equals("")){
+            return false;
+        }
         try(FileInputStream fin = new FileInputStream("UserData.dat");
             ObjectInputStream in = new ObjectInputStream(fin);){
             userData = (LinkedList)in.readObject();
@@ -146,6 +154,7 @@ public class Login implements ActionListener {
         }
         if(ev.getSource() == adminbtn){
            new Admin();
+            fr.dispose();
         }
     
     }
