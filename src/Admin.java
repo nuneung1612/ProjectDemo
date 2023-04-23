@@ -15,7 +15,7 @@ import java.util.*;
 public class Admin implements ActionListener{
     private JFrame fr;
     private JPanel p1,p2,p3,p4,p5,tourTable,userTable;
-    private JButton b1,b2,b3;
+    private JButton b1,b2,b3,b4;
     private JLabel l1,l2,l3,l4,l5,l6,l7,l8;
     private JComboBox cbStart, cbEnd, cbDay,cbMonth,cbYear,cbTourType, cbTimeOuth, cbTimeOutm, cbTimeArriveh,cbTimeArrivem;
     private int num = 0;
@@ -32,6 +32,7 @@ public class Admin implements ActionListener{
         b1 = new JButton("User");
         b2 = new JButton("Tour");
         b3 = new JButton("Add");
+        b4 = new JButton("Reset");
         l1 = new JLabel("start");
         l2 = new JLabel("End");
         l3 = new JLabel("date");
@@ -52,7 +53,7 @@ public class Admin implements ActionListener{
         cbTimeArrivem = new JComboBox();
         
         
-        tourTable = new TourTable().getTable();
+        tourTable = new TourTable("Delete").getTable();
         userTable = new UserTable().getTable();
         
         cbStart.addItem("Bankkok"); cbStart.addItem("Krabi"); cbStart.addItem("Kanchanaburi");
@@ -190,6 +191,7 @@ public class Admin implements ActionListener{
         b1.addActionListener(this);
         b2.addActionListener(this);
         b3.addActionListener(this);
+        b4.addActionListener(this);
          
         p1.setLayout(new GridLayout(2,1));
         p1.add(b1);     p1.add(b2);
@@ -199,7 +201,7 @@ public class Admin implements ActionListener{
         
         p3.setLayout(new FlowLayout());
         p3.add(l3);     p3.add(cbDay);    p3.add(cbMonth);    p3.add(cbYear);    p3.add(l4);
-        p3.add(cbTourType); p3.add(b3);
+        p3.add(cbTourType); p3.add(b3);     p3.add(b4);
         
         p5.setLayout(new FlowLayout());
         p5.add(l5);     p5.add(cbTimeOuth); p5.add(l6);     p5.add(cbTimeOutm);
@@ -237,12 +239,14 @@ public class Admin implements ActionListener{
             fr.remove(p4);
             fr.add(userTable);
             fr.revalidate();
+            fr.repaint();
         }
         else if (ae.getSource().equals(b2)){
             fr.remove(userTable);
             fr.add(p4, BorderLayout.NORTH);
             fr.add(tourTable);
             fr.revalidate();
+            fr.repaint();
         }
         else if (ae.getSource().equals(b3)){
             if (cbTourType.getSelectedItem().equals("Economy")){
@@ -264,13 +268,27 @@ public class Admin implements ActionListener{
             try(FileOutputStream fOut = new FileOutputStream("TourData.dat");
                 ObjectOutputStream oout = new ObjectOutputStream(fOut);){
                 oout.writeObject(tourData);
-        }catch(IOException e){
+            }catch(IOException e){
             System.out.println(e);
-        }
+            }
             fr.remove(tourTable);
-            tourTable = new TourTable().getTable();
+            tourTable = new TourTable("Delete").getTable();
             fr.add(tourTable);
             fr.revalidate();
+            fr.repaint();
+        }
+        else if (ae.getSource().equals(b4)){
+            try(FileOutputStream fOut = new FileOutputStream("TourData.dat");
+                ObjectOutputStream oout = new ObjectOutputStream(fOut);){
+                oout.writeObject(tourData);
+            }catch(IOException e){
+            System.out.println(e);
+            }
+            fr.remove(tourTable);
+            tourTable = new TourTable("Delete").getTable();
+            fr.add(tourTable);
+            fr.revalidate();
+            fr.repaint();
         }
     }
 }
