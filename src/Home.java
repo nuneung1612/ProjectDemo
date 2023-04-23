@@ -222,6 +222,7 @@ public class Home implements ActionListener {
         
         
         bSearch.addActionListener(this);
+        profile.addActionListener(this);
          
         p2.setLayout(new FlowLayout());
         p2.add(l1);     p2.add(cbStart);    p2.add(l2);     p2.add(cbEnd);

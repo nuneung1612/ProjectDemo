@@ -80,6 +80,7 @@ public Profile(User user){
     
     
     save.addActionListener(this);
+    home.addActionListener(this);
     
     p1.setLayout(new BorderLayout());
     p1.add(p2, BorderLayout.WEST);
@@ -228,6 +229,11 @@ public Profile(User user){
           }
 
 }    
+    if(ev.getSource().equals(home)){
+        new Home(user.getUsername());
+        fr.dispose();
+        
+    }
     }
     public static void main(String[] args) {
         
