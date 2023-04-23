@@ -13,8 +13,23 @@ public class Home implements ActionListener {
     private JScrollPane scrollPane;
     private JComboBox cbStart, cbEnd, cbDay,cbMonth,cbYear,cbTourType,cbSeat,cbTimeOuth, cbTimeOutm, cbTimeArriveh,cbTimeArrivem;
     private LinkedList <Tour> tourData = new LinkedList<Tour>();
+    private LinkedList <User>userData = new LinkedList<User>();
+    private User user;
     
-    public Home(){
+    
+    public Home(String username){
+        try(FileInputStream fin = new FileInputStream("UserData.dat");
+            ObjectInputStream in = new ObjectInputStream(fin);){
+            userData = (LinkedList)in.readObject();
+        }catch(IOException | ClassNotFoundException e){
+            System.out.println(e);
+        }
+        for (int i = 0; i < userData.size() && userData.size() != 0; i++){
+            if ((userData.get(i)).getUsername().equals(username)){
+                this.user = userData.get(i);
+        }
+            }
+        
         fr = new JFrame();
         p1 = new JPanel();
         p2 = new JPanel();
@@ -291,6 +306,9 @@ public class Home implements ActionListener {
     public void actionPerformed(ActionEvent ae){
         if (ae.getSource().equals(bSearch)){
             
+            System.out.println(user.getName());
+            System.out.println(user.getEmail());
+            
             String date = (String)cbDay.getSelectedItem()+"/"+(String)cbMonth.getSelectedItem()+"/"+(String)cbYear.getSelectedItem();
             String time = ((String)cbTimeOuth.getSelectedItem() + ":"+(String)cbTimeOutm.getSelectedItem()+"->"+(String)cbTimeArriveh.getSelectedItem()+":"+(String)cbTimeArrivem.getSelectedItem());
             fr.remove(p1);
@@ -329,8 +347,5 @@ public class Home implements ActionListener {
             fr.add(p1);
             fr.revalidate();
         }
-    }
-    public static void main(String[] args) {
-        new Home();
     }
 }
