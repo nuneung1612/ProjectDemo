@@ -55,20 +55,28 @@ class ButtonEditor extends DefaultCellEditor
   public Object getCellEditorValue() {
       
      if(clicked){
-         try(FileInputStream fin = new FileInputStream("TourData.dat");
+        
+        try(FileInputStream fin = new FileInputStream("TourData.dat");
             ObjectInputStream in = new ObjectInputStream(fin);){
             tourData = (LinkedList)in.readObject();
         }catch(IOException | ClassNotFoundException e){
             System.out.println(e);
         }
-         int row = table.getSelectedRow();
-         if (lbl.equals("Enter")){
-             new Booking((tourData.get(row)).getType());
-         }
+        
+        int row = table.getSelectedRow();
+        if (lbl.equals("Enter")){
+            String id = (String)table.getValueAt(row, 0);
+            for (int i = 0; i < tourData.size() && tourData.size() != 0; i++){
+                if (tourData.get(i).getBusID().equals(id)){
+                    new Booking((tourData.get(i)).getType());
+                    break;
+                }
+            }
+        }
          else if (lbl.equals("Delete")){
             tourData.remove(row);
             JOptionPane.showMessageDialog(btn,"Data deleat successfully.\nPlease click reset.");
-         }
+        }
         try(FileOutputStream fOut = new FileOutputStream("TourData.dat");
             ObjectOutputStream oout = new ObjectOutputStream(fOut);){
             oout.writeObject(tourData);
