@@ -149,6 +149,7 @@ public class Login implements ActionListener {
         }
         if(ev.getSource() == adminbtn){
            new Admin();
+            fr.dispose();
         }
     
     }
