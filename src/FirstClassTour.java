@@ -17,8 +17,8 @@ public class FirstClassTour extends Tour {
     public FirstClassTour(){
         super();
     }
-    public FirstClassTour(String time, String busID, String start, String end){
-        super(time, busID, start, end, "FirstClass");
+    public FirstClassTour(String date, String busID, String start, String end, String time){
+        super(date, busID, start, end, "FirstClass", time);
         for (int i = 0; i < 20; i++){
             availableSeat[i] = true;
         }

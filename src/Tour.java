@@ -14,6 +14,7 @@
 import java.io.*;
 import java.util.*;
 public abstract class Tour implements Serializable{
+    private String date;
     private String time;
     private String busID;
     private String start;
@@ -23,27 +24,29 @@ public abstract class Tour implements Serializable{
     private static final long serialVersionUID = 1234567890L;
     
     public Tour(){
-        time = "";
+        date = "";
         busID = "";
         start = "";
         end = "";
         type = "";
+        time = "";
     }
     
-    public Tour(String time, String busID, String start, String end, String type){
-        this.time = time;
+    public Tour(String date, String busID, String start, String end, String type, String time){
+        this.date = date;
         this.busID = busID;
         this.start = start;
         this.end = end;
         this.type = type;
-    }
-
-    public String getTime() {
-        return time;
-    }
-
-    public void setTime(String time) {
         this.time = time;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 
     public String getBusID() {
@@ -56,6 +59,14 @@ public abstract class Tour implements Serializable{
 
     public String getStart() {
         return start;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
     }
 
     public void setStart(String start) {

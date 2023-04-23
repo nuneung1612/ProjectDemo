@@ -6,12 +6,12 @@ import javax.swing.*;
 import javax.swing.table.*;
 public class Home implements ActionListener {
     private JFrame fr;
-    private JPanel p1,p2,p3,p4,p5,tourTable;
+    private JPanel p1,p2,p3,p4,p5,p6,tourTable;
     private JButton bSearch,b2,b3, profile, home, setting;
     private ImageIcon imch, imcp, imcs, imch1, imcp1, imcs1;
-    private JLabel l1,l2,l3,l4,l5;
+    private JLabel l1,l2,l3,l4,l5,l6,l7,l8,l9;
     private JScrollPane scrollPane;
-    private JComboBox cbStart, cbEnd, cbDay,cbMonth,cbYear,cbTourType,cbSeat;
+    private JComboBox cbStart, cbEnd, cbDay,cbMonth,cbYear,cbTourType,cbSeat,cbTimeOuth, cbTimeOutm, cbTimeArriveh,cbTimeArrivem;
     private LinkedList <Tour> tourData = new LinkedList<Tour>();
     
     public Home(){
@@ -21,6 +21,7 @@ public class Home implements ActionListener {
         p3 = new JPanel();
         p4 = new JPanel();
         p5 = new JPanel();
+        p6 = new JPanel();
         bSearch = new JButton("Search");
         //b2 = new JButton("Tour");
         //b3 = new JButton("User");
@@ -44,6 +45,10 @@ public class Home implements ActionListener {
         l3 = new JLabel("date");
         l4 = new JLabel("Type");
         l5 = new JLabel("Seat");
+        l6 = new JLabel("Timeout");
+        l7 = new JLabel(":");
+        l8 = new JLabel("TimeArrive");
+        l9 = new JLabel(":");
         cbStart = new JComboBox();
         cbEnd = new JComboBox();
         cbDay = new JComboBox();
@@ -51,6 +56,10 @@ public class Home implements ActionListener {
         cbYear = new JComboBox();
         cbSeat = new JComboBox();
         cbTourType = new JComboBox();
+        cbTimeOuth = new JComboBox();
+        cbTimeOutm = new JComboBox();
+        cbTimeArriveh = new JComboBox();
+        cbTimeArrivem = new JComboBox();
         tourTable = new TourTable().getTable();
         
         cbStart.addItem("Bankkok"); cbStart.addItem("Krabi"); cbStart.addItem("Kanchanaburi");
@@ -136,6 +145,66 @@ public class Home implements ActionListener {
         cbSeat.addItem(27);      cbSeat.addItem(28);      cbSeat.addItem(29);
         cbSeat.addItem(30);      cbSeat.addItem(31);      
         
+        cbTimeOuth.addItem("00");     cbTimeOuth.addItem("01");     cbTimeOuth.addItem("02");
+        cbTimeOuth.addItem("03");     cbTimeOuth.addItem("04");     cbTimeOuth.addItem("05");
+        cbTimeOuth.addItem("06");     cbTimeOuth.addItem("07");     cbTimeOuth.addItem("08");
+        cbTimeOuth.addItem("09");     cbTimeOuth.addItem("10");     cbTimeOuth.addItem("11");
+        cbTimeOuth.addItem("12");     cbTimeOuth.addItem("13");     cbTimeOuth.addItem("14");
+        cbTimeOuth.addItem("15");     cbTimeOuth.addItem("16");     cbTimeOuth.addItem("17");
+        cbTimeOuth.addItem("18");     cbTimeOuth.addItem("19");     cbTimeOuth.addItem("20");
+        cbTimeOuth.addItem("22");     cbTimeOuth.addItem("23");     
+        
+        cbTimeOutm.addItem("00");     cbTimeOutm.addItem("01");     cbTimeOutm.addItem("02");
+        cbTimeOutm.addItem("03");     cbTimeOutm.addItem("04");     cbTimeOutm.addItem("05");
+        cbTimeOutm.addItem("06");     cbTimeOutm.addItem("07");     cbTimeOutm.addItem("08");   cbTimeOutm.addItem("09");
+        cbTimeOutm.addItem("10");     cbTimeOutm.addItem("11");     cbTimeOutm.addItem("012");
+        cbTimeOutm.addItem("13");     cbTimeOutm.addItem("14");     cbTimeOutm.addItem("15");
+        cbTimeOutm.addItem("16");     cbTimeOutm.addItem("17");     cbTimeOutm.addItem("18");
+        cbTimeOutm.addItem("19");     cbTimeOutm.addItem("20");     cbTimeOutm.addItem("21");
+        cbTimeOutm.addItem("22");     cbTimeOutm.addItem("23");     cbTimeOutm.addItem("24");
+        cbTimeOutm.addItem("25");     cbTimeOutm.addItem("26");     cbTimeOutm.addItem("27");
+        cbTimeOutm.addItem("28");     cbTimeOutm.addItem("29");     cbTimeOutm.addItem("30");
+        cbTimeOutm.addItem("31");     cbTimeOutm.addItem("32");     cbTimeOutm.addItem("33");
+        cbTimeOutm.addItem("34");     cbTimeOutm.addItem("35");     cbTimeOutm.addItem("36");
+        cbTimeOutm.addItem("37");     cbTimeOutm.addItem("38");     cbTimeOutm.addItem("39");
+        cbTimeOutm.addItem("40");     cbTimeOutm.addItem("41");     cbTimeOutm.addItem("42");
+        cbTimeOutm.addItem("43");     cbTimeOutm.addItem("44");     cbTimeOutm.addItem("45");
+        cbTimeOutm.addItem("46");     cbTimeOutm.addItem("47");     cbTimeOutm.addItem("48");
+        cbTimeOutm.addItem("49");     cbTimeOutm.addItem("50");     cbTimeOutm.addItem("51");
+        cbTimeOutm.addItem("52");     cbTimeOutm.addItem("53");     cbTimeOutm.addItem("54");
+        cbTimeOutm.addItem("55");     cbTimeOutm.addItem("56");     cbTimeOutm.addItem("57");
+        cbTimeOutm.addItem("58");     cbTimeOutm.addItem("59");     
+        
+        cbTimeArriveh.addItem("00");     cbTimeArriveh.addItem("01");     cbTimeArriveh.addItem("02");
+        cbTimeArriveh.addItem("03");     cbTimeArriveh.addItem("04");     cbTimeArriveh.addItem("05");
+        cbTimeArriveh.addItem("06");     cbTimeArriveh.addItem("07");     cbTimeArriveh.addItem("08");
+        cbTimeArriveh.addItem("09");     cbTimeArriveh.addItem("10");     cbTimeArriveh.addItem("11");
+        cbTimeArriveh.addItem("12");     cbTimeArriveh.addItem("13");     cbTimeArriveh.addItem("14");
+        cbTimeArriveh.addItem("15");     cbTimeArriveh.addItem("16");     cbTimeArriveh.addItem("17");
+        cbTimeArriveh.addItem("18");     cbTimeArriveh.addItem("19");     cbTimeArriveh.addItem("20");
+        cbTimeArriveh.addItem("22");     cbTimeArriveh.addItem("23");     
+        
+        cbTimeArrivem.addItem("00");     cbTimeArrivem.addItem("01");     cbTimeArrivem.addItem("02");
+        cbTimeArrivem.addItem("03");     cbTimeArrivem.addItem("04");     cbTimeArrivem.addItem("05");
+        cbTimeArrivem.addItem("06");     cbTimeArrivem.addItem("07");     cbTimeArrivem.addItem("08");   cbTimeArrivem.addItem("09");
+        cbTimeArrivem.addItem("10");     cbTimeArrivem.addItem("11");     cbTimeArrivem.addItem("012");
+        cbTimeArrivem.addItem("13");     cbTimeArrivem.addItem("14");     cbTimeArrivem.addItem("15");
+        cbTimeArrivem.addItem("16");     cbTimeArrivem.addItem("17");     cbTimeArrivem.addItem("18");
+        cbTimeArrivem.addItem("19");     cbTimeArrivem.addItem("20");     cbTimeArrivem.addItem("21");
+        cbTimeArrivem.addItem("22");     cbTimeArrivem.addItem("23");     cbTimeArrivem.addItem("24");
+        cbTimeArrivem.addItem("25");     cbTimeArrivem.addItem("26");     cbTimeArrivem.addItem("27");
+        cbTimeArrivem.addItem("28");     cbTimeArrivem.addItem("29");     cbTimeArrivem.addItem("30");
+        cbTimeArrivem.addItem("31");     cbTimeArrivem.addItem("32");     cbTimeArrivem.addItem("33");
+        cbTimeArrivem.addItem("34");     cbTimeArrivem.addItem("35");     cbTimeArrivem.addItem("36");
+        cbTimeArrivem.addItem("37");     cbTimeArrivem.addItem("38");     cbTimeArrivem.addItem("39");
+        cbTimeArrivem.addItem("40");     cbTimeArrivem.addItem("41");     cbTimeArrivem.addItem("42");
+        cbTimeArrivem.addItem("43");     cbTimeArrivem.addItem("44");     cbTimeArrivem.addItem("45");
+        cbTimeArrivem.addItem("46");     cbTimeArrivem.addItem("47");     cbTimeArrivem.addItem("48");
+        cbTimeArrivem.addItem("49");     cbTimeArrivem.addItem("50");     cbTimeArrivem.addItem("51");
+        cbTimeArrivem.addItem("52");     cbTimeArrivem.addItem("53");     cbTimeArrivem.addItem("54");
+        cbTimeArrivem.addItem("55");     cbTimeArrivem.addItem("56");     cbTimeArrivem.addItem("57");
+        cbTimeArrivem.addItem("58");     cbTimeArrivem.addItem("59");  
+        
         
         bSearch.addActionListener(this);
          
@@ -146,8 +215,12 @@ public class Home implements ActionListener {
         p3.add(l3);     p3.add(cbDay);    p3.add(cbMonth);    p3.add(cbYear);    p3.add(l4);
         p3.add(cbTourType);    p3.add(l5);     p3.add(cbSeat);       p3.add(bSearch);
         
-        p4.setLayout(new GridLayout(2,1));
-        p4.add(p2);     p4.add(p3);
+        p6.setLayout(new FlowLayout());
+        p6.add(l6);     p6.add(cbTimeOuth); p6.add(l7);     p6.add(cbTimeOutm);
+        p6.add(l8);     p6.add(cbTimeArriveh);      p6.add(l9); p6.add(cbTimeArrivem);
+        
+        p4.setLayout(new GridLayout(3,1));
+        p4.add(p2);     p4.add(p3);  p4.add(p6);
         
         p5.setLayout(new GridLayout(6,1));
         p5.add(profile); p5.add(home); p5.add(setting);
@@ -170,7 +243,7 @@ public class Home implements ActionListener {
         
         
     }
-    public LinkedList filterSearch(String start, String end, String type, String time, int seat){
+    public LinkedList filterSearch(String start, String end, String type, String date, int seat, String time){
         LinkedList filter = new LinkedList();
         int num;
         for (int i = 0; i < tourData.size() && tourData.size() != 0; i++){
@@ -188,6 +261,13 @@ public class Home implements ActionListener {
         for (int i = 0; i < filter.size() && filter.size() != 0 ; i++){
             num = (int)filter.get(i);
             if (!(tourData.get(num)).getType().equals(type)){
+                filter.remove(i);
+                i -= 1;
+            }
+        }
+        for (int i = 0; i < filter.size() && filter.size() != 0 ; i++){
+            num = (int)filter.get(i);
+            if (!(tourData.get(num)).getDate().equals(date)){
                 filter.remove(i);
                 i -= 1;
             }
@@ -212,6 +292,7 @@ public class Home implements ActionListener {
         if (ae.getSource().equals(bSearch)){
             
             String date = (String)cbDay.getSelectedItem()+"/"+(String)cbMonth.getSelectedItem()+"/"+(String)cbYear.getSelectedItem();
+            String time = ((String)cbTimeOuth.getSelectedItem() + ":"+(String)cbTimeOutm.getSelectedItem()+"->"+(String)cbTimeArriveh.getSelectedItem()+":"+(String)cbTimeArrivem.getSelectedItem());
             fr.remove(p1);
             p1 = new JPanel();
             
@@ -231,7 +312,7 @@ public class Home implements ActionListener {
             model.addColumn("Seat");
             model.addColumn("Available");
             
-            LinkedList filter = filterSearch((String)cbStart.getSelectedItem(), (String)cbEnd.getSelectedItem(), (String)cbTourType.getSelectedItem(),date,(int)cbSeat.getSelectedItem());
+            LinkedList filter = filterSearch((String)cbStart.getSelectedItem(), (String)cbEnd.getSelectedItem(), (String)cbTourType.getSelectedItem(),date,(int)cbSeat.getSelectedItem(), time);
             for (int i = 0; i < filter.size() ; i++){
                 int num = (int)filter.get(i);
                 int row = table.getRowCount();

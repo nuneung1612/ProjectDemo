@@ -18,8 +18,8 @@ public class EconomyTour extends Tour {
         super();
     }
     
-    public EconomyTour(String time, String busID, String start, String end){
-        super(time, busID, start, end, "Economy");
+    public EconomyTour(String date, String busID, String start, String end, String time){
+        super(date, busID, start, end, "Economy",time);
         for (int i = 0; i < 30; i++){
             availableSeat[i] = true;
         }

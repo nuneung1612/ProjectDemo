@@ -17,8 +17,8 @@ public class BusinessTour extends Tour {
     public BusinessTour(){
         super();
     }
-    public BusinessTour(String time, String busID, String start, String end){
-        super(time, busID, start, end, "Business");
+    public BusinessTour(String date, String busID, String start, String end, String time){
+        super(date, busID, start, end, "Business", time);
         for (int i = 0; i < 21; i++){
             this.availableSeat[i] = true;
         }
