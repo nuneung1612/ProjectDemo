@@ -66,7 +66,7 @@ public class SignUp implements ActionListener {
        
        
 
-        fr.setSize(300, 500);
+        fr.setSize(310, 540);
         pa.setBackground(Color.WHITE);
         
         signlogo.setFont(signupfont);
