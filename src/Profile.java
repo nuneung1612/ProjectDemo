@@ -16,12 +16,16 @@ import java.util.*;
 public class Profile implements ActionListener {
     private JFrame fr;
     private JPanel p1, p2, p3, p4 ,p5;
-    private JTextField name, last, tel, email, oldpass, newpass;
-    private JLabel nametxt, lasttxt, teltxt,emailtxt,oldpasstxt,newpasstxt,pic;
-    private JLabel warnname, warnlast, warntel, warnemail, warnpass, empt1, empt2;
+    private JTextField name, last, tel, email, username, pass;
+   // private JPasswordField oldpass newpass;
+    private JLabel nametxt, lasttxt, teltxt,emailtxt,usertxt,passtxt,pic;
+    private JLabel warnname, warnlast, warntel, warnemail, warnpass, empt1, empt2, warnuser;
     private LinkedList userData = new LinkedList();
     private JButton home, pro, setting, save;
-public Profile (){
+    private User user;
+    private String usertag = "Invalid username";
+public Profile(User user){
+    this.user = user;
     fr = new JFrame("Java Touer - Profile");
     p1 = new JPanel();
     p2 = new JPanel();
@@ -31,15 +35,15 @@ public Profile (){
     p4.setBackground(Color.white);
             
 
-    name = new JTextField();
-    last = new JTextField();
-    tel = new JTextField();
-    email = new JTextField();
-    oldpass  = new JTextField();
-    newpass = new JTextField();
+    name = new JTextField(this.user.getName());
+    last = new JTextField(this.user.getLastName());
+    tel = new JTextField(this.user.getTelNumber());
+    email = new JTextField(this.user.getEmail());
+    username  = new JTextField(this.user.getUsername());
+    pass= new JTextField(this.user.getPassword());
     
-    newpasstxt = new JLabel("New Password:");
-    oldpasstxt = new JLabel("Old Password:");
+    usertxt = new JLabel("Username:");
+    passtxt = new JLabel("Password:");
     emailtxt = new JLabel("Email:");
     teltxt = new JLabel("Tel:");
     nametxt = new JLabel("Name:");
@@ -51,6 +55,7 @@ public Profile (){
     warnlast = new JLabel("Invalid lastname");
     warnemail = new JLabel("Invalid email");
     warntel = new JLabel("Invalid phone number");
+    warnuser =new JLabel(usertag);
     empt1 =  new JLabel();
     empt2 = new JLabel();
     
@@ -58,6 +63,23 @@ public Profile (){
     pro = new JButton("Profile");
     setting = new JButton("setting");
     save = new JButton("save");
+    
+    warnname.setForeground(Color.red);
+    warnlast.setForeground(Color.red);
+    warnemail.setForeground(Color.red);
+    warntel.setForeground(Color.red);
+    warnpass.setForeground(Color.red);
+    warnuser.setForeground(Color.red);
+    
+    warnname.setVisible(false);
+    warnlast.setVisible(false);
+    warnemail.setVisible(false);
+    warntel.setVisible(false);
+    warnpass.setVisible(false);
+    warnuser.setVisible(false);
+    
+    
+    save.addActionListener(this);
     
     p1.setLayout(new BorderLayout());
     p1.add(p2, BorderLayout.WEST);
@@ -77,9 +99,9 @@ public Profile (){
     p4.add(emailtxt); p4.add(teltxt);
     p4.add(email); p4.add(tel);
     p4.add(warnemail); p4.add(warntel);
-    p4.add(oldpasstxt); p4.add(newpasstxt);
-    p4.add(oldpass); p4.add(newpass);
-    p4.add(warnpass); p4.add(empt1);
+    p4.add(usertxt); p4.add(passtxt);
+    p4.add(username); p4.add(pass);
+    p4.add(warnuser); p4.add(warnpass);
     p4.add(empt2);p4.add(p5);
     
     p5.setLayout(new FlowLayout());
@@ -97,13 +119,122 @@ public Profile (){
     
     
 }
+     public boolean checkName(String name){
+        if (name.equals("")){
+            return false;
+        }
+        for (int i = 0; i < name.length(); i++){
+            if(Character.isAlphabetic(name.charAt(i)) == false){
+                return false;
+            }
+        }
+        return true;
+    }
+    public boolean checkTel(String tel){
+        return (tel.length() == 10 && tel.charAt(0) == '0' && ( tel.charAt(1) == '9' || tel.charAt(1) == '8' || tel.charAt(1) == '6'));
+    }
     
+    public boolean checkPass(String pass){
+        boolean hasNum = false;
+        boolean hasChar = false;
+        if(pass.length()<8){
+            return false;
+        }
+        for(int i = 1; i< pass.length(); i++){
+            if (Character.isAlphabetic(pass.charAt(i))){
+                hasChar =true;
+            }
+            if (Character.isDigit(pass.charAt(i))){
+                hasNum = true;
+            }
+            if (hasChar && hasNum ){
+                return true;
+            }
+        }
+        return false;
+    }
+  public boolean checkUser(String username){
+  
+        try(FileInputStream fin = new FileInputStream("UserData.dat");
+            ObjectInputStream in = new ObjectInputStream(fin);){
+            userData = (LinkedList)in.readObject();
+        }catch(IOException | ClassNotFoundException e){
+            System.out.println(e);
+        }
+        if (userData  == null){
+            return true;
+        }
+        if(username.equals("")){
+            usertag = "Invalid username";
+            warnuser.setText(usertag);
+            return false;
+        }
+        for (int i = 0; i < userData.size(); i++){
+            if (((User)userData.get(i)).getUsername().equals(username)){
+                usertag = "This username has already used";
+                warnuser.setText(usertag);
+                    return false;
+                }
+        }
+             return true;
+    }
+    public boolean checkEmail(String email) {
+           String ePattern = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$";
+           java.util.regex.Pattern p = java.util.regex.Pattern.compile(ePattern);
+           java.util.regex.Matcher m = p.matcher(email);
+           return m.matches();
+    }
+    public boolean checkOldPass(String oldpass){
+        return user.getPassword().equals(oldpass);
+    }
     
+    @Override
+    public void actionPerformed(ActionEvent ev){
     
-public void actionPerformed(ActionEvent ev){
+    if(ev.getSource().equals(save)){
+        
+          
+         warnname.setVisible(!checkName(name.getText()));
+         warnlast.setVisible(!checkName(last.getText()));
+         warntel.setVisible(!checkTel(tel.getText()));
+       //  warnuser.setVisible(!checkUser(username.getText()));
+         warnemail.setVisible(!checkEmail(email.getText()));
+         warnpass.setVisible(!checkPass(pass.getText()));
+         if(user.getUsername().equals(username.getText())){
+            warnuser.setVisible(false);
+             if(checkName(name.getText()) && checkName(last.getText()) && checkPass(pass.getText()) && checkTel(tel.getText()) && checkEmail(email.getText())){
+                user.setName(name.getText());
+                user.setLastName(last.getText());
+                user.setTelNumber(tel.getText());
+                user.setEmail(email.getText());
+                user.setPassword(pass.getText());
+                System.out.println("save");
+                JOptionPane.showConfirmDialog(null, "Update profile success!", "Notification", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE);
+             }
+         
+         }
+    else{
+         warnuser.setVisible(!checkUser(username.getText()));
+         if(checkName(name.getText()) && checkName(last.getText()) && checkPass(pass.getText()) && checkTel(tel.getText()) && checkUser(username.getText()) && checkEmail(email.getText())){
+                user.setName(name.getText());
+                user.setLastName(last.getText());
+                user.setTelNumber(tel.getText());
+                user.setEmail(email.getText());
+                user.setPassword(pass.getText());
+                System.out.println("save");
+                JOptionPane.showConfirmDialog(null, "Update profile success!", "Notification", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE);
+                  
+         }
+          }
 
 }    
+    }
     public static void main(String[] args) {
-        new Profile();
+        
+        User a = new User("Pranpreeya","Mengmungmee", "gyugg21@gmail.com","0959677761","nuneung1122","nuneung112");
+        User b = new User("Pranpreeya","Mengmungmee", "gyugg21@gmail.com","0959677761","nuneung1","nuneung112");
+        new Profile(a);
+        
+        
     }
 }

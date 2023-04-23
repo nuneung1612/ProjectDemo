@@ -344,5 +344,10 @@ public class Home implements ActionListener {
             fr.add(p1);
             fr.revalidate();
         }
+        if(ae.getSource().equals(profile)){
+            new Profile(user);
+            fr.dispose();
+            
+        }
     }
 }
