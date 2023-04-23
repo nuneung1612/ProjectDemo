@@ -306,9 +306,6 @@ public class Home implements ActionListener {
     public void actionPerformed(ActionEvent ae){
         if (ae.getSource().equals(bSearch)){
             
-            System.out.println(user.getName());
-            System.out.println(user.getEmail());
-            
             String date = (String)cbDay.getSelectedItem()+"/"+(String)cbMonth.getSelectedItem()+"/"+(String)cbYear.getSelectedItem();
             String time = ((String)cbTimeOuth.getSelectedItem() + ":"+(String)cbTimeOutm.getSelectedItem()+"->"+(String)cbTimeArriveh.getSelectedItem()+":"+(String)cbTimeArrivem.getSelectedItem());
             fr.remove(p1);
