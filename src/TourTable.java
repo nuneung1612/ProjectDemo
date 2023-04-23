@@ -28,6 +28,7 @@ public class TourTable {
         scrollPane.setViewportView(table);
         // Model for Table
         DefaultTableModel model = (DefaultTableModel)table.getModel();
+        model.addColumn("ID");
         model.addColumn("Time");
         model.addColumn("Start");
         model.addColumn("End");
@@ -44,12 +45,13 @@ public class TourTable {
         for (int i = 0; i < tourData.size() && tourData.size() != 0; i++){
             int row = table.getRowCount();
             model.addRow(new Object[0]);
-            model.setValueAt(((Tour)tourData.get(i)).getTime(), row, 0);
-            model.setValueAt(((Tour)tourData.get(i)).getStart(), row, 1);
-            model.setValueAt(((Tour)tourData.get(i)).getEnd(), row, 2);
-            model.setValueAt(((Tour)tourData.get(i)).getType(), row, 3);
-            model.setValueAt(((Tour)tourData.get(i)).getSeat()+"", row, 4);
-            model.setValueAt(((Tour)tourData.get(i)).getSeatAvailable()+"", row, 5);
+            model.setValueAt(((Tour)tourData.get(i)).getBusID(), row, 0);
+            model.setValueAt(((Tour)tourData.get(i)).getTime(), row, 1);
+            model.setValueAt(((Tour)tourData.get(i)).getStart(), row, 2);
+            model.setValueAt(((Tour)tourData.get(i)).getEnd(), row, 3);
+            model.setValueAt(((Tour)tourData.get(i)).getType(), row, 4);
+            model.setValueAt(((Tour)tourData.get(i)).getSeat()+"", row, 5);
+            model.setValueAt(((Tour)tourData.get(i)).getSeatAvailable()+"", row, 6);
         }
        }
     public JPanel getTable(){
