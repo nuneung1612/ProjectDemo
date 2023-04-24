@@ -6,10 +6,10 @@ import javax.swing.*;
 import javax.swing.table.*;
 public class Home implements ActionListener {
     private JFrame fr;
-    private JPanel p1,p2,p3,p4,leftbg,p6,centerbg,tourTable;
+    private JPanel p1,p2,p3,p4,inlefttop,p6,centerbg,tourTable,inleftbottom,leftbg;
     private JButton bSearch,b2,b3, profile, home, setting;
     private ImageIcon imch, imcp, imcs, imch1, imcp1, imcs1;
-    private JLabel l1,l2,l3,l4,l5,l6,l7,l8,l9,free1,free2,free3;
+    private JLabel l1,l2,l3,l4,l5,l6,l7,l8,l9,free1,prof,hm,set;
     private JScrollPane scrollPane;
     private JComboBox cbStart, cbEnd, cbDay,cbMonth,cbYear,cbTourType,cbSeat,cbTimeOuth, cbTimeOutm, cbTimeArriveh,cbTimeArrivem;
     private LinkedList <Tour> tourData = new LinkedList<Tour>();
@@ -35,9 +35,12 @@ public class Home implements ActionListener {
         p2 = new JPanel();
         p3 = new JPanel();
         p4 = new JPanel();
-        leftbg = new JPanel();
+        inlefttop = new JPanel();
         p6 = new JPanel();
         centerbg = new JPanel();
+        inlefttop = new JPanel();
+        inleftbottom = new JPanel();
+        leftbg = new JPanel();
         bSearch = new JButton("Search");
         //b2 = new JButton("Tour");
         //b3 = new JButton("User");
@@ -46,7 +49,7 @@ public class Home implements ActionListener {
         imcp = new ImageIcon(getClass().getResource("images/profile.png"));
         imcs = new ImageIcon(getClass().getResource("images/setting.png"));
         Image sizeh = imch.getImage().getScaledInstance(35, 35, Image.SCALE_SMOOTH);
-        Image sizep = imcp.getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH);
+        Image sizep = imcp.getImage().getScaledInstance(70, 70, Image.SCALE_SMOOTH);
         Image sizes = imcs.getImage().getScaledInstance(35, 35, Image.SCALE_SMOOTH);
         imch1 = new ImageIcon(sizeh);
         imcp1 = new ImageIcon(sizep);
@@ -77,8 +80,12 @@ public class Home implements ActionListener {
         l9 = new JLabel(":");
         l9.setFont(new Font("Arabic", Font.BOLD, 14));
         free1 = new JLabel();
-        free2 = new JLabel();
-        free3 = new JLabel();
+        prof = new JLabel("Profile");
+        prof.setFont(new Font("Arabic", Font.BOLD, 14));
+        hm = new JLabel("Home");
+        hm.setFont(new Font("Arabic", Font.BOLD, 14));
+        set = new JLabel("Setting");
+        set.setFont(new Font("Arabic", Font.BOLD, 14));
         
         cbStart = new JComboBox();
         cbEnd = new JComboBox();
@@ -264,15 +271,21 @@ public class Home implements ActionListener {
         centerbg.setLayout(new FlowLayout());
         centerbg.add(p4); centerbg.add(tourTable);
         centerbg.setBackground(cream);
+                    
+        inlefttop.setLayout(new GridLayout(2,1));
+        inlefttop.add(profile); inlefttop.add(home);
+        inlefttop.setBackground(yellow);
         
-        leftbg.setLayout(new GridLayout(6,1));
-        leftbg.add(profile); leftbg.add(home); leftbg.add(free1);
-        leftbg.add(free2); leftbg.add(free3); leftbg.add(setting);
+        inleftbottom.setLayout(new GridLayout(2,1));
+        inleftbottom.add(setting);inleftbottom.add(free1);
+        inleftbottom.setBackground(yellow);
+        
+        leftbg.setLayout(new BorderLayout());
+        leftbg.add(inlefttop, BorderLayout.NORTH); leftbg.add(inleftbottom, BorderLayout.SOUTH);
         leftbg.setBackground(yellow);
         
         fr.add(centerbg, BorderLayout.CENTER);
-        fr.add(leftbg, BorderLayout.WEST);
-        
+        fr.add(leftbg, BorderLayout.WEST);   
         
         fr.setSize(1000,600);
         fr.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
