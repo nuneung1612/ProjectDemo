@@ -51,11 +51,9 @@ public class Login implements ActionListener {
         fr.setSize(300, 500);
         pa.setBackground(Color.WHITE);
         
-
        // logo.setFont(logofont);
         logo.setBounds(55, 5, 200,170);
         //logo.setForeground(Color.orange);
-
         
      
         
@@ -156,12 +154,7 @@ public class Login implements ActionListener {
         }
         if(ev.getSource() == adminbtn){
            new Admin();
-
-       // logo.setFont(logofont);
-        logo.setBounds(55, 5, 200,170);
-        //logo.setForeground(Color.orange);
             fr.dispose();
-
         }
     
     }

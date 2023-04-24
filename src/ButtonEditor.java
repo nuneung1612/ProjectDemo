@@ -103,5 +103,3 @@ class ButtonEditor extends DefaultCellEditor
     super.fireEditingStopped();
   }
 }
-
-
