@@ -6,7 +6,7 @@ import javax.swing.*;
 import javax.swing.table.*;
 public class Home implements ActionListener {
     private JFrame fr;
-    private JPanel p1,p2,p3,p4,p5,p6,tourTable;
+    private JPanel p1,p2,p3,p4,leftbg,p6,centerbg,tourTable;
     private JButton bSearch,b2,b3, profile, home, setting;
     private ImageIcon imch, imcp, imcs, imch1, imcp1, imcs1;
     private JLabel l1,l2,l3,l4,l5,l6,l7,l8,l9;
@@ -35,35 +35,48 @@ public class Home implements ActionListener {
         p2 = new JPanel();
         p3 = new JPanel();
         p4 = new JPanel();
-        p5 = new JPanel();
+        leftbg = new JPanel();
         p6 = new JPanel();
+        centerbg = new JPanel();
         bSearch = new JButton("Search");
         //b2 = new JButton("Tour");
         //b3 = new JButton("User");
+        
         imch = new ImageIcon(getClass().getResource("images/home.png"));
         imcp = new ImageIcon(getClass().getResource("images/profile.png"));
         imcs = new ImageIcon(getClass().getResource("images/setting.png"));
-        Image sizeh = imch.getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH);
-        Image sizep = imcp.getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH);
-        Image sizes = imcs.getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH);
+        Image sizeh = imch.getImage().getScaledInstance(35, 35, Image.SCALE_SMOOTH);
+        Image sizep = imcp.getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH);
+        Image sizes = imcs.getImage().getScaledInstance(35, 35, Image.SCALE_SMOOTH);
         imch1 = new ImageIcon(sizeh);
         imcp1 = new ImageIcon(sizep);
         imcs1 = new ImageIcon(sizes);
         profile = new JButton(imcp1);
         home = new JButton(imch1);
         setting = new JButton(imcs1);
-        home.setContentAreaFilled(false);
-        profile.setContentAreaFilled(false);
-        setting.setContentAreaFilled(false);
-        l1 = new JLabel("start");
+        home.setContentAreaFilled(false); home.setBorderPainted(false);
+        profile.setContentAreaFilled(false); profile.setBorderPainted(false);
+        setting.setContentAreaFilled(false); setting.setBorderPainted(false);
+        
+        l1 = new JLabel("Start");
+        l1.setFont(new Font("Arabic", Font.BOLD, 14));
         l2 = new JLabel("End");
-        l3 = new JLabel("date");
+        l2.setFont(new Font("Arabic", Font.BOLD, 14));
+        l3 = new JLabel("Date");
+        l3.setFont(new Font("Arabic", Font.BOLD, 14));
         l4 = new JLabel("Type");
+        l4.setFont(new Font("Arabic", Font.BOLD, 14));
         l5 = new JLabel("Seat");
+        l5.setFont(new Font("Arabic", Font.BOLD, 14));
         l6 = new JLabel("Timeout");
+        l6.setFont(new Font("Arabic", Font.BOLD, 14));
         l7 = new JLabel(":");
+        l7.setFont(new Font("Arabic", Font.BOLD, 14));
         l8 = new JLabel("TimeArrive");
+        l8.setFont(new Font("Arabic", Font.BOLD, 14));
         l9 = new JLabel(":");
+        l9.setFont(new Font("Arabic", Font.BOLD, 14));
+        
         cbStart = new JComboBox();
         cbEnd = new JComboBox();
         cbDay = new JComboBox();
@@ -226,24 +239,33 @@ public class Home implements ActionListener {
          
         p2.setLayout(new FlowLayout());
         p2.add(l1);     p2.add(cbStart);    p2.add(l2);     p2.add(cbEnd);
+        p2.setBackground(Color.WHITE);
         
         p3.setLayout(new FlowLayout());
         p3.add(l3);     p3.add(cbDay);    p3.add(cbMonth);    p3.add(cbYear);    p3.add(l4);
         p3.add(cbTourType);    p3.add(l5);     p3.add(cbSeat);       p3.add(bSearch);
+        p3.setBackground(Color.WHITE);
         
         p6.setLayout(new FlowLayout());
         p6.add(l6);     p6.add(cbTimeOuth); p6.add(l7);     p6.add(cbTimeOutm);
         p6.add(l8);     p6.add(cbTimeArriveh);      p6.add(l9); p6.add(cbTimeArrivem);
+        p6.setBackground(Color.WHITE);
         
         p4.setLayout(new GridLayout(3,1));
         p4.add(p2);     p4.add(p3);  p4.add(p6);
         
-        p5.setLayout(new GridLayout(6,1));
-        p5.add(profile); p5.add(home); p5.add(setting);
+        tourTable.setBackground(Color.WHITE);
+        centerbg.setLayout(new FlowLayout());
+        centerbg.add(p4); centerbg.add(tourTable);
+        centerbg.setBackground(Color.WHITE);
         
-        fr.add(p4, BorderLayout.NORTH);
-        fr.add(p5, BorderLayout.WEST);
-        fr.add(tourTable);
+        leftbg.setLayout(new GridLayout(6,1));
+        leftbg.add(profile); leftbg.add(home); leftbg.add(setting);
+        leftbg.setBackground(Color.YELLOW);
+        
+        fr.add(centerbg, BorderLayout.CENTER);
+        fr.add(leftbg, BorderLayout.WEST);
+        
         
         fr.setSize(1000,600);
         fr.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
