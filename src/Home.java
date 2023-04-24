@@ -9,7 +9,7 @@ public class Home implements ActionListener {
     private JPanel p1,p2,p3,p4,leftbg,p6,centerbg,tourTable;
     private JButton bSearch,b2,b3, profile, home, setting;
     private ImageIcon imch, imcp, imcs, imch1, imcp1, imcs1;
-    private JLabel l1,l2,l3,l4,l5,l6,l7,l8,l9;
+    private JLabel l1,l2,l3,l4,l5,l6,l7,l8,l9,free1,free2,free3;
     private JScrollPane scrollPane;
     private JComboBox cbStart, cbEnd, cbDay,cbMonth,cbYear,cbTourType,cbSeat,cbTimeOuth, cbTimeOutm, cbTimeArriveh,cbTimeArrivem;
     private LinkedList <Tour> tourData = new LinkedList<Tour>();
@@ -17,18 +17,18 @@ public class Home implements ActionListener {
     private User user;
     
     
-    public Home(String username){
-        try(FileInputStream fin = new FileInputStream("UserData.dat");
-            ObjectInputStream in = new ObjectInputStream(fin);){
-            userData = (LinkedList)in.readObject();
-        }catch(IOException | ClassNotFoundException e){
-            System.out.println(e);
-        }
-        for (int i = 0; i < userData.size() && userData.size() != 0; i++){
-            if ((userData.get(i)).getUsername().equals(username)){
-                this.user = userData.get(i);
-        }
-            }
+    public Home(){
+        //try(FileInputStream fin = new FileInputStream("UserData.dat");
+        //    ObjectInputStream in = new ObjectInputStream(fin);){
+        //    userData = (LinkedList)in.readObject();
+        //}catch(IOException | ClassNotFoundException e){
+        //    System.out.println(e);
+        //}
+        //for (int i = 0; i < userData.size() && userData.size() != 0; i++){
+        //    if ((userData.get(i)).getUsername().equals(username)){
+        //        this.user = userData.get(i);
+        //}
+        //    }
         
         fr = new JFrame();
         p1 = new JPanel();
@@ -76,6 +76,9 @@ public class Home implements ActionListener {
         l8.setFont(new Font("Arabic", Font.BOLD, 14));
         l9 = new JLabel(":");
         l9.setFont(new Font("Arabic", Font.BOLD, 14));
+        free1 = new JLabel();
+        free2 = new JLabel();
+        free3 = new JLabel();
         
         cbStart = new JComboBox();
         cbEnd = new JComboBox();
@@ -89,6 +92,9 @@ public class Home implements ActionListener {
         cbTimeArriveh = new JComboBox();
         cbTimeArrivem = new JComboBox();
         tourTable = new TourTable("Enter").getTable();
+        
+        Color yellow = new Color(247, 208, 96);
+        Color cream = new Color(243, 233, 159);
         
         cbStart.addItem("Bankkok"); cbStart.addItem("Krabi"); cbStart.addItem("Kanchanaburi");
         cbStart.addItem("Kalasin"); cbStart.addItem("Kamphaeng Phet"); cbStart.addItem("Khon Kaen");
@@ -239,29 +245,30 @@ public class Home implements ActionListener {
          
         p2.setLayout(new FlowLayout());
         p2.add(l1);     p2.add(cbStart);    p2.add(l2);     p2.add(cbEnd);
-        p2.setBackground(Color.WHITE);
+        p2.setBackground(cream);
         
         p3.setLayout(new FlowLayout());
         p3.add(l3);     p3.add(cbDay);    p3.add(cbMonth);    p3.add(cbYear);    p3.add(l4);
         p3.add(cbTourType);    p3.add(l5);     p3.add(cbSeat);       p3.add(bSearch);
-        p3.setBackground(Color.WHITE);
+        p3.setBackground(cream);
         
         p6.setLayout(new FlowLayout());
         p6.add(l6);     p6.add(cbTimeOuth); p6.add(l7);     p6.add(cbTimeOutm);
         p6.add(l8);     p6.add(cbTimeArriveh);      p6.add(l9); p6.add(cbTimeArrivem);
-        p6.setBackground(Color.WHITE);
+        p6.setBackground(cream);
         
         p4.setLayout(new GridLayout(3,1));
         p4.add(p2);     p4.add(p3);  p4.add(p6);
         
-        tourTable.setBackground(Color.WHITE);
+        tourTable.setBackground(cream);
         centerbg.setLayout(new FlowLayout());
         centerbg.add(p4); centerbg.add(tourTable);
-        centerbg.setBackground(Color.WHITE);
+        centerbg.setBackground(cream);
         
         leftbg.setLayout(new GridLayout(6,1));
-        leftbg.add(profile); leftbg.add(home); leftbg.add(setting);
-        leftbg.setBackground(Color.YELLOW);
+        leftbg.add(profile); leftbg.add(home); leftbg.add(free1);
+        leftbg.add(free2); leftbg.add(free3); leftbg.add(setting);
+        leftbg.setBackground(yellow);
         
         fr.add(centerbg, BorderLayout.CENTER);
         fr.add(leftbg, BorderLayout.WEST);
@@ -342,5 +349,8 @@ public class Home implements ActionListener {
             fr.dispose();
             
         }
+    }
+    public static void main(String[] args) {
+        new Home();
     }
 }
