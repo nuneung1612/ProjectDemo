@@ -21,6 +21,7 @@ public class Admin implements ActionListener{
     private int num = 0;
     private LinkedList <Tour> tourData = new LinkedList<Tour>();
     private Tour tour;
+    private User user = new User();
     
     public Admin(){
         fr = new JFrame();
@@ -53,7 +54,7 @@ public class Admin implements ActionListener{
         cbTimeArrivem = new JComboBox();
         
         
-        tourTable = new TourTable("Delete").getTable();
+        tourTable = new TourTable("Delete", user).getTable();
         userTable = new UserTable().getTable();
         
         cbStart.addItem("Bankkok"); cbStart.addItem("Krabi"); cbStart.addItem("Kanchanaburi");
@@ -272,7 +273,7 @@ public class Admin implements ActionListener{
             System.out.println(e);
             }
             fr.remove(tourTable);
-            tourTable = new TourTable("Delete").getTable();
+            tourTable = new TourTable("Delete",user).getTable();
             fr.add(tourTable);
             fr.revalidate();
             fr.repaint();
@@ -285,7 +286,7 @@ public class Admin implements ActionListener{
             System.out.println(e);
             }
             fr.remove(tourTable);
-            tourTable = new TourTable("Delete").getTable();
+            tourTable = new TourTable("Delete",user).getTable();
             fr.add(tourTable);
             fr.revalidate();
             fr.repaint();
