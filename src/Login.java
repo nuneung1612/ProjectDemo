@@ -137,7 +137,7 @@ public class Login implements ActionListener {
         if(ev.getSource() == loginbtn){
           
             if (checkUser(username.getText(), String.valueOf(pass.getPassword()))){
-                new Home();
+                new Home(username.getText());
                 fr.dispose();
             
         }
