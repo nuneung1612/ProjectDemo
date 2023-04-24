@@ -17,18 +17,18 @@ public class Home implements ActionListener {
     private User user;
     
     
-    public Home(){
-        //try(FileInputStream fin = new FileInputStream("UserData.dat");
-        //    ObjectInputStream in = new ObjectInputStream(fin);){
-        //    userData = (LinkedList)in.readObject();
-        //}catch(IOException | ClassNotFoundException e){
-        //    System.out.println(e);
-        //}
-        //for (int i = 0; i < userData.size() && userData.size() != 0; i++){
-        //    if ((userData.get(i)).getUsername().equals(username)){
-        //        this.user = userData.get(i);
-        //}
-        //    }
+    public Home(String username){
+        try(FileInputStream fin = new FileInputStream("UserData.dat");
+            ObjectInputStream in = new ObjectInputStream(fin);){
+            userData = (LinkedList)in.readObject();
+        }catch(IOException | ClassNotFoundException e){
+            System.out.println(e);
+        }
+        for (int i = 0; i < userData.size() && userData.size() != 0; i++){
+            if ((userData.get(i)).getUsername().equals(username)){
+                this.user = userData.get(i);
+        }
+            }
         
         fr = new JFrame();
         p1 = new JPanel();
@@ -349,8 +349,5 @@ public class Home implements ActionListener {
             fr.dispose();
             
         }
-    }
-    public static void main(String[] args) {
-        new Home();
     }
 }
