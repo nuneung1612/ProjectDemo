@@ -338,10 +338,11 @@ public class Home implements ActionListener {
             String date = (String)cbDay.getSelectedItem()+"/"+(String)cbMonth.getSelectedItem()+"/"+(String)cbYear.getSelectedItem();
             String time = ((String)cbTimeOuth.getSelectedItem() + ":"+(String)cbTimeOutm.getSelectedItem()+"->"+(String)cbTimeArriveh.getSelectedItem()+":"+(String)cbTimeArrivem.getSelectedItem());
             LinkedList filter = filterSearch((String)cbStart.getSelectedItem(), (String)cbEnd.getSelectedItem(), (String)cbTourType.getSelectedItem(),date,(int)cbSeat.getSelectedItem(), time);
-            fr.remove(tourTable);
+            centerbg.remove(tourTable);
             tourTable = new TourTable("Enter", filter).getTable();
-            fr.add(tourTable);
-            fr.revalidate();
+            centerbg.add(tourTable);
+            
+            centerbg.revalidate();
             fr.repaint();
         }
         if(ae.getSource().equals(profile)){
