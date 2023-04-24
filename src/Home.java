@@ -13,8 +13,23 @@ public class Home implements ActionListener {
     private JScrollPane scrollPane;
     private JComboBox cbStart, cbEnd, cbDay,cbMonth,cbYear,cbTourType,cbSeat,cbTimeOuth, cbTimeOutm, cbTimeArriveh,cbTimeArrivem;
     private LinkedList <Tour> tourData = new LinkedList<Tour>();
+    private LinkedList <User>userData = new LinkedList<User>();
+    private User user;
     
-    public Home(){
+    
+    public Home(String username){
+        try(FileInputStream fin = new FileInputStream("UserData.dat");
+            ObjectInputStream in = new ObjectInputStream(fin);){
+            userData = (LinkedList)in.readObject();
+        }catch(IOException | ClassNotFoundException e){
+            System.out.println(e);
+        }
+        for (int i = 0; i < userData.size() && userData.size() != 0; i++){
+            if ((userData.get(i)).getUsername().equals(username)){
+                this.user = userData.get(i);
+        }
+            }
+        
         fr = new JFrame();
         p1 = new JPanel();
         p2 = new JPanel();
@@ -60,7 +75,7 @@ public class Home implements ActionListener {
         cbTimeOutm = new JComboBox();
         cbTimeArriveh = new JComboBox();
         cbTimeArrivem = new JComboBox();
-        tourTable = new TourTable().getTable();
+        tourTable = new TourTable("Enter").getTable();
         
         cbStart.addItem("Bankkok"); cbStart.addItem("Krabi"); cbStart.addItem("Kanchanaburi");
         cbStart.addItem("Kalasin"); cbStart.addItem("Kamphaeng Phet"); cbStart.addItem("Khon Kaen");
@@ -207,6 +222,7 @@ public class Home implements ActionListener {
         
         
         bSearch.addActionListener(this);
+        profile.addActionListener(this);
          
         p2.setLayout(new FlowLayout());
         p2.add(l1);     p2.add(cbStart);    p2.add(l2);     p2.add(cbEnd);
@@ -290,47 +306,19 @@ public class Home implements ActionListener {
     }
     public void actionPerformed(ActionEvent ae){
         if (ae.getSource().equals(bSearch)){
-            
             String date = (String)cbDay.getSelectedItem()+"/"+(String)cbMonth.getSelectedItem()+"/"+(String)cbYear.getSelectedItem();
             String time = ((String)cbTimeOuth.getSelectedItem() + ":"+(String)cbTimeOutm.getSelectedItem()+"->"+(String)cbTimeArriveh.getSelectedItem()+":"+(String)cbTimeArrivem.getSelectedItem());
-            fr.remove(p1);
-            p1 = new JPanel();
-            
-            scrollPane = new JScrollPane();
-            p1.add(scrollPane);
-            
-            JTable table = new JTable();
-            scrollPane.setViewportView(table);
-            
-            DefaultTableModel model = (DefaultTableModel)table.getModel();
-            
-            model.addColumn("ID");
-            model.addColumn("Time");
-            model.addColumn("Start");
-            model.addColumn("End");
-            model.addColumn("Type");
-            model.addColumn("Seat");
-            model.addColumn("Available");
-            
             LinkedList filter = filterSearch((String)cbStart.getSelectedItem(), (String)cbEnd.getSelectedItem(), (String)cbTourType.getSelectedItem(),date,(int)cbSeat.getSelectedItem(), time);
-            for (int i = 0; i < filter.size() ; i++){
-                int num = (int)filter.get(i);
-                int row = table.getRowCount();
-                model.addRow(new Object[0]);
-                model.setValueAt((tourData.get(num)).getBusID(), row, 0);
-                model.setValueAt((tourData.get(num)).getTime(), row, 1);
-                model.setValueAt((tourData.get(num)).getStart(), row, 2);
-                model.setValueAt((tourData.get(num)).getEnd(), row, 3);
-                model.setValueAt((tourData.get(num)).getType(), row, 4);
-                model.setValueAt((tourData.get(num)).getSeat()+"", row, 5);
-                model.setValueAt((tourData.get(num)).getSeatAvailable()+"", row, 6);
-           }
             fr.remove(tourTable);
-            fr.add(p1);
+            tourTable = new TourTable("Enter", filter).getTable();
+            fr.add(tourTable);
             fr.revalidate();
+            fr.repaint();
         }
-    }
-    public static void main(String[] args) {
-        new Home();
+        if(ae.getSource().equals(profile)){
+            new Profile(user);
+            fr.dispose();
+            
+        }
     }
 }

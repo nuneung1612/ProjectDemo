@@ -21,7 +21,7 @@ public class Profile implements ActionListener {
     private JLabel warnname, warnlast, warntel, warnemail, warnpass, empt1, empt2;
     private LinkedList userData = new LinkedList();
     private JButton home, pro, setting, save;
-public Profile (){
+    public Profile (){
     fr = new JFrame("Java Touer - Profile");
     p1 = new JPanel();
     p2 = new JPanel();
