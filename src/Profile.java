@@ -199,11 +199,11 @@ public Profile(User user){
     
     //p4.add(warn)
     
-    fr.setResizable(false);
-    fr.setContentPane(p1);
-    fr.setSize(1000,600);
-    fr.setVisible(true);
-    fr.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    //fr.setResizable(false);
+    //fr.setContentPane(p1);
+    //fr.setSize(1000,600);
+    //fr.setVisible(true);
+    //fr.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     
     
     
@@ -336,6 +336,10 @@ public Profile(User user){
         fr.dispose();
         
     }
+    }
+    
+    public JPanel getFrame(){
+        return this.p4;
     }
 
     public static void main(String[] args) {

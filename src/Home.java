@@ -4,9 +4,9 @@ import java.io.*;
 import java.util.LinkedList;
 import javax.swing.*;
 import javax.swing.table.*;
-public class Home implements ActionListener {
+public class Home implements ActionListener, WindowListener {
     private JFrame fr;
-    private JPanel p1,p2,p3,p4,inlefttop,p6,centerbg,tourTable,inleftbottom,leftbg,inpro;
+    private JPanel p1,p2,p3,p4,inlefttop,p6,centerbg,tourTable,inleftbottom,leftbg,inpro,profilePanel;
     private JButton bSearch,b2,b3, profile, home, setting;
     private ImageIcon imch, imcp, imcs, imch1, imcp1, imcs1;
     private JLabel l1,l2,l3,l4,l5,l6,l7,l8,l9,free1,prof,hm,set;
@@ -14,6 +14,7 @@ public class Home implements ActionListener {
     private JComboBox cbStart, cbEnd, cbDay,cbMonth,cbYear,cbTourType,cbSeat,cbTimeOuth, cbTimeOutm, cbTimeArriveh,cbTimeArrivem;
     private LinkedList <Tour> tourData = new LinkedList<Tour>();
     private LinkedList <User>userData = new LinkedList<User>();
+    private LinkedList filter = new LinkedList();
     private User user;
     
     
@@ -30,7 +31,7 @@ public class Home implements ActionListener {
         }
             }
         
-        fr = new JFrame();
+        fr = new JFrame("Home");
         p1 = new JPanel();
         p2 = new JPanel();
         p3 = new JPanel();
@@ -81,7 +82,7 @@ public class Home implements ActionListener {
         l9 = new JLabel(":");
         l9.setFont(new Font("Arabic", Font.BOLD, 14));
         free1 = new JLabel();
-        prof = new JLabel("Profile.getname");
+        prof = new JLabel(user.getUsername());
         prof.setFont(new Font("Arabic", Font.BOLD, 12));
         /*hm = new JLabel("Home");
         hm.setFont(new Font("Arabic", Font.BOLD, 14));
@@ -253,6 +254,8 @@ public class Home implements ActionListener {
         
         bSearch.addActionListener(this);
         profile.addActionListener(this);
+        home.addActionListener(this);
+        fr.addWindowListener(this);
          
         p2.setLayout(new FlowLayout());
         p2.add(l1);     p2.add(cbStart);    p2.add(l2);     p2.add(cbEnd);
@@ -359,7 +362,7 @@ public class Home implements ActionListener {
         if (ae.getSource().equals(bSearch)){
             String date = (String)cbDay.getSelectedItem()+"/"+(String)cbMonth.getSelectedItem()+"/"+(String)cbYear.getSelectedItem();
             String time = ((String)cbTimeOuth.getSelectedItem() + ":"+(String)cbTimeOutm.getSelectedItem()+"->"+(String)cbTimeArriveh.getSelectedItem()+":"+(String)cbTimeArrivem.getSelectedItem());
-            LinkedList filter = filterSearch((String)cbStart.getSelectedItem(), (String)cbEnd.getSelectedItem(), (String)cbTourType.getSelectedItem(),date,(int)cbSeat.getSelectedItem(), time);
+            filter = filterSearch((String)cbStart.getSelectedItem(), (String)cbEnd.getSelectedItem(), (String)cbTourType.getSelectedItem(),date,(int)cbSeat.getSelectedItem(), time);
             centerbg.remove(tourTable);
             tourTable = new TourTable("Enter", filter, user).getTable();
             centerbg.add(tourTable);
@@ -368,9 +371,56 @@ public class Home implements ActionListener {
             fr.repaint();
         }
         if(ae.getSource().equals(profile)){
-            new Profile(user);
-            fr.dispose();
+            fr.setTitle("Java Tour - Profile");
             
+            fr.remove(centerbg);
+            profilePanel = new Profile(user).getFrame();
+            
+            fr.add(profilePanel);
+
+            fr.revalidate();
+            fr.repaint();
+        }
+        
+        if (ae.getSource().equals(home)){
+            fr.setTitle("Java Tour");
+            
+            fr.remove(profilePanel);
+            fr.add(centerbg);
+            
+            fr.revalidate();
+            fr.repaint();
         }
     }
+    @Override
+    public void windowOpened(WindowEvent e) {}
+
+    @Override
+    public void windowClosing(WindowEvent e) {}
+
+    @Override
+    public void windowClosed(WindowEvent e) {}
+
+    @Override
+    public void windowIconified(WindowEvent e) {}
+
+    @Override
+    public void windowDeiconified(WindowEvent e) {}
+
+    @Override
+    public void windowActivated(WindowEvent e) {
+        centerbg.remove(tourTable);
+        if (filter.isEmpty()){
+            tourTable = new TourTable("Enter", user).getTable();
+        }else{
+            tourTable = new TourTable("Enter",filter, user).getTable();
+        }
+        centerbg.add(tourTable);
+
+        centerbg.revalidate();
+    }
+
+    @Override
+    public void windowDeactivated(WindowEvent e) {}
+    
 }

@@ -76,8 +76,10 @@ class ButtonEditor extends DefaultCellEditor
             }
         }
          else if (lbl.equals("Delete")){
-            tourData.remove(row);
-            JOptionPane.showMessageDialog(btn,"Data deleat successfully.\nPlease click reset.");
+            int x = JOptionPane.showConfirmDialog(null, "Are you sure?", "Delete", JOptionPane.YES_NO_OPTION);
+            if (x == JOptionPane.YES_OPTION){
+                tourData.remove(row);
+            }
         }
         try(FileOutputStream fOut = new FileOutputStream("TourData.dat");
             ObjectOutputStream oout = new ObjectOutputStream(fOut);){

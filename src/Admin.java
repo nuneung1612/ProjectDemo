@@ -12,10 +12,10 @@ import java.awt.event.*;
 import java.io.*;
 import javax.swing.*;
 import java.util.*;
-public class Admin implements ActionListener{
+public class Admin implements ActionListener, WindowListener{
     private JFrame fr;
     private JPanel p1,p2,p3,p4,p5,tourTable,userTable;
-    private JButton b1,b2,b3,b4;
+    private JButton b1,b2,b3;
     private JLabel l1,l2,l3,l4,l5,l6,l7,l8;
     private JComboBox cbStart, cbEnd, cbDay,cbMonth,cbYear,cbTourType, cbTimeOuth, cbTimeOutm, cbTimeArriveh,cbTimeArrivem;
     private int num = 0;
@@ -24,7 +24,7 @@ public class Admin implements ActionListener{
     private User user = new User();
     
     public Admin(){
-        fr = new JFrame();
+        fr = new JFrame("Admin");
         p1 = new JPanel();
         p2 = new JPanel();
         p3 = new JPanel();
@@ -33,7 +33,6 @@ public class Admin implements ActionListener{
         b1 = new JButton("User");
         b2 = new JButton("Tour");
         b3 = new JButton("Add");
-        b4 = new JButton("Reset");
         l1 = new JLabel("start");
         l2 = new JLabel("End");
         l3 = new JLabel("date");
@@ -52,6 +51,7 @@ public class Admin implements ActionListener{
         cbTimeOutm = new JComboBox();
         cbTimeArriveh = new JComboBox();
         cbTimeArrivem = new JComboBox();
+        
         
         
         tourTable = new TourTable("Delete", user).getTable();
@@ -192,8 +192,9 @@ public class Admin implements ActionListener{
         b1.addActionListener(this);
         b2.addActionListener(this);
         b3.addActionListener(this);
-        b4.addActionListener(this);
          
+        fr.addWindowListener(this);
+        
         p1.setLayout(new GridLayout(2,1));
         p1.add(b1);     p1.add(b2);
         
@@ -202,7 +203,7 @@ public class Admin implements ActionListener{
         
         p3.setLayout(new FlowLayout());
         p3.add(l3);     p3.add(cbDay);    p3.add(cbMonth);    p3.add(cbYear);    p3.add(l4);
-        p3.add(cbTourType); p3.add(b3);     p3.add(b4);
+        p3.add(cbTourType); p3.add(b3);
         
         p5.setLayout(new FlowLayout());
         p5.add(l5);     p5.add(cbTimeOuth); p5.add(l6);     p5.add(cbTimeOutm);
@@ -278,18 +279,33 @@ public class Admin implements ActionListener{
             fr.revalidate();
             fr.repaint();
         }
-        else if (ae.getSource().equals(b4)){
-            try(FileOutputStream fOut = new FileOutputStream("TourData.dat");
-                ObjectOutputStream oout = new ObjectOutputStream(fOut);){
-                oout.writeObject(tourData);
-            }catch(IOException e){
-            System.out.println(e);
-            }
-            fr.remove(tourTable);
-            tourTable = new TourTable("Delete",user).getTable();
-            fr.add(tourTable);
-            fr.revalidate();
-            fr.repaint();
-        }
     }
+
+    @Override
+    public void windowOpened(WindowEvent e) {}
+
+    @Override
+    public void windowClosing(WindowEvent e) {}
+
+    @Override
+    public void windowClosed(WindowEvent e) {}
+
+    @Override
+    public void windowIconified(WindowEvent e) {}
+
+    @Override
+    public void windowDeiconified(WindowEvent e) {}
+
+    @Override
+    public void windowActivated(WindowEvent e) {
+        fr.remove(tourTable);
+        tourTable = new TourTable("Delete",user).getTable();
+        fr.add(tourTable);
+        fr.revalidate();
+        fr.repaint();
+    }
+
+    @Override
+    public void windowDeactivated(WindowEvent e) {}
+    
 }
