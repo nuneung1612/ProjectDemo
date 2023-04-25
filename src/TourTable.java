@@ -18,7 +18,7 @@ public class TourTable extends JFrame {
     private JTable table;
     private LinkedList <Tour>tourData = new LinkedList<Tour>();
     
-    public TourTable(String type) {
+    public TourTable(String type, User user) {
         p = new JPanel();
 
         scrollPane = new JScrollPane();
@@ -27,6 +27,11 @@ public class TourTable extends JFrame {
         table = new JTable();
         scrollPane.setViewportView(table);
         scrollPane.setPreferredSize(new Dimension(700, 400));
+        table.setRowHeight(20);
+        
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment( JLabel.CENTER );
+        
         // Model for Table
         DefaultTableModel model = (DefaultTableModel)table.getModel();
         model.addColumn("ID");
@@ -39,6 +44,10 @@ public class TourTable extends JFrame {
         model.addColumn("Available");
         model.addColumn(type);
         
+        for (int i = 0; i < 9; i++){
+            table.getColumnModel().getColumn(i).setCellRenderer( centerRenderer );
+        }
+        
         // Data Row
         try(FileInputStream fin = new FileInputStream("TourData.dat");
             ObjectInputStream in = new ObjectInputStream(fin);){
@@ -47,6 +56,7 @@ public class TourTable extends JFrame {
             System.out.println(e);
         }
         table.getColumnModel().getColumn(8).setCellRenderer(new ButtonRenderer());
+        table.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
         table.setDefaultEditor(Object.class, null);
         
         
@@ -63,9 +73,10 @@ public class TourTable extends JFrame {
             model.setValueAt((tourData.get(i)).getSeatAvailable()+"", row, 7);
             model.setValueAt(type, row, 8);
         }
-        table.getColumnModel().getColumn(8).setCellEditor(new ButtonEditor(new JTextField(), table));
+        table.getColumnModel().getColumn(8).setCellEditor(new ButtonEditor(new JCheckBox(), table, user));
+        table.setDefaultRenderer(String.class, centerRenderer);
     }
-    public TourTable(String type, LinkedList filter) {
+    public TourTable(String type, LinkedList filter, User user) {
             p = new JPanel();
             
             scrollPane = new JScrollPane();
@@ -74,6 +85,10 @@ public class TourTable extends JFrame {
             JTable table = new JTable();
             scrollPane.setViewportView(table);
             scrollPane.setPreferredSize(new Dimension(700, 400));
+            table.setRowHeight(20);
+            
+            DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+            centerRenderer.setHorizontalAlignment( JLabel.CENTER );
             
             DefaultTableModel model = (DefaultTableModel)table.getModel();
             
@@ -86,6 +101,10 @@ public class TourTable extends JFrame {
             model.addColumn("Seat");
             model.addColumn("Available");
             model.addColumn(type);
+            
+            for (int i = 0; i < 9; i++){
+                table.getColumnModel().getColumn(i).setCellRenderer( centerRenderer );
+            }
             
             try(FileInputStream fin = new FileInputStream("TourData.dat");
                 ObjectInputStream in = new ObjectInputStream(fin);){
@@ -109,7 +128,7 @@ public class TourTable extends JFrame {
            }
         table.getColumnModel().getColumn(8).setCellRenderer(new ButtonRenderer());
         table.setDefaultEditor(Object.class, null);
-        table.getColumnModel().getColumn(8).setCellEditor(new ButtonEditor(new JTextField(), table));
+        table.getColumnModel().getColumn(8).setCellEditor(new ButtonEditor(new JCheckBox(), table, user));
     }
     public JPanel getTable(){
         return p;

@@ -99,7 +99,7 @@ public class Home implements ActionListener {
         cbTimeOutm = new JComboBox();
         cbTimeArriveh = new JComboBox();
         cbTimeArrivem = new JComboBox();
-        tourTable = new TourTable("Enter").getTable();
+        tourTable = new TourTable("Enter",user).getTable();
         
         Color yellow = new Color(247, 208, 96);
         Color cream = new Color(243, 233, 159);
@@ -185,7 +185,10 @@ public class Home implements ActionListener {
         cbSeat.addItem(21);      cbSeat.addItem(22);      cbSeat.addItem(23);
         cbSeat.addItem(24);      cbSeat.addItem(25);      cbSeat.addItem(26);
         cbSeat.addItem(27);      cbSeat.addItem(28);      cbSeat.addItem(29);
-        cbSeat.addItem(30);      cbSeat.addItem(31);      
+        cbSeat.addItem(30);      cbSeat.addItem(31);      cbSeat.addItem(32);
+        cbSeat.addItem(33);      cbSeat.addItem(34);      cbSeat.addItem(35);
+        cbSeat.addItem(36);      cbSeat.addItem(37);      cbSeat.addItem(38);
+        cbSeat.addItem(39);      cbSeat.addItem(40);      
         
         cbTimeOuth.addItem("00");     cbTimeOuth.addItem("01");     cbTimeOuth.addItem("02");
         cbTimeOuth.addItem("03");     cbTimeOuth.addItem("04");     cbTimeOuth.addItem("05");
@@ -358,7 +361,7 @@ public class Home implements ActionListener {
             String time = ((String)cbTimeOuth.getSelectedItem() + ":"+(String)cbTimeOutm.getSelectedItem()+"->"+(String)cbTimeArriveh.getSelectedItem()+":"+(String)cbTimeArrivem.getSelectedItem());
             LinkedList filter = filterSearch((String)cbStart.getSelectedItem(), (String)cbEnd.getSelectedItem(), (String)cbTourType.getSelectedItem(),date,(int)cbSeat.getSelectedItem(), time);
             centerbg.remove(tourTable);
-            tourTable = new TourTable("Enter", filter).getTable();
+            tourTable = new TourTable("Enter", filter, user).getTable();
             centerbg.add(tourTable);
             
             centerbg.revalidate();

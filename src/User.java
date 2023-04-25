@@ -14,12 +14,12 @@ public class User implements Serializable {
     private LinkedList userData = new LinkedList();
     
     public User(){
-        name = "";
-        lastName = "";
-        telNumber = "";
-        email = "";
-        userName = "";
-        password = "";
+        name = "Admin";
+        lastName = "Admin";
+        telNumber = "Admin";
+        email = "Admin";
+        userName = "Admin";
+        password = "Admin";
     }
     
     public User(String name, String lastname, String email, String telNumber, String userName, String password){

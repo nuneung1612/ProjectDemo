@@ -37,4 +37,12 @@ public class BusinessTour extends Tour {
         }
         return seatAvailable;
     }
+
+    public boolean[] getAvailableSeat() {
+        return availableSeat;
+    }
+    
+    public void setBookSeat(int bookSeat){
+        availableSeat[bookSeat] = false;
+    }
 }

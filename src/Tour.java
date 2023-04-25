@@ -99,4 +99,5 @@ public abstract class Tour implements Serializable{
     
     public abstract int getSeat();
     public abstract int getSeatAvailable();
+    public abstract void setBookSeat(int bookSeat);
 }

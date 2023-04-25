@@ -37,4 +37,11 @@ public class FirstClassTour extends Tour {
         }
         return seatAvailable;
     }
+    public void setBookSeat(int bookSeat){
+        availableSeat[bookSeat] = false;
+    }
+
+    public boolean[] getAvailableSeat() {
+        return availableSeat;
+    }
 }

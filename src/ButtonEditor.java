@@ -20,13 +20,15 @@ class ButtonEditor extends DefaultCellEditor
    private Boolean clicked;
    private LinkedList <Tour>tourData = new LinkedList<Tour>();
    private JTable table;
+   private User user;
 
-   public ButtonEditor(JTextField txt, JTable table) {
+   public ButtonEditor(JCheckBox txt, JTable table, User user) {
     super(txt);
     
     btn=new JButton();
     btn.setOpaque(true);
     this.table = table;
+    this.user = user;
     
     //WHEN BUTTON IS CLICKED
     btn.addActionListener(new ActionListener() {
@@ -68,7 +70,7 @@ class ButtonEditor extends DefaultCellEditor
             String id = (String)table.getValueAt(row, 0);
             for (int i = 0; i < tourData.size() && tourData.size() != 0; i++){
                 if (tourData.get(i).getBusID().equals(id)){
-                    new Booking((tourData.get(i)).getType());
+                    new Booking((tourData.get(i)),user);
                     break;
                 }
             }

@@ -10,9 +10,9 @@
 import java.io.*;
 import java.util.LinkedList;
 public class EconomyTour extends Tour {
-    private int seat = 30;
+    private int seat = 40;
     private double price = 200;
-    private boolean availableSeat[] = new boolean[30];
+    private boolean availableSeat[] = new boolean[40];
     
     public EconomyTour(){
         super();
@@ -20,7 +20,7 @@ public class EconomyTour extends Tour {
     
     public EconomyTour(String date, String busID, String start, String end, String time){
         super(date, busID, start, end, "Economy",time);
-        for (int i = 0; i < 30; i++){
+        for (int i = 0; i < 40; i++){
             availableSeat[i] = true;
         }
     }
@@ -31,11 +31,18 @@ public class EconomyTour extends Tour {
     
     public int getSeatAvailable(){
         int seatAvailable = 0;
-        for (int i = 0; i < 30; i++){
+        for (int i = 0; i < 40; i++){
             if (availableSeat[i]){
                 seatAvailable += 1;
             }
         }
         return seatAvailable;
+    }
+    public void setBookSeat(int bookSeat){
+        availableSeat[bookSeat] = false;
+    }
+
+    public boolean[] getAvailableSeat() {
+        return availableSeat;
     }
 }
