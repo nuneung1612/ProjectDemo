@@ -6,7 +6,7 @@ import javax.swing.*;
 import javax.swing.table.*;
 public class Home implements ActionListener {
     private JFrame fr;
-    private JPanel p1,p2,p3,p4,inlefttop,p6,centerbg,tourTable,inleftbottom,leftbg;
+    private JPanel p1,p2,p3,p4,inlefttop,p6,centerbg,tourTable,inleftbottom,leftbg,inpro;
     private JButton bSearch,b2,b3, profile, home, setting;
     private ImageIcon imch, imcp, imcs, imch1, imcp1, imcs1;
     private JLabel l1,l2,l3,l4,l5,l6,l7,l8,l9,free1,prof,hm,set;
@@ -17,8 +17,8 @@ public class Home implements ActionListener {
     private User user;
     
     
-    public Home(String username){
-        try(FileInputStream fin = new FileInputStream("UserData.dat");
+    public Home(/*String username*/){
+        /*try(FileInputStream fin = new FileInputStream("UserData.dat");
             ObjectInputStream in = new ObjectInputStream(fin);){
             userData = (LinkedList)in.readObject();
         }catch(IOException | ClassNotFoundException e){
@@ -29,7 +29,7 @@ public class Home implements ActionListener {
                 this.user = userData.get(i);
         }
             }
-        
+        */
         fr = new JFrame();
         p1 = new JPanel();
         p2 = new JPanel();
@@ -41,6 +41,7 @@ public class Home implements ActionListener {
         inlefttop = new JPanel();
         inleftbottom = new JPanel();
         leftbg = new JPanel();
+        inpro = new JPanel();
         bSearch = new JButton("Search");
         //b2 = new JButton("Tour");
         //b3 = new JButton("User");
@@ -65,27 +66,27 @@ public class Home implements ActionListener {
         l1.setFont(new Font("Arabic", Font.BOLD, 14));
         l2 = new JLabel("End");
         l2.setFont(new Font("Arabic", Font.BOLD, 14));
-        l3 = new JLabel("Date");
+        l3 = new JLabel("Date  ");
         l3.setFont(new Font("Arabic", Font.BOLD, 14));
-        l4 = new JLabel("Type");
-        l4.setFont(new Font("Arabic", Font.BOLD, 14));
-        l5 = new JLabel("Seat");
-        l5.setFont(new Font("Arabic", Font.BOLD, 14));
+        l4 = new JLabel("Type ");
+        l4.setFont(new Font("Arabic", Font.BOLD, 13));
+        l5 = new JLabel("Seat   ");
+        l5.setFont(new Font("Arabic", Font.BOLD, 13));
         l6 = new JLabel("Timeout");
-        l6.setFont(new Font("Arabic", Font.BOLD, 14));
+        l6.setFont(new Font("Arabic", Font.BOLD, 13));
         l7 = new JLabel(":");
         l7.setFont(new Font("Arabic", Font.BOLD, 14));
-        l8 = new JLabel("TimeArrive");
-        l8.setFont(new Font("Arabic", Font.BOLD, 14));
+        l8 = new JLabel(" TimeArrive");
+        l8.setFont(new Font("Arabic", Font.BOLD, 13));
         l9 = new JLabel(":");
         l9.setFont(new Font("Arabic", Font.BOLD, 14));
         free1 = new JLabel();
-        prof = new JLabel("Profile");
-        prof.setFont(new Font("Arabic", Font.BOLD, 14));
-        hm = new JLabel("Home");
+        prof = new JLabel("Profile.getname");
+        prof.setFont(new Font("Arabic", Font.BOLD, 12));
+        /*hm = new JLabel("Home");
         hm.setFont(new Font("Arabic", Font.BOLD, 14));
         set = new JLabel("Setting");
-        set.setFont(new Font("Arabic", Font.BOLD, 14));
+        set.setFont(new Font("Arabic", Font.BOLD, 14));*/
         
         cbStart = new JComboBox();
         cbEnd = new JComboBox();
@@ -256,12 +257,12 @@ public class Home implements ActionListener {
         
         p3.setLayout(new FlowLayout());
         p3.add(l3);     p3.add(cbDay);    p3.add(cbMonth);    p3.add(cbYear);    p3.add(l4);
-        p3.add(cbTourType);    p3.add(l5);     p3.add(cbSeat);       p3.add(bSearch);
+        p3.add(cbTourType);    p3.add(l5);     p3.add(cbSeat);p6.add(bSearch);
         p3.setBackground(cream);
         
         p6.setLayout(new FlowLayout());
-        p6.add(l6);     p6.add(cbTimeOuth); p6.add(l7);     p6.add(cbTimeOutm);
-        p6.add(l8);     p6.add(cbTimeArriveh);      p6.add(l9); p6.add(cbTimeArrivem);
+        p6.add(l6); p6.add(cbTimeOuth);    p6.add(l7); p6.add(cbTimeOutm);
+        p6.add(l8); p6.add(cbTimeArriveh); p6.add(l9); p6.add(cbTimeArrivem); p6.add(bSearch);
         p6.setBackground(cream);
         
         p4.setLayout(new GridLayout(3,1));
@@ -272,8 +273,13 @@ public class Home implements ActionListener {
         centerbg.add(p4); centerbg.add(tourTable);
         centerbg.setBackground(cream);
                     
+        inpro.setLayout(new BorderLayout());
+        prof.setHorizontalAlignment(JLabel.CENTER);
+        inpro.add(profile, BorderLayout.CENTER); inpro.add(prof, BorderLayout.SOUTH);
+        inpro.setBackground(yellow);
+        
         inlefttop.setLayout(new GridLayout(2,1));
-        inlefttop.add(profile); inlefttop.add(home);
+        inlefttop.add(inpro); inlefttop.add(home);
         inlefttop.setBackground(yellow);
         
         inleftbottom.setLayout(new GridLayout(2,1));
@@ -363,5 +369,8 @@ public class Home implements ActionListener {
             fr.dispose();
             
         }
+    }
+    public static void main(String[] args) {
+        new Home();
     }
 }
