@@ -20,13 +20,14 @@ public class Profile implements ActionListener {
    // private JPasswordField oldpass newpass;
     private JLabel nametxt, lasttxt, teltxt,emailtxt,usertxt,passtxt,pic;
     private JLabel warnname, warnlast, warntel, warnemail, warnpass, empt1, empt2, warnuser;
-    private LinkedList userData = new LinkedList();
+    private LinkedList <User> userData = new LinkedList<User>();
     private JButton home, pro, setting, save;
     private User user;
     private String usertag = "Invalid username";
     private ImageIcon imch, imcp, imcs, imch1, imcp1, imcs1;
     private Font lbfont = new Font("Times New Roman", Font.BOLD, 18);
     private Font textfont = new Font("Times New Roman", Font.PLAIN, 16);
+    
 public Profile(User user){
     this.user = user;
     fr = new JFrame("Java Touer - Profile");
@@ -205,7 +206,12 @@ public Profile(User user){
     //fr.setVisible(true);
     //fr.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     
-    
+    try(FileInputStream fin = new FileInputStream("UserData.dat");
+            ObjectInputStream in = new ObjectInputStream(fin);){
+            userData = (LinkedList)in.readObject();
+        }catch(IOException | ClassNotFoundException e){
+            System.out.println(e);
+        }
     
 }
      public boolean checkName(String name){
@@ -243,13 +249,7 @@ public Profile(User user){
         return false;
     }
   public boolean checkUser(String username){
-  
-        try(FileInputStream fin = new FileInputStream("UserData.dat");
-            ObjectInputStream in = new ObjectInputStream(fin);){
-            userData = (LinkedList)in.readObject();
-        }catch(IOException | ClassNotFoundException e){
-            System.out.println(e);
-        }
+          
         if (userData  == null){
             return true;
         }
@@ -292,11 +292,27 @@ public Profile(User user){
          if(user.getUsername().equals(username.getText())){
             warnuser.setVisible(false);
              if(checkName(name.getText()) && checkName(last.getText()) && checkPass(pass.getText()) && checkTel(tel.getText()) && checkEmail(email.getText())){
+                
+                try{
+                int index = -1;
+                for (int i = 0; i < userData.size() && userData.size() != 0; i++){
+                    if ((userData.get(i)).getUsername().equals(user.getUsername())){
+                        index = i;
+                        break;
+                    }
+                }
+                 
                 user.setName(name.getText());
                 user.setLastName(last.getText());
                 user.setTelNumber(tel.getText());
                 user.setEmail(email.getText());
                 user.setPassword(pass.getText());
+                
+                userData.set(index, user);
+                }catch(IndexOutOfBoundsException e){
+                    System.out.println("User not found");
+                }
+                
                 //System.out.println("save");
                 JOptionPane.showConfirmDialog(null, "Update profile success!", "Notification", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE);
                 //test
@@ -309,15 +325,14 @@ public Profile(User user){
          }
     else{
          warnuser.setVisible(!checkUser(username.getText()));
-         if(checkName(name.getText()) && checkName(last.getText()) && checkPass(pass.getText()) && checkTel(tel.getText()) && checkUser(username.getText()) && checkEmail(email.getText())){
+        if(checkName(name.getText()) && checkName(last.getText()) && checkPass(pass.getText()) && checkTel(tel.getText()) && checkUser(username.getText()) && checkEmail(email.getText())){
             
-//            
                 user.setName(name.getText());
                 user.setLastName(last.getText());
                 user.setTelNumber(tel.getText());
                 user.setEmail(email.getText());
                 user.setPassword(pass.getText());
-               
+
                 JOptionPane.showConfirmDialog(null, "Update profile success!", "Notification", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE);
                 //test
 //          
@@ -325,14 +340,17 @@ public Profile(User user){
 //                System.out.println(user.getLastName());
 //                System.out.println(user.getUsername());
 //                System.out.println(user.getPassword());
-                
-                  
-         }
-          }
 
 }    
+        }
     }
-    
+    try(FileOutputStream fOut = new FileOutputStream("UserData.dat");
+                ObjectOutputStream oout = new ObjectOutputStream(fOut);){
+                    oout.writeObject(userData);
+                }catch(IOException e){
+                    System.out.println(e);
+                }
+    }
     public JPanel getFrame(){
         return this.p4;
     }
