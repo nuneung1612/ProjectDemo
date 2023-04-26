@@ -6,9 +6,9 @@ import javax.swing.*;
 import javax.swing.table.*;
 public class Home implements ActionListener, WindowListener {
     private JFrame fr;
-    private JPanel p1,p2,p3,p4,inlefttop,p6,centerbg,tourTable,inleftbottom,leftbg,inpro,profilePanel;
-    private JButton bSearch,b2,b3, profile, home, setting;
-    private ImageIcon imch, imcp, imcs, imch1, imcp1, imcs1;
+    private JPanel p1,p2,p3,p4,inlefttop,p6,centerbg,tourTable,inleftbottom,leftbg,inpro,inhome,profilePanel;
+    private JButton bSearch,b2,b3, profile, home, setting, ticket;
+    private ImageIcon imch, imcp, imcs, imt;
     private JLabel l1,l2,l3,l4,l5,l6,l7,l8,l9,free1,prof,hm,set;
     private JScrollPane scrollPane;
     private JComboBox cbStart, cbEnd, cbDay,cbMonth,cbYear,cbTourType,cbSeat,cbTimeOuth, cbTimeOutm, cbTimeArriveh,cbTimeArrivem;
@@ -43,6 +43,7 @@ public class Home implements ActionListener, WindowListener {
         inleftbottom = new JPanel();
         leftbg = new JPanel();
         inpro = new JPanel();
+        inhome = new JPanel();
         bSearch = new JButton("Search");
         //b2 = new JButton("Tour");
         //b3 = new JButton("User");
@@ -50,18 +51,23 @@ public class Home implements ActionListener, WindowListener {
         imch = new ImageIcon(getClass().getResource("images/home.png"));
         imcp = new ImageIcon(getClass().getResource("images/profile.png"));
         imcs = new ImageIcon(getClass().getResource("images/setting.png"));
-        Image sizeh = imch.getImage().getScaledInstance(35, 35, Image.SCALE_SMOOTH);
-        Image sizep = imcp.getImage().getScaledInstance(70, 70, Image.SCALE_SMOOTH);
-        Image sizes = imcs.getImage().getScaledInstance(35, 35, Image.SCALE_SMOOTH);
-        imch1 = new ImageIcon(sizeh);
-        imcp1 = new ImageIcon(sizep);
-        imcs1 = new ImageIcon(sizes);
+        imt = new ImageIcon(getClass().getResource("images/ticket.png"));
+        Image sizeh = imch.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
+        Image sizep = imcp.getImage().getScaledInstance(80, 80, Image.SCALE_SMOOTH);
+        Image sizes = imcs.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
+        Image sizet = imt.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
+        ImageIcon imch1 = new ImageIcon(sizeh);
+        ImageIcon imcp1 = new ImageIcon(sizep);
+        ImageIcon imcs1 = new ImageIcon(sizes);
+        ImageIcon imt1 = new ImageIcon(sizet);
         profile = new JButton(imcp1);
         home = new JButton(imch1);
         setting = new JButton(imcs1);
+        ticket = new JButton(imt1);
         home.setContentAreaFilled(false); home.setBorderPainted(false);
         profile.setContentAreaFilled(false); profile.setBorderPainted(false);
         setting.setContentAreaFilled(false); setting.setBorderPainted(false);
+        ticket.setContentAreaFilled(false); ticket.setBorderPainted(false);
         
         l1 = new JLabel("Start");
         l1.setFont(new Font("Arabic", Font.BOLD, 14));
@@ -284,8 +290,12 @@ public class Home implements ActionListener, WindowListener {
         inpro.add(profile, BorderLayout.CENTER); inpro.add(prof, BorderLayout.SOUTH);
         inpro.setBackground(yellow);
         
+        inhome.setLayout(new BorderLayout());
+        inhome.add(home, BorderLayout.NORTH); inhome.add(ticket, BorderLayout.SOUTH);
+        inhome.setBackground(yellow);
+        
         inlefttop.setLayout(new GridLayout(2,1));
-        inlefttop.add(inpro); inlefttop.add(home);
+        inlefttop.add(inpro); inlefttop.add(inhome);
         inlefttop.setBackground(yellow);
         
         inleftbottom.setLayout(new GridLayout(2,1));
@@ -422,5 +432,5 @@ public class Home implements ActionListener, WindowListener {
 
     @Override
     public void windowDeactivated(WindowEvent e) {}
-    
+
 }
