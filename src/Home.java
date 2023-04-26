@@ -395,12 +395,16 @@ public class Home implements ActionListener, WindowListener {
         if (ae.getSource().equals(home)){
             fr.setTitle("Java Tour");
             
-            fr.remove(profilePanel);
+           fr.remove(profilePanel);
             fr.add(centerbg);
             
             fr.revalidate();
             fr.repaint();
         }
+        
+    }
+        public JPanel getFrame(){
+        return this.centerbg;
     }
     @Override
     public void windowOpened(WindowEvent e) {}

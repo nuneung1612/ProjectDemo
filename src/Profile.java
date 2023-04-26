@@ -157,14 +157,14 @@ public Profile(User user){
     save.addActionListener(this);
     home.addActionListener(this);
     
-    p2.setBackground(Color.orange);
+//    p2.setBackground(Color.orange);
     
-    p1.setLayout(new BorderLayout());
-    p1.add(p2, BorderLayout.WEST);
+    p1.setLayout(null);
+//    p1.add(p2, BorderLayout.WEST);
     p1.add(p4);
     
-    p2.setLayout(new GridLayout(6,1));
-    p2.add(home); p2.add(pro); p2.add(setting);
+//    p2.setLayout(new GridLayout(6,1));
+//    p2.add(home); p2.add(pro); p2.add(setting);
     
 //    p3.setLayout(new BorderLayout());
 //    p3.add(p4,BorderLayout.CENTER);
@@ -331,23 +331,18 @@ public Profile(User user){
           }
 
 }    
-    if(ev.getSource().equals(home)){
-        new Home(user.getUsername());
-        fr.dispose();
-        
-    }
     }
     
     public JPanel getFrame(){
         return this.p4;
     }
 
-    public static void main(String[] args) {
-        
-        User a = new User("Pranpreeya","Mengmungmee", "gyugg21@gmail.com","0959677761","nuneung1122","nuneung112");
-        User b = new User("Pranpreeya","Mengmungmee", "gyugg21@gmail.com","0959677761","nuneung1","nuneung112");
-        new Profile(a);
-        
-        
-    }
+//    public static void main(String[] args) {
+//        
+//        User a = new User("Pranpreeya","Mengmungmee", "gyugg21@gmail.com","0959677761","nuneung1122","nuneung112");
+//        User b = new User("Pranpreeya","Mengmungmee", "gyugg21@gmail.com","0959677761","nuneung1","nuneung112");
+//        new Profile(a);
+//        
+//        
+//    }
 }
