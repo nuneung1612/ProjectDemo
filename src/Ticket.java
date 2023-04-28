@@ -11,11 +11,11 @@ import java.io.*;
 import java.util.LinkedList;
 public class Ticket implements Serializable{
     private String owner;
-    private String tour;
+    private Tour tour;
     private String seat;
     private LinkedList ticketData = new LinkedList();
     
-    public Ticket(String owner, String tour,String seat){
+    public Ticket(String owner, Tour tour,String seat){
         this.owner = owner;
         this.tour = tour;
         this.seat = seat;
@@ -25,7 +25,7 @@ public class Ticket implements Serializable{
             }catch(IOException | ClassNotFoundException e){
                 System.out.println(e);
             }
-            ticketData.add(tour);
+            ticketData.add(this);
             try(FileOutputStream fOut = new FileOutputStream("TicketData.dat");
                 ObjectOutputStream oout = new ObjectOutputStream(fOut);){
                 oout.writeObject(ticketData);
@@ -50,11 +50,11 @@ public class Ticket implements Serializable{
         this.owner = owner;
     }
 
-    public String getTour() {
+    public Tour getTour() {
         return tour;
     }
 
-    public void setTour(String tour) {
+    public void setTour(Tour tour) {
         this.tour = tour;
     }
 

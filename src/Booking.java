@@ -170,34 +170,11 @@ public class Booking implements ActionListener, ItemListener {
         fr.setVisible(true);
     }
     
-    public int seatToNum(String seat){
-        String letter = seat.substring(0, 1);
-        int num = Integer.parseInt(seat.substring(1));
-        if(tour instanceof BusinessTour){
-            if (letter.equals("B")){
-                num += 7;
-            }else if (letter.equals("C")){
-                num += 14;
-            }
-        }else{
-            if (letter.equals("B")){
-                num += 10;
-            }else if(letter.equals("C")){
-                num += 20;
-            }else if (letter.equals("D")){
-                num += 30;
-            }
-        }
-        return num-1;
-    }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        for(String a: seatSelect){
-            new Ticket(user.getUsername(),tour.getBusID(),a);
-            tour.setBookSeat(seatToNum(a));
-        }
         fr.dispose();
+        new ConfirmPayment(tour, user, seatSelect);
     }
 
     @Override

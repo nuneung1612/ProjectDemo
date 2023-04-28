@@ -6,7 +6,7 @@ import javax.swing.*;
 import javax.swing.table.*;
 public class Home implements ActionListener, WindowListener {
     private JFrame fr;
-    private JPanel p1,p2,p3,p4,inlefttop,p6,centerbg,tourTable,inleftbottom,leftbg,inpro,inhome,profilePanel ;
+    private JPanel p1,p2,p3,p4,inlefttop,p6,centerbg,tourTable,inleftbottom,leftbg,inpro,inhome,profilePanel,ticketPanel;
     private JButton bSearch,b2,b3, profile, home, setting, ticket;
     private ImageIcon imch, imcp, imcs, imt;
     private JLabel l1,l2,l3,l4,l5,l6,l7,l8,l9,free1,prof,hm,set;
@@ -46,6 +46,8 @@ public class Home implements ActionListener, WindowListener {
         inhome = new JPanel();
         bSearch = new JButton("Search");
         profilePanel = new Profile(user).getFrame();
+        ticketPanel = new TicketTable(user).getTable();
+        
         //b2 = new JButton("Tour");
         //b3 = new JButton("User");
         
@@ -263,6 +265,7 @@ public class Home implements ActionListener, WindowListener {
         profile.addActionListener(this);
         home.addActionListener(this);
         fr.addWindowListener(this);
+        ticket.addActionListener(this);
          
         p2.setLayout(new FlowLayout());
         p2.add(l1);     p2.add(cbStart);    p2.add(l2);     p2.add(cbEnd);
@@ -386,6 +389,8 @@ public class Home implements ActionListener, WindowListener {
             
             fr.remove(centerbg);
             fr.remove(profilePanel);
+            fr.remove(ticketPanel);
+            
             profilePanel = new Profile(user).getFrame();
             
             fr.add(profilePanel);
@@ -397,12 +402,29 @@ public class Home implements ActionListener, WindowListener {
         if (ae.getSource().equals(home)){
             fr.setTitle("Java Tour");
             
+            fr.remove(centerbg);
             fr.remove(profilePanel);
+            fr.remove(ticketPanel);
   
             fr.add(centerbg);
             
             fr.revalidate();
             fr.repaint();
+        }
+        
+        if (ae.getSource().equals(ticket)){
+            fr.setTitle("JavaTour - Ticket");
+            
+            fr.remove(centerbg);
+            fr.remove(profilePanel);
+            fr.remove(ticketPanel);
+            
+            ticketPanel = new TicketTable(user).getTable();
+            fr.add(ticketPanel);
+            
+            fr.revalidate();
+            fr.repaint();
+            
         }
         
     }

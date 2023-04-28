@@ -27,7 +27,7 @@ public class TourTable extends JFrame {
         table = new JTable();
         scrollPane.setViewportView(table);
         scrollPane.setPreferredSize(new Dimension(700, 400));
-        table.setRowHeight(20);
+        table.setRowHeight(50);
         
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment( JLabel.CENTER );
@@ -85,7 +85,7 @@ public class TourTable extends JFrame {
             JTable table = new JTable();
             scrollPane.setViewportView(table);
             scrollPane.setPreferredSize(new Dimension(700, 400));
-            table.setRowHeight(20);
+            table.setRowHeight(50);
             
             DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
             centerRenderer.setHorizontalAlignment( JLabel.CENTER );

@@ -45,4 +45,9 @@ public class BusinessTour extends Tour {
     public void setBookSeat(int bookSeat){
         availableSeat[bookSeat] = false;
     }
+
+    @Override
+    public double getPrice() {
+        return this.price;
+    }
 }

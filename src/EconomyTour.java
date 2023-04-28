@@ -45,4 +45,8 @@ public class EconomyTour extends Tour {
     public boolean[] getAvailableSeat() {
         return availableSeat;
     }
+    @Override
+    public double getPrice() {
+        return this.price;
+    }
 }
