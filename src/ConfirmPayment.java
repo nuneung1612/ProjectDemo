@@ -143,10 +143,8 @@ public class ConfirmPayment implements ActionListener{
         }
         
         else if (e.getSource().equals(b2)){
-            System.out.println(((EconomyTour)tour).getAvailableSeat()[0]);
             if (payment == true){
                 for(String a: booking){
-                    System.out.println(a);
                     new Ticket(user.getUsername(),tour,a);
                     tour.setBookSeat(seatToNum(a));
                 }
