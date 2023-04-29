@@ -153,8 +153,21 @@ public class Login implements ActionListener {
                    
         }
         if(ev.getSource() == adminbtn){
-           new Admin();
-            fr.dispose();
+            boolean checkAdmin = false;
+            while(checkAdmin == false){
+                 String val = JOptionPane.showInputDialog(null,"Please enter the password:","Admin password",JOptionPane.INFORMATION_MESSAGE);
+                 if(val.equals("admin1234")) 
+                 {
+                     checkAdmin = true;
+                     new Admin();
+                      fr.dispose();
+                 
+                 }
+                 else{
+                     JOptionPane.showConfirmDialog(null, "Wrong password, try again.", "Alert", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+                 }
+           
+            }
         }
     
     }
