@@ -26,26 +26,29 @@ public class TourTable extends JFrame {
         // Table
         table = new JTable();
         scrollPane.setViewportView(table);
-        scrollPane.setPreferredSize(new Dimension(700, 400));
+        scrollPane.setPreferredSize(new Dimension(800, 400));
         table.setRowHeight(50);
-        
-        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-        centerRenderer.setHorizontalAlignment( JLabel.CENTER );
         
         // Model for Table
         DefaultTableModel model = (DefaultTableModel)table.getModel();
-        model.addColumn("ID");
+        model.addColumn("Tour");
         model.addColumn("Date");
         model.addColumn("Time");
-        model.addColumn("Start");
-        model.addColumn("End");
-        model.addColumn("Type");
-        model.addColumn("Seat");
-        model.addColumn("Available");
+        model.addColumn("Route");
+        model.addColumn("Available Seat");
         model.addColumn(type);
         
-        for (int i = 0; i < 9; i++){
-            table.getColumnModel().getColumn(i).setCellRenderer( centerRenderer );
+        table.getColumnModel().getColumn(1).setPreferredWidth(20);
+        table.getColumnModel().getColumn(2).setPreferredWidth(20);
+        table.getColumnModel().getColumn(3).setPreferredWidth(300);
+        table.getColumnModel().getColumn(3).setMaxWidth(735);
+        table.getColumnModel().getColumn(4).setPreferredWidth(10);
+        table.getColumnModel().getColumn(5).setPreferredWidth(15);
+        
+        
+        
+        for (int i = 0; i < 6; i++){
+            table.getColumnModel().getColumn(i).setCellRenderer(new CustomResizableText());
         }
         
         // Data Row
@@ -55,26 +58,21 @@ public class TourTable extends JFrame {
         }catch(IOException | ClassNotFoundException e){
             System.out.println(e);
         }
-        table.getColumnModel().getColumn(8).setCellRenderer(new ButtonRenderer());
-        table.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
+        table.getColumnModel().getColumn(5).setCellRenderer(new ButtonRenderer());
         table.setDefaultEditor(Object.class, null);
         
         
         for (int i = 0; i < tourData.size() && tourData.size() != 0; i++){
             int row = table.getRowCount();
             model.addRow(new Object[0]);
-            model.setValueAt((tourData.get(i)).getBusID(), row, 0);
+            model.setValueAt((tourData.get(i)).getBusID()+" - "+(tourData.get(i)).getType()+" Tour", row, 0);
             model.setValueAt((tourData.get(i)).getDate(), row, 1);
-            model.setValueAt((tourData.get(i)).getTime(), row, 2);
-            model.setValueAt((tourData.get(i)).getStart(), row, 3);
-            model.setValueAt((tourData.get(i)).getEnd(), row, 4);
-            model.setValueAt((tourData.get(i)).getType(), row, 5);
-            model.setValueAt((tourData.get(i)).getSeat()+"", row, 6);
-            model.setValueAt((tourData.get(i)).getSeatAvailable()+"", row, 7);
-            model.setValueAt(type, row, 8);
+            model.setValueAt((tourData.get(i)).getTimeOut()+" ➔ " + (tourData.get(i)).getTimeArrive(), row, 2);
+            model.setValueAt((tourData.get(i)).getStart()+" ➔ "+ (tourData.get(i)).getEnd(), row, 3);
+            model.setValueAt((tourData.get(i)).getSeatAvailable()+"", row, 4);
+            model.setValueAt(type, row, 5);
         }
-        table.getColumnModel().getColumn(8).setCellEditor(new ButtonEditor(new JCheckBox(), table, user));
-        table.setDefaultRenderer(String.class, centerRenderer);
+        table.getColumnModel().getColumn(5).setCellEditor(new ButtonEditor(new JCheckBox(), table, user));
     }
     public TourTable(String type, LinkedList filter, User user) {
             p = new JPanel();
@@ -84,26 +82,26 @@ public class TourTable extends JFrame {
             
             JTable table = new JTable();
             scrollPane.setViewportView(table);
-            scrollPane.setPreferredSize(new Dimension(700, 400));
+            scrollPane.setPreferredSize(new Dimension(800, 400));
             table.setRowHeight(50);
-            
-            DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-            centerRenderer.setHorizontalAlignment( JLabel.CENTER );
-            
+                        
             DefaultTableModel model = (DefaultTableModel)table.getModel();
-            
-            model.addColumn("ID");
+            model.addColumn("Tour");
             model.addColumn("Date");
             model.addColumn("Time");
-            model.addColumn("Start");
-            model.addColumn("End");
-            model.addColumn("Type");
-            model.addColumn("Seat");
-            model.addColumn("Available");
+            model.addColumn("Route");
+            model.addColumn("Available Seat");
             model.addColumn(type);
             
-            for (int i = 0; i < 9; i++){
-                table.getColumnModel().getColumn(i).setCellRenderer( centerRenderer );
+            table.getColumnModel().getColumn(1).setPreferredWidth(20);
+            table.getColumnModel().getColumn(2).setPreferredWidth(20);
+            table.getColumnModel().getColumn(3).setPreferredWidth(300);
+            table.getColumnModel().getColumn(3).setMaxWidth(735);
+            table.getColumnModel().getColumn(4).setPreferredWidth(10);
+            table.getColumnModel().getColumn(5).setPreferredWidth(15);
+
+            for (int i = 0; i < 6; i++){
+                table.getColumnModel().getColumn(i).setCellRenderer(new CustomResizableText());
             }
             
             try(FileInputStream fin = new FileInputStream("TourData.dat");
@@ -116,19 +114,16 @@ public class TourTable extends JFrame {
                 int num = (int)filter.get(i);
                 int row = table.getRowCount();
                 model.addRow(new Object[0]);
-                model.setValueAt((tourData.get(num)).getBusID(), row, 0);
+                model.setValueAt((tourData.get(num)).getBusID()+" - "+(tourData.get(num)).getType()+" Tour", row, 0);
                 model.setValueAt((tourData.get(num)).getDate(), row, 1);
-                model.setValueAt((tourData.get(num)).getTime(), row, 2);
-                model.setValueAt((tourData.get(num)).getStart(), row, 3);
-                model.setValueAt((tourData.get(num)).getEnd(), row, 4);
-                model.setValueAt((tourData.get(num)).getType(), row, 5);
-                model.setValueAt((tourData.get(num)).getSeat()+"", row, 6);
-                model.setValueAt((tourData.get(num)).getSeatAvailable()+"", row, 7);
-                model.setValueAt(type, row, 8);
+                model.setValueAt((tourData.get(num)).getTimeOut()+" ➔ " + (tourData.get(num)).getTimeArrive(), row, 2);
+                model.setValueAt((tourData.get(num)).getStart()+" ➔ "+ (tourData.get(num)).getEnd(), row, 3);
+                model.setValueAt((tourData.get(num)).getSeatAvailable()+"", row, 4);
+                model.setValueAt(type, row, 5);
            }
-        table.getColumnModel().getColumn(8).setCellRenderer(new ButtonRenderer());
+        table.getColumnModel().getColumn(5).setCellRenderer(new ButtonRenderer());
         table.setDefaultEditor(Object.class, null);
-        table.getColumnModel().getColumn(8).setCellEditor(new ButtonEditor(new JCheckBox(), table, user));
+        table.getColumnModel().getColumn(5).setCellEditor(new ButtonEditor(new JCheckBox(), table, user));
     }
     public JPanel getTable(){
         return p;

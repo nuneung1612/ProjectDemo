@@ -14,8 +14,12 @@
 import java.io.*;
 import java.util.*;
 public abstract class Tour implements Serializable{
+    private String day;
+    private String month;
+    private String year;
     private String date;
-    private String time;
+    private String timeOut;
+    private String timeArrive;
     private String busID;
     private String start;
     private String end;
@@ -23,22 +27,18 @@ public abstract class Tour implements Serializable{
     private LinkedList tourData = new LinkedList();
     private static final long serialVersionUID = 1234567890L;
     
-    public Tour(){
-        date = "";
-        busID = "";
-        start = "";
-        end = "";
-        type = "";
-        time = "";
-    }
     
-    public Tour(String date, String busID, String start, String end, String type, String time){
-        this.date = date;
+    public Tour(String day, String month, String year, String busID, String start, String end, String type, String timeOut, String timeArrive){
+        this.date = day+"/"+month+"/"+year;
         this.busID = busID;
         this.start = start;
         this.end = end;
         this.type = type;
-        this.time = time;
+        this.timeOut = timeOut;
+        this.timeArrive = timeArrive;
+        this.day = day;
+        this.month = month;
+        this.year = year;
     }
 
     public String getDate() {
@@ -61,12 +61,20 @@ public abstract class Tour implements Serializable{
         return start;
     }
 
-    public String getTime() {
-        return time;
+    public String getTimeOut() {
+        return timeOut;
     }
 
-    public void setTime(String time) {
-        this.time = time;
+    public void setTimeOut(String timeOut) {
+        this.timeOut = timeOut;
+    }
+
+    public String getTimeArrive() {
+        return timeArrive;
+    }
+
+    public void setTimeArrive(String timeArrive) {
+        this.timeArrive = timeArrive;
     }
 
     public void setStart(String start) {
@@ -95,6 +103,30 @@ public abstract class Tour implements Serializable{
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getDay() {
+        return day;
+    }
+
+    public void setDay(String day) {
+        this.day = day;
+    }
+
+    public String getMonth() {
+        return month;
+    }
+
+    public void setMonth(String month) {
+        this.month = month;
+    }
+
+    public String getYear() {
+        return year;
+    }
+
+    public void setYear(String year) {
+        this.year = year;
     }
     
     public abstract int getSeat();

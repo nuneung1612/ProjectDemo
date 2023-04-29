@@ -235,7 +235,8 @@ public class Admin implements ActionListener, WindowListener{
         num += 1;
         String id = String.format("%04d", num);
         String date = (String)cbDay.getSelectedItem()+"/"+(String)cbMonth.getSelectedItem()+"/"+(String)cbYear.getSelectedItem();
-        String time = ((String)cbTimeOuth.getSelectedItem() + ":"+(String)cbTimeOutm.getSelectedItem()+"->"+(String)cbTimeArriveh.getSelectedItem()+":"+(String)cbTimeArrivem.getSelectedItem());
+        String timeOut = (String)cbTimeOuth.getSelectedItem() + ":"+(String)cbTimeOutm.getSelectedItem();
+        String timeArrive = (String)cbTimeArriveh.getSelectedItem()+":"+(String)cbTimeArrivem.getSelectedItem();
         if (ae.getSource().equals(b1)){
             fr.remove(tourTable);
             fr.remove(p4);
@@ -252,13 +253,13 @@ public class Admin implements ActionListener, WindowListener{
         }
         else if (ae.getSource().equals(b3)){
             if (cbTourType.getSelectedItem().equals("Economy")){
-                tour = new EconomyTour(date, id, (String)cbStart.getSelectedItem(),(String)cbEnd.getSelectedItem(),time);
+                tour = new EconomyTour((String)cbDay.getSelectedItem(), (String)cbMonth.getSelectedItem(), (String)cbYear.getSelectedItem(), id, (String)cbStart.getSelectedItem(),(String)cbEnd.getSelectedItem(),timeOut,timeArrive);
             }
             else if (cbTourType.getSelectedItem().equals("Business")){
-                tour = new BusinessTour(date, id, (String)cbStart.getSelectedItem(),(String)cbEnd.getSelectedItem(),time);
+                tour = new BusinessTour((String)cbDay.getSelectedItem(), (String)cbMonth.getSelectedItem(), (String)cbYear.getSelectedItem(), id, (String)cbStart.getSelectedItem(),(String)cbEnd.getSelectedItem(),timeOut,timeArrive);
             }
             else if (cbTourType.getSelectedItem().equals("FirstClass")){
-                tour = new FirstClassTour(date, id, (String)cbStart.getSelectedItem(),(String)cbEnd.getSelectedItem(),time);
+                tour = new FirstClassTour((String)cbDay.getSelectedItem(), (String)cbMonth.getSelectedItem(), (String)cbYear.getSelectedItem(), id, (String)cbStart.getSelectedItem(),(String)cbEnd.getSelectedItem(),timeOut,timeArrive);
             }
             try(FileInputStream fin = new FileInputStream("TourData.dat");
                 ObjectInputStream in = new ObjectInputStream(fin);){

@@ -14,11 +14,8 @@ public class BusinessTour extends Tour {
     private double price = 500;
     private boolean availableSeat[] = new boolean[21];
     
-    public BusinessTour(){
-        super();
-    }
-    public BusinessTour(String date, String busID, String start, String end, String time){
-        super(date, busID, start, end, "Business", time);
+    public BusinessTour(String day, String month, String year, String busID, String start, String end, String timeOut, String timeArrive){
+        super(day, month, year, busID, start, end, "Business", timeOut, timeArrive);
         for (int i = 0; i < 21; i++){
             this.availableSeat[i] = true;
         }

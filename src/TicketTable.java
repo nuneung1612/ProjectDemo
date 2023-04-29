@@ -27,7 +27,7 @@ public class TicketTable extends JFrame {
         // Table
         table = new JTable();
         scrollPane.setViewportView(table);
-        scrollPane.setPreferredSize(new Dimension(700, 400));
+        scrollPane.setPreferredSize(new Dimension(800, 400));
         table.setRowHeight(50);
         
         
@@ -67,7 +67,7 @@ public class TicketTable extends JFrame {
             model.setValueAt(ticketData.get(i).getTour().getStart(), row, 0);
             model.setValueAt(ticketData.get(i).getTour().getEnd(), row, 1);
             model.setValueAt(ticketData.get(i).getTour().getDate(), row, 2);
-            model.setValueAt(ticketData.get(i).getTour().getTime(), row, 3);
+            model.setValueAt(ticketData.get(i).getTour().getTimeOut()+" ➔ " + ticketData.get(i).getTour().getTimeArrive(), row, 3);
             model.setValueAt(ticketData.get(i).getTour().getType(), row, 4);
             model.setValueAt(ticketData.get(i).getSeat(), row, 5);
             model.setValueAt("Detail", row, 6);

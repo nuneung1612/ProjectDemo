@@ -67,7 +67,7 @@ class ButtonEditor extends DefaultCellEditor
         
         int row = table.getSelectedRow();
         if (lbl.equals("Enter")){
-            String id = (String)table.getValueAt(row, 0);
+            String id = ((String)table.getValueAt(row, 0)).substring(0,4);
             for (int i = 0; i < tourData.size() && tourData.size() != 0; i++){
                 if (tourData.get(i).getBusID().equals(id)){
                     new Booking((tourData.get(i)),user);

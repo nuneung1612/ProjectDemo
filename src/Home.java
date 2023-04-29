@@ -4,7 +4,7 @@ import java.io.*;
 import java.util.LinkedList;
 import javax.swing.*;
 import javax.swing.table.*;
-public class Home implements ActionListener, WindowListener {
+public class Home implements ActionListener, WindowListener, ItemListener{
     private JFrame fr;
     private JPanel p1,p2,p3,p4,inlefttop,p6,centerbg,tourTable,inleftbottom,leftbg,inpro,inhome,profilePanel,ticketPanel;
     private JButton bSearch,b2,b3, profile, home, setting, ticket;
@@ -47,6 +47,7 @@ public class Home implements ActionListener, WindowListener {
         bSearch = new JButton("Search");
         profilePanel = new Profile(user).getFrame();
         ticketPanel = new TicketTable(user).getTable();
+        
         
         //b2 = new JButton("Tour");
         //b3 = new JButton("User");
@@ -111,9 +112,13 @@ public class Home implements ActionListener, WindowListener {
         cbTimeArrivem = new JComboBox();
         tourTable = new TourTable("Enter",user).getTable();
         
+        cbTimeArrivem.setEnabled(false);
+        cbTimeOutm.setEnabled(false);
+        
         Color yellow = new Color(247, 208, 96);
         Color cream = new Color(243, 233, 159);
         
+        cbStart.addItem("(All)");
         cbStart.addItem("Bankkok"); cbStart.addItem("Krabi"); cbStart.addItem("Kanchanaburi");
         cbStart.addItem("Kalasin"); cbStart.addItem("Kamphaeng Phet"); cbStart.addItem("Khon Kaen");
         cbStart.addItem("Chanthaburi"); cbStart.addItem("Chachoengsao"); cbStart.addItem("Chonburi");
@@ -139,6 +144,7 @@ public class Home implements ActionListener, WindowListener {
         cbStart.addItem("Amnat Charoen"); cbStart.addItem("Udon Thani"); cbStart.addItem("Uttaradit");
         cbStart.addItem("Uthai Thani"); cbStart.addItem("Ubon Ratchathani");
         
+        cbEnd.addItem("(All)");
         cbEnd.addItem("Bankkok"); cbEnd.addItem("Krabi"); cbEnd.addItem("Kanchanaburi");
         cbEnd.addItem("Kalasin"); cbEnd.addItem("Kamphaeng Phet"); cbEnd.addItem("Khon Kaen");
         cbEnd.addItem("Chanthaburi"); cbEnd.addItem("Chachoengsao"); cbEnd.addItem("Chonburi");
@@ -164,6 +170,7 @@ public class Home implements ActionListener, WindowListener {
         cbEnd.addItem("Amnat Charoen"); cbEnd.addItem("Udon Thani"); cbEnd.addItem("Uttaradit");
         cbEnd.addItem("Uthai Thani"); cbEnd.addItem("Ubon Ratchathani");
         
+        cbDay.addItem("(All)");
         cbDay.addItem("1"); cbDay.addItem("2"); cbDay.addItem("3");
         cbDay.addItem("4"); cbDay.addItem("5"); cbDay.addItem("6");
         cbDay.addItem("7"); cbDay.addItem("8"); cbDay.addItem("9");
@@ -175,12 +182,17 @@ public class Home implements ActionListener, WindowListener {
         cbDay.addItem("25"); cbDay.addItem("26"); cbDay.addItem("27"); 
         cbDay.addItem("28"); cbDay.addItem("29"); cbDay.addItem("30"); 
         cbDay.addItem("31");
+        
+        cbMonth.addItem("(All)");
         cbMonth.addItem("Jun"); cbMonth.addItem("Feb"); cbMonth.addItem("Mar");
         cbMonth.addItem("Apr"); cbMonth.addItem("May"); cbMonth.addItem("Jun");
         cbMonth.addItem("Jul"); cbMonth.addItem("Aug"); cbMonth.addItem("Sep");
         cbMonth.addItem("Oct"); cbMonth.addItem("Nov"); cbMonth.addItem("Dec");
         
+        cbYear.addItem("(All)");
         cbYear.addItem("2023");
+        
+        cbTourType.addItem("(All)");
         cbTourType.addItem("Economy");
         cbTourType.addItem("Business");
         cbTourType.addItem("FirstClass");
@@ -200,6 +212,7 @@ public class Home implements ActionListener, WindowListener {
         cbSeat.addItem(36);      cbSeat.addItem(37);      cbSeat.addItem(38);
         cbSeat.addItem(39);      cbSeat.addItem(40);      
         
+        cbTimeOuth.addItem("(All)");
         cbTimeOuth.addItem("00");     cbTimeOuth.addItem("01");     cbTimeOuth.addItem("02");
         cbTimeOuth.addItem("03");     cbTimeOuth.addItem("04");     cbTimeOuth.addItem("05");
         cbTimeOuth.addItem("06");     cbTimeOuth.addItem("07");     cbTimeOuth.addItem("08");
@@ -212,7 +225,7 @@ public class Home implements ActionListener, WindowListener {
         cbTimeOutm.addItem("00");     cbTimeOutm.addItem("01");     cbTimeOutm.addItem("02");
         cbTimeOutm.addItem("03");     cbTimeOutm.addItem("04");     cbTimeOutm.addItem("05");
         cbTimeOutm.addItem("06");     cbTimeOutm.addItem("07");     cbTimeOutm.addItem("08");   cbTimeOutm.addItem("09");
-        cbTimeOutm.addItem("10");     cbTimeOutm.addItem("11");     cbTimeOutm.addItem("012");
+        cbTimeOutm.addItem("10");     cbTimeOutm.addItem("11");     cbTimeOutm.addItem("12");
         cbTimeOutm.addItem("13");     cbTimeOutm.addItem("14");     cbTimeOutm.addItem("15");
         cbTimeOutm.addItem("16");     cbTimeOutm.addItem("17");     cbTimeOutm.addItem("18");
         cbTimeOutm.addItem("19");     cbTimeOutm.addItem("20");     cbTimeOutm.addItem("21");
@@ -230,6 +243,7 @@ public class Home implements ActionListener, WindowListener {
         cbTimeOutm.addItem("55");     cbTimeOutm.addItem("56");     cbTimeOutm.addItem("57");
         cbTimeOutm.addItem("58");     cbTimeOutm.addItem("59");     
         
+        cbTimeArriveh.addItem("(All)"); 
         cbTimeArriveh.addItem("00");     cbTimeArriveh.addItem("01");     cbTimeArriveh.addItem("02");
         cbTimeArriveh.addItem("03");     cbTimeArriveh.addItem("04");     cbTimeArriveh.addItem("05");
         cbTimeArriveh.addItem("06");     cbTimeArriveh.addItem("07");     cbTimeArriveh.addItem("08");
@@ -242,7 +256,7 @@ public class Home implements ActionListener, WindowListener {
         cbTimeArrivem.addItem("00");     cbTimeArrivem.addItem("01");     cbTimeArrivem.addItem("02");
         cbTimeArrivem.addItem("03");     cbTimeArrivem.addItem("04");     cbTimeArrivem.addItem("05");
         cbTimeArrivem.addItem("06");     cbTimeArrivem.addItem("07");     cbTimeArrivem.addItem("08");   cbTimeArrivem.addItem("09");
-        cbTimeArrivem.addItem("10");     cbTimeArrivem.addItem("11");     cbTimeArrivem.addItem("012");
+        cbTimeArrivem.addItem("10");     cbTimeArrivem.addItem("11");     cbTimeArrivem.addItem("12");
         cbTimeArrivem.addItem("13");     cbTimeArrivem.addItem("14");     cbTimeArrivem.addItem("15");
         cbTimeArrivem.addItem("16");     cbTimeArrivem.addItem("17");     cbTimeArrivem.addItem("18");
         cbTimeArrivem.addItem("19");     cbTimeArrivem.addItem("20");     cbTimeArrivem.addItem("21");
@@ -266,6 +280,8 @@ public class Home implements ActionListener, WindowListener {
         home.addActionListener(this);
         fr.addWindowListener(this);
         ticket.addActionListener(this);
+        cbTimeOuth.addItemListener(this);
+        cbTimeArriveh.addItemListener(this);
          
         p2.setLayout(new FlowLayout());
         p2.add(l1);     p2.add(cbStart);    p2.add(l2);     p2.add(cbEnd);
@@ -327,42 +343,86 @@ public class Home implements ActionListener, WindowListener {
         
         
     }
-    public LinkedList filterSearch(String start, String end, String type, String date, int seat, String time){
+    public LinkedList filterSearch(String start, String end, String type, String day, String month, String year, int seat, String timeOut, String timeArrive){
         LinkedList filter = new LinkedList();
         int num;
-        for (int i = 0; i < tourData.size() && tourData.size() != 0; i++){
-            if ((tourData.get(i)).getStart().equals(start)){
-                filter.add(i);
+        for(int i = 0; i < tourData.size() && tourData.size() != 0; i++){
+            filter.add(i);
         }
+        if (!start.equals("(All)")){
+            for (int i = 0; i < filter.size() && filter.size() != 0; i++){
+            num = (int)filter.get(i);
+            if (!(tourData.get(num)).getStart().equals(start)){
+                filter.remove(i);
+                i-=1;
+                }
             }
-        for (int i = 0; i < filter.size() && filter.size() != 0 ; i++){
+        }
+        if (!end.equals("(All)")){
+            for (int i = 0; i < filter.size() && filter.size() != 0 ; i++){
             num = (int)filter.get(i);
             if (!(tourData.get(num)).getEnd().equals(end)){
                 filter.remove(i);
                 i -= 1;
+                }
             }
         }
-        for (int i = 0; i < filter.size() && filter.size() != 0 ; i++){
+        if (!type.equals("(All)")){
+            for (int i = 0; i < filter.size() && filter.size() != 0 ; i++){
             num = (int)filter.get(i);
             if (!(tourData.get(num)).getType().equals(type)){
                 filter.remove(i);
                 i -= 1;
+                }
             }
         }
-        for (int i = 0; i < filter.size() && filter.size() != 0 ; i++){
+        if (!day.equals("(All)")){
+            for (int i = 0; i < filter.size() && filter.size() != 0 ; i++){
             num = (int)filter.get(i);
-            if (!(tourData.get(num)).getDate().equals(date)){
+            if (!(tourData.get(num)).getDay().equals(day)){
                 filter.remove(i);
                 i -= 1;
+                }
             }
         }
-        for (int i = 0; i < filter.size() && filter.size() != 0 ; i++){
+        if (!month.equals("(All)")){
+            for (int i = 0; i < filter.size() && filter.size() != 0 ; i++){
             num = (int)filter.get(i);
-            if (!(tourData.get(num)).getTime().equals(time)){
+            if (!(tourData.get(num)).getMonth().equals(month)){
                 filter.remove(i);
                 i -= 1;
+                }
             }
         }
+        
+        if (!year.equals("(All)")){
+            for (int i = 0; i < filter.size() && filter.size() != 0 ; i++){
+            num = (int)filter.get(i);
+            if (!(tourData.get(num)).getYear().equals(year)){
+                filter.remove(i);
+                i -= 1;
+                }
+            }
+        }
+        if (!timeOut.equals("(All):00")){
+            for (int i = 0; i < filter.size() && filter.size() != 0 ; i++){
+            num = (int)filter.get(i);
+            if (!(tourData.get(num)).getTimeOut().equals(timeOut)){
+                filter.remove(i);
+                i -= 1;
+                }
+            }
+        }
+        if (!timeArrive.equals("(All):00")){
+            for (int i = 0; i < filter.size() && filter.size() != 0 ; i++){
+            num = (int)filter.get(i);
+            if (!(tourData.get(num)).getTimeArrive().equals(timeArrive)){
+                filter.remove(i);
+                i -= 1;
+                }
+            }
+        }
+        
         for (int i = 0; i < filter.size() && filter.size() != 0 ; i++){
             num = (int)filter.get(i);
             if ((tourData.get(num)).getSeatAvailable() < seat){
@@ -375,8 +435,10 @@ public class Home implements ActionListener, WindowListener {
     public void actionPerformed(ActionEvent ae){
         if (ae.getSource().equals(bSearch)){
             String date = (String)cbDay.getSelectedItem()+"/"+(String)cbMonth.getSelectedItem()+"/"+(String)cbYear.getSelectedItem();
-            String time = ((String)cbTimeOuth.getSelectedItem() + ":"+(String)cbTimeOutm.getSelectedItem()+"->"+(String)cbTimeArriveh.getSelectedItem()+":"+(String)cbTimeArrivem.getSelectedItem());
-            filter = filterSearch((String)cbStart.getSelectedItem(), (String)cbEnd.getSelectedItem(), (String)cbTourType.getSelectedItem(),date,(int)cbSeat.getSelectedItem(), time);
+            String timeOut = (String)cbTimeOuth.getSelectedItem() + ":"+(String)cbTimeOutm.getSelectedItem();
+            String timeArrive = (String)cbTimeArriveh.getSelectedItem()+":"+(String)cbTimeArrivem.getSelectedItem();
+            filter = filterSearch((String)cbStart.getSelectedItem(), (String)cbEnd.getSelectedItem(), (String)cbTourType.getSelectedItem(),(String)cbDay.getSelectedItem(),
+                    (String)cbMonth.getSelectedItem(), (String)cbYear.getSelectedItem(),(int)cbSeat.getSelectedItem(), timeOut, timeArrive);
             centerbg.remove(tourTable);
             tourTable = new TourTable("Enter", filter, user).getTable();
             centerbg.add(tourTable);
@@ -462,4 +524,21 @@ public class Home implements ActionListener, WindowListener {
     @Override
     public void windowDeactivated(WindowEvent e) {}
 
+    @Override
+    public void itemStateChanged(ItemEvent e) {
+        if (!cbTimeArriveh.getSelectedItem().equals("(All)")){
+            cbTimeArrivem.setEnabled(true);
+            cbTimeArrivem.setSelectedItem("00");
+        }else{
+            cbTimeArrivem.setEnabled(false);
+            cbTimeArrivem.setSelectedItem("00");
+        }
+        if (!cbTimeOuth.getSelectedItem().equals("(All)")){
+            cbTimeOutm.setEnabled(true);
+            cbTimeOutm.setSelectedItem("00");
+        }else{
+            cbTimeOutm.setEnabled(false);
+            cbTimeOutm.setSelectedItem("00");
+        }
+    }
 }

@@ -46,7 +46,7 @@ public class ConfirmPayment implements ActionListener{
         
         l1 = new JLabel("TourId:"+tour.getBusID());
         l2 = new JLabel("Destination: From  "+tour.getStart()+"To  "+tour.getEnd());
-        l3 = new JLabel("Date:"+tour.getDate()+"    Time"+tour.getTime());
+        l3 = new JLabel("Date:"+tour.getDate()+"    Time"+tour.getTimeOut()+" ➔ "+tour.getTimeArrive());
         l4 = new JLabel("BookingName: "+user.getName()+"    "+user.getLastName());
         for(String a: booking){
             seat += a+" , ";

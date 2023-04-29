@@ -14,11 +14,8 @@ public class FirstClassTour extends Tour {
     private double price = 1000;
     private boolean availableSeat[] = new boolean[20];
     
-    public FirstClassTour(){
-        super();
-    }
-    public FirstClassTour(String date, String busID, String start, String end, String time){
-        super(date, busID, start, end, "FirstClass", time);
+    public FirstClassTour(String day, String month, String year, String busID, String start, String end, String timeOut, String timeArrive){
+        super(day, month, year, busID, start, end, "FirstClass", timeOut, timeArrive);
         for (int i = 0; i < 20; i++){
             availableSeat[i] = true;
         }
