@@ -4,7 +4,7 @@ import java.io.*;
 import java.util.LinkedList;
 import javax.swing.*;
 import javax.swing.table.*;
-public class Home implements ActionListener, WindowListener, ItemListener{
+public class Home implements ActionListener, WindowFocusListener, ItemListener{
     private JFrame fr;
     private JPanel p1,p2,p3,p4,inlefttop,p6,centerbg,tourTable,inleftbottom,leftbg,inpro,inhome,profilePanel,ticketPanel;
     private JButton bSearch,b2,b3, profile, home, setting, ticket;
@@ -278,7 +278,7 @@ public class Home implements ActionListener, WindowListener, ItemListener{
         bSearch.addActionListener(this);
         profile.addActionListener(this);
         home.addActionListener(this);
-        fr.addWindowListener(this);
+        fr.addWindowFocusListener(this);
         ticket.addActionListener(this);
         cbTimeOuth.addItemListener(this);
         cbTimeArriveh.addItemListener(this);
@@ -491,38 +491,8 @@ public class Home implements ActionListener, WindowListener, ItemListener{
         
     }
         public JPanel getFrame(){
-        return this.centerbg;
+            return this.centerbg;
     }
-    @Override
-    public void windowOpened(WindowEvent e) {}
-
-    @Override
-    public void windowClosing(WindowEvent e) {}
-
-    @Override
-    public void windowClosed(WindowEvent e) {}
-
-    @Override
-    public void windowIconified(WindowEvent e) {}
-
-    @Override
-    public void windowDeiconified(WindowEvent e) {}
-
-    @Override
-    public void windowActivated(WindowEvent e) {
-        centerbg.remove(tourTable);
-        if (filter.isEmpty()){
-            tourTable = new TourTable("Enter", user).getTable();
-        }else{
-            tourTable = new TourTable("Enter",filter, user).getTable();
-        }
-        centerbg.add(tourTable);
-
-        centerbg.revalidate();
-    }
-
-    @Override
-    public void windowDeactivated(WindowEvent e) {}
 
     @Override
     public void itemStateChanged(ItemEvent e) {
@@ -541,4 +511,20 @@ public class Home implements ActionListener, WindowListener, ItemListener{
             cbTimeOutm.setSelectedItem("00");
         }
     }
+
+    @Override
+    public void windowGainedFocus(WindowEvent e) {
+        centerbg.remove(tourTable);
+        if (filter.isEmpty()){
+            tourTable = new TourTable("Enter", user).getTable();
+        }else{
+            tourTable = new TourTable("Enter",filter, user).getTable();
+        }
+        centerbg.add(tourTable);
+
+        centerbg.revalidate();
+    }
+
+    @Override
+    public void windowLostFocus(WindowEvent e) {}
 }

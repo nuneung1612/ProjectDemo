@@ -11,11 +11,11 @@ import java.io.*;
 import java.util.LinkedList;
 public class EconomyTour extends Tour {
     private int seat = 40;
-    private double price = 200;
+    private double price;
     private boolean availableSeat[] = new boolean[40];
     
-    public EconomyTour(String day, String month, String year, String busID, String start, String end, String timeOut, String timeArrive){
-        super(day, month, year, busID, start, end, "Economy",timeOut, timeArrive);
+    public EconomyTour(String day, String month, String year, String busID, String start, String end, String timeOut, String timeArrive, int distance){
+        super(day, month, year, busID, start, end, "Economy",timeOut, timeArrive,distance);
         for (int i = 0; i < 40; i++){
             availableSeat[i] = true;
         }
@@ -43,6 +43,7 @@ public class EconomyTour extends Tour {
     }
     @Override
     public double getPrice() {
+        price = 50+(this.getDistance()*15);
         return this.price;
     }
 }

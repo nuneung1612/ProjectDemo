@@ -14,8 +14,8 @@ public class FirstClassTour extends Tour {
     private double price = 1000;
     private boolean availableSeat[] = new boolean[20];
     
-    public FirstClassTour(String day, String month, String year, String busID, String start, String end, String timeOut, String timeArrive){
-        super(day, month, year, busID, start, end, "FirstClass", timeOut, timeArrive);
+    public FirstClassTour(String day, String month, String year, String busID, String start, String end, String timeOut, String timeArrive, int distance){
+        super(day, month, year, busID, start, end, "FirstClass", timeOut, timeArrive,distance);
         for (int i = 0; i < 20; i++){
             availableSeat[i] = true;
         }
@@ -43,6 +43,7 @@ public class FirstClassTour extends Tour {
     }
     @Override
     public double getPrice() {
+        price = 300+(this.getDistance()*20);
         return this.price;
     }
 }

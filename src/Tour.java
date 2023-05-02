@@ -13,7 +13,7 @@
  */
 import java.io.*;
 import java.util.*;
-public abstract class Tour implements Serializable{
+public abstract class Tour implements Serializable, TourPackage{
     private String day;
     private String month;
     private String year;
@@ -23,12 +23,13 @@ public abstract class Tour implements Serializable{
     private String busID;
     private String start;
     private String end;
+    private int distance;
     protected String type;
     private LinkedList tourData = new LinkedList();
     private static final long serialVersionUID = 1234567890L;
     
     
-    public Tour(String day, String month, String year, String busID, String start, String end, String type, String timeOut, String timeArrive){
+    public Tour(String day, String month, String year, String busID, String start, String end, String type, String timeOut, String timeArrive, int distance){
         this.date = day+"/"+month+"/"+year;
         this.busID = busID;
         this.start = start;
@@ -39,6 +40,7 @@ public abstract class Tour implements Serializable{
         this.day = day;
         this.month = month;
         this.year = year;
+        this.distance = distance;
     }
 
     public String getDate() {
@@ -127,6 +129,14 @@ public abstract class Tour implements Serializable{
 
     public void setYear(String year) {
         this.year = year;
+    }
+
+    public int getDistance() {
+        return distance;
+    }
+
+    public void setDistance(int distance) {
+        this.distance = distance;
     }
     
     public abstract int getSeat();

@@ -17,9 +17,13 @@ public class TourTable extends JFrame {
     private JScrollPane scrollPane;
     private JTable table;
     private LinkedList <Tour>tourData = new LinkedList<Tour>();
+    private ImageIcon imdel = new ImageIcon(getClass().getResource("images/bin.png")); ;
     
     public TourTable(String type, User user) {
         p = new JPanel();
+        
+        Image sized = imdel.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
+        ImageIcon imdel1 = new ImageIcon(sized);
 
         scrollPane = new JScrollPane();
         p.add(scrollPane);
@@ -36,18 +40,19 @@ public class TourTable extends JFrame {
         model.addColumn("Time");
         model.addColumn("Route");
         model.addColumn("Available Seat");
+        model.addColumn("Price");
         model.addColumn(type);
         
-        table.getColumnModel().getColumn(1).setPreferredWidth(20);
-        table.getColumnModel().getColumn(2).setPreferredWidth(20);
-        table.getColumnModel().getColumn(3).setPreferredWidth(300);
-        table.getColumnModel().getColumn(3).setMaxWidth(735);
+        table.getColumnModel().getColumn(0).setPreferredWidth(100);
+        table.getColumnModel().getColumn(1).setPreferredWidth(40);
+        table.getColumnModel().getColumn(2).setPreferredWidth(50);
+        table.getColumnModel().getColumn(3).setPreferredWidth(220);
         table.getColumnModel().getColumn(4).setPreferredWidth(10);
-        table.getColumnModel().getColumn(5).setPreferredWidth(15);
+        table.getColumnModel().getColumn(5).setPreferredWidth(10);
+        table.getColumnModel().getColumn(6).setPreferredWidth(30);
         
         
-        
-        for (int i = 0; i < 6; i++){
+        for (int i = 0; i < 7; i++){
             table.getColumnModel().getColumn(i).setCellRenderer(new CustomResizableText());
         }
         
@@ -58,7 +63,7 @@ public class TourTable extends JFrame {
         }catch(IOException | ClassNotFoundException e){
             System.out.println(e);
         }
-        table.getColumnModel().getColumn(5).setCellRenderer(new ButtonRenderer());
+        table.getColumnModel().getColumn(6).setCellRenderer(new ButtonRenderer());
         table.setDefaultEditor(Object.class, null);
         
         
@@ -70,9 +75,10 @@ public class TourTable extends JFrame {
             model.setValueAt((tourData.get(i)).getTimeOut()+" ➔ " + (tourData.get(i)).getTimeArrive(), row, 2);
             model.setValueAt((tourData.get(i)).getStart()+" ➔ "+ (tourData.get(i)).getEnd(), row, 3);
             model.setValueAt((tourData.get(i)).getSeatAvailable()+"", row, 4);
-            model.setValueAt(type, row, 5);
+            model.setValueAt((tourData.get(i)).getPrice()+"", row, 5);
+            model.setValueAt(type, row, 6);
         }
-        table.getColumnModel().getColumn(5).setCellEditor(new ButtonEditor(new JCheckBox(), table, user));
+        table.getColumnModel().getColumn(6).setCellEditor(new ButtonEditor(new JCheckBox(), table, user));
     }
     public TourTable(String type, LinkedList filter, User user) {
             p = new JPanel();
@@ -91,16 +97,18 @@ public class TourTable extends JFrame {
             model.addColumn("Time");
             model.addColumn("Route");
             model.addColumn("Available Seat");
+            model.addColumn("Price");
             model.addColumn(type);
             
-            table.getColumnModel().getColumn(1).setPreferredWidth(20);
-            table.getColumnModel().getColumn(2).setPreferredWidth(20);
-            table.getColumnModel().getColumn(3).setPreferredWidth(300);
-            table.getColumnModel().getColumn(3).setMaxWidth(735);
+            table.getColumnModel().getColumn(0).setPreferredWidth(100);
+            table.getColumnModel().getColumn(1).setPreferredWidth(40);
+            table.getColumnModel().getColumn(2).setPreferredWidth(50);
+            table.getColumnModel().getColumn(3).setPreferredWidth(220);
             table.getColumnModel().getColumn(4).setPreferredWidth(10);
-            table.getColumnModel().getColumn(5).setPreferredWidth(15);
+            table.getColumnModel().getColumn(5).setPreferredWidth(10);
+            table.getColumnModel().getColumn(6).setPreferredWidth(30);
 
-            for (int i = 0; i < 6; i++){
+            for (int i = 0; i < 7; i++){
                 table.getColumnModel().getColumn(i).setCellRenderer(new CustomResizableText());
             }
             
@@ -119,11 +127,12 @@ public class TourTable extends JFrame {
                 model.setValueAt((tourData.get(num)).getTimeOut()+" ➔ " + (tourData.get(num)).getTimeArrive(), row, 2);
                 model.setValueAt((tourData.get(num)).getStart()+" ➔ "+ (tourData.get(num)).getEnd(), row, 3);
                 model.setValueAt((tourData.get(num)).getSeatAvailable()+"", row, 4);
-                model.setValueAt(type, row, 5);
+                model.setValueAt((tourData.get(num)).getPrice()+"", row, 5);
+                model.setValueAt(type, row, 6);
            }
-        table.getColumnModel().getColumn(5).setCellRenderer(new ButtonRenderer());
+        table.getColumnModel().getColumn(6).setCellRenderer(new ButtonRenderer());
         table.setDefaultEditor(Object.class, null);
-        table.getColumnModel().getColumn(5).setCellEditor(new ButtonEditor(new JCheckBox(), table, user));
+        table.getColumnModel().getColumn(6).setCellEditor(new ButtonEditor(new JCheckBox(), table, user));
     }
     public JPanel getTable(){
         return p;

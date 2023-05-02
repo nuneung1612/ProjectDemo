@@ -25,6 +25,7 @@ public class Booking implements ActionListener, ItemListener {
     private JCheckBox seatC1,seatC2,seatC3,seatC4,seatC5,seatC6,seatC7,seatC8,seatC9,seatC10;
     private JCheckBox seatD1,seatD2,seatD3,seatD4,seatD5,seatD6,seatD7,seatD8,seatD9,seatD10;
     private LinkedList<JCheckBox> seatArray = new LinkedList<JCheckBox>();
+    private LinkedList<JCheckBox> allSeatArray = new LinkedList<JCheckBox>();
     private LinkedList<String> seatSelect = new LinkedList<String>();
     private int selectSeat = 0;
     private User user;
@@ -55,6 +56,7 @@ public class Booking implements ActionListener, ItemListener {
         b1 = new JButton("Summit");
         
         b1.addActionListener(this);
+
         
         seatA1 = new JCheckBox("A1");   seatA2 = new JCheckBox("A2");   seatA3 = new JCheckBox("A3");   seatA4 = new JCheckBox("A4");
         seatA5 = new JCheckBox("A5");   seatA6 = new JCheckBox("A6");   seatA7 = new JCheckBox("A7");   seatA8 = new JCheckBox("A8");
@@ -77,99 +79,79 @@ public class Booking implements ActionListener, ItemListener {
         seatC9.addItemListener(this);     seatC10.addItemListener(this);     seatD1.addItemListener(this);     seatD2.addItemListener(this);
         seatD3.addItemListener(this);     seatD4.addItemListener(this);     seatD5.addItemListener(this);     seatD6.addItemListener(this);
         seatD7.addItemListener(this);     seatD8.addItemListener(this);     seatD9.addItemListener(this);     seatD10.addItemListener(this);
-
-        if (tour instanceof EconomyTour){
-            seatArray.add(seatA1);      seatArray.add(seatA2);      seatArray.add(seatA3);      seatArray.add(seatA4);
-            seatArray.add(seatA5);      seatArray.add(seatA6);      seatArray.add(seatA7);      seatArray.add(seatA8);
-            seatArray.add(seatA9);      seatArray.add(seatA10);      seatArray.add(seatB1);      seatArray.add(seatB2);
-            seatArray.add(seatB3);      seatArray.add(seatB4);      seatArray.add(seatB5);      seatArray.add(seatB6);
-            seatArray.add(seatB7);      seatArray.add(seatB8);      seatArray.add(seatB9);      seatArray.add(seatB10);
-            seatArray.add(seatC1);      seatArray.add(seatC2);      seatArray.add(seatC3);      seatArray.add(seatC4);
-            seatArray.add(seatC5);      seatArray.add(seatC6);      seatArray.add(seatC7);      seatArray.add(seatC8);
-            seatArray.add(seatC9);      seatArray.add(seatC10);      seatArray.add(seatD1);      seatArray.add(seatD2);
-            seatArray.add(seatD3);      seatArray.add(seatD4);      seatArray.add(seatD5);      seatArray.add(seatD6);
-            seatArray.add(seatD7);      seatArray.add(seatD8);      seatArray.add(seatD9);      seatArray.add(seatD10);
-            
-            int i = 0;
-            for (boolean booked: ((EconomyTour) tour).getAvailableSeat()){
-                seatArray.get(i).setEnabled(booked);
-                i++;
-            }
-            
-            p.setLayout(new GridLayout(11,6));
-            p.add(new JLabel());   p.add(lA);  p.add(lB);  p.add(new JLabel());  p.add(lC);  p.add(lD);
-            p.add(l1);  p.add(seatA1);   p.add(seatB1);  p.add(new JLabel());   p.add(seatC1);  p.add(seatD1);
-            p.add(l2);  p.add(seatA2);   p.add(seatB2);  p.add(new JLabel());   p.add(seatC2);  p.add(seatD2);
-            p.add(l3);  p.add(seatA3);   p.add(seatB3);  p.add(new JLabel());   p.add(seatC3);  p.add(seatD3);
-            p.add(l4);  p.add(seatA4);   p.add(seatB4);  p.add(new JLabel());   p.add(seatC4);  p.add(seatD4);
-            p.add(l5);  p.add(seatA5);   p.add(seatB5);  p.add(new JLabel());   p.add(seatC5);  p.add(seatD5);
-            p.add(l6);  p.add(seatA6);   p.add(seatB6);  p.add(new JLabel());   p.add(seatC6);  p.add(seatD6);
-            p.add(l7);  p.add(seatA7);   p.add(seatB7);  p.add(new JLabel());   p.add(seatC7);  p.add(seatD7);
-            p.add(l8);  p.add(seatA8);   p.add(seatB8);  p.add(new JLabel());   p.add(seatC8);  p.add(seatD8);
-            p.add(l9);  p.add(seatA9);   p.add(seatB9);  p.add(new JLabel());   p.add(seatC9);  p.add(seatD9);
-            p.add(l10);  p.add(seatA10);   p.add(seatB10);  p.add(new JLabel());   p.add(seatC10);  p.add(seatD10);
-            
-        }else if(tour instanceof BusinessTour){
-            seatArray.add(seatA1);      seatArray.add(seatA2);      seatArray.add(seatA3);      seatArray.add(seatA4);
-            seatArray.add(seatA5);      seatArray.add(seatA6);      seatArray.add(seatA7);       seatArray.add(seatB1);      
-            seatArray.add(seatB2);
-            seatArray.add(seatB3);      seatArray.add(seatB4);      seatArray.add(seatB5);      seatArray.add(seatB6);
-            seatArray.add(seatB7);
-            seatArray.add(seatC1);      seatArray.add(seatC2);      seatArray.add(seatC3);      seatArray.add(seatC4);
-            seatArray.add(seatC5);      seatArray.add(seatC6);      seatArray.add(seatC7);      
-            
-            int i = 0;
-            for (boolean booked: ((BusinessTour) tour).getAvailableSeat()){
-                seatArray.get(i).setEnabled(booked);
-                i++;
-            }
-            
-            p.setLayout(new GridLayout(8,6));
-            p.add(new JLabel());   p.add(lA);  p.add(new JLabel());  p.add(new JLabel());  p.add(lB);  p.add(lC);
-            p.add(l1);  p.add(seatA1);   p.add(new JLabel());  p.add(new JLabel());   p.add(seatB1);  p.add(seatC1);
-            p.add(l2);  p.add(seatA2);   p.add(new JLabel());  p.add(new JLabel());   p.add(seatB2);  p.add(seatC2);
-            p.add(l3);  p.add(seatA3);   p.add(new JLabel());  p.add(new JLabel());   p.add(seatB3);  p.add(seatC3);
-            p.add(l4);  p.add(seatA4);   p.add(new JLabel());  p.add(new JLabel());   p.add(seatB4);  p.add(seatC4);
-            p.add(l5);  p.add(seatA5);   p.add(new JLabel());  p.add(new JLabel());   p.add(seatB5);  p.add(seatC5);
-            p.add(l6);  p.add(seatA6);   p.add(new JLabel());  p.add(new JLabel());   p.add(seatB6);  p.add(seatC6);
-            p.add(l7);  p.add(seatA7);   p.add(new JLabel());  p.add(new JLabel());   p.add(seatB7);  p.add(seatC7);
-        }else if(tour instanceof FirstClassTour){
-            seatArray.add(seatA1);      seatArray.add(seatA2);      seatArray.add(seatA3);      seatArray.add(seatA4);
-            seatArray.add(seatA5);      seatArray.add(seatA6);      seatArray.add(seatA7);      seatArray.add(seatA8);
-            seatArray.add(seatA9);      seatArray.add(seatA10);      seatArray.add(seatB1);      seatArray.add(seatB2);
-            seatArray.add(seatB3);      seatArray.add(seatB4);      seatArray.add(seatB5);      seatArray.add(seatB6);
-            seatArray.add(seatB7);      seatArray.add(seatB8);      seatArray.add(seatB9);      seatArray.add(seatB10);
-            
-            int i = 0;
-            for (boolean booked: ((FirstClassTour) tour).getAvailableSeat()){
-                seatArray.get(i).setEnabled(booked);
-                i++;
-            }
-            
-            p.setLayout(new GridLayout(11,6));
-            p.add(new JLabel());   p.add(lA);  p.add(new JLabel());  p.add(new JLabel());  p.add(lB);  p.add(new JLabel());
-            p.add(l1);  p.add(seatA1);   p.add(new JLabel());  p.add(new JLabel());   p.add(seatB1);  p.add(new JLabel());
-            p.add(l2);  p.add(seatA2);   p.add(new JLabel());  p.add(new JLabel());   p.add(seatB2);  p.add(new JLabel());
-            p.add(l3);  p.add(seatA3);   p.add(new JLabel());  p.add(new JLabel());   p.add(seatB3);  p.add(new JLabel());
-            p.add(l4);  p.add(seatA4);   p.add(new JLabel());  p.add(new JLabel());   p.add(seatB4);  p.add(new JLabel());
-            p.add(l5);  p.add(seatA5);   p.add(new JLabel());  p.add(new JLabel());   p.add(seatB5);  p.add(new JLabel());
-            p.add(l6);  p.add(seatA6);   p.add(new JLabel());  p.add(new JLabel());   p.add(seatB6);  p.add(new JLabel());
-            p.add(l7);  p.add(seatA7);   p.add(new JLabel());  p.add(new JLabel());   p.add(seatB7);  p.add(new JLabel());
-            p.add(l8);  p.add(seatA8);   p.add(new JLabel());  p.add(new JLabel());   p.add(seatB8);  p.add(new JLabel());
-            p.add(l9);  p.add(seatA9);   p.add(new JLabel());  p.add(new JLabel());   p.add(seatB9);  p.add(new JLabel());
-            p.add(l10);  p.add(seatA10);   p.add(new JLabel());  p.add(new JLabel());   p.add(seatB10);  p.add(new JLabel());
-        }
+        
+        allSeatArray.add(seatA1);      allSeatArray.add(seatA2);      allSeatArray.add(seatA3);      allSeatArray.add(seatA4);
+        allSeatArray.add(seatA5);      allSeatArray.add(seatA6);      allSeatArray.add(seatA7);      allSeatArray.add(seatA8);
+        allSeatArray.add(seatA9);      allSeatArray.add(seatA10);      allSeatArray.add(seatB1);      allSeatArray.add(seatB2);
+        allSeatArray.add(seatB3);      allSeatArray.add(seatB4);      allSeatArray.add(seatB5);      allSeatArray.add(seatB6);
+        allSeatArray.add(seatB7);      allSeatArray.add(seatB8);      allSeatArray.add(seatB9);      allSeatArray.add(seatB10);
+        allSeatArray.add(seatC1);      allSeatArray.add(seatC2);      allSeatArray.add(seatC3);      allSeatArray.add(seatC4);
+        allSeatArray.add(seatC5);      allSeatArray.add(seatC6);      allSeatArray.add(seatC7);      allSeatArray.add(seatC8);
+        allSeatArray.add(seatC9);      allSeatArray.add(seatC10);      allSeatArray.add(seatD1);      allSeatArray.add(seatD2);
+        allSeatArray.add(seatD3);      allSeatArray.add(seatD4);      allSeatArray.add(seatD5);      allSeatArray.add(seatD6);
+        allSeatArray.add(seatD7);      allSeatArray.add(seatD8);      allSeatArray.add(seatD9);      allSeatArray.add(seatD10);
+        
+        setSeat(tour);
+        p = setSeatPanel(tour);
         p1.setLayout(new FlowLayout());
         p1.add(lTotal);     p1.add(b1);
         
         fr.add(p);
         fr.add(p1, BorderLayout.SOUTH);
 
-        fr.setSize(600,300);
+        fr.setSize(300,600);
         fr.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         fr.setVisible(true);
     }
     
+    public void setSeat(TourPackage tour){
+        int n = 0;
+        for (int i = 0; i < tour.getSeat()+n; i++){
+            if (tour.getSeat()%7 == 0 && i%10 > 6){
+                n++;
+            }else{
+                seatArray.add(allSeatArray.get(i));
+            }
+        }
+        int i = 0;
+        for (boolean booked: tour.getAvailableSeat()){
+                seatArray.get(i).setEnabled(booked);
+                i++;
+        }
+    }
+    
+    public JPanel setSeatPanel(TourPackage tour){
+        if (tour.getSeat()%7 == 0){
+            p.setLayout(new GridLayout(7,5));
+            for (int i = 0; i < 7; i++){
+                p.add(seatArray.get(i));
+                p.add(new JLabel());
+                p.add(new JLabel());
+                p.add(seatArray.get(i+7));
+                p.add(seatArray.get(i+14));
+            }
+        }else{
+            p.setLayout(new GridLayout(10,5));
+            if (tour.getSeat() == 20){
+                for (int i = 0; i < 10; i++){
+                    p.add(seatArray.get(i));
+                    p.add(new JLabel());
+                    p.add(new JLabel());
+                    p.add(seatArray.get(i+10));
+                    p.add(new JLabel());
+                }
+            }else{
+                for (int i = 0; i < 10; i++){
+                    p.add(seatArray.get(i));
+                    p.add(seatArray.get(i+10));
+                    p.add(new JLabel());
+                    p.add(seatArray.get(i+20));
+                    p.add(seatArray.get(i+30));
+                }
+            } 
+        }
+        return p;
+    }
 
     @Override
     public void actionPerformed(ActionEvent e) {

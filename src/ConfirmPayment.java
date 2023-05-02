@@ -56,7 +56,7 @@ public class ConfirmPayment implements ActionListener{
         
         l6 = new JLabel("Receipt");
         l7 = new JLabel("Bus                       seat                Total");
-        l8 = new JLabel(tour.getBusID()+"-"+tour.getType()+"    "+booking.size()+"                "+tour.getPrice());
+        l8 = new JLabel(tour.getBusID()+"-"+tour.getType()+"    "+booking.size()+"                "+tour.getPrice()*booking.size());
         
         l9 = new JLabel("Payment Method");
         l10 = new JLabel("Please do the Payment first");

@@ -19,8 +19,11 @@ public class CustomResizableText extends DefaultTableCellRenderer {
         String text = label.getText();
         
         if (text.length() > 35) {
+            label.setFont(new Font("Arabic", Font.BOLD, 10));
+        }
+        else if (text.length() > 30){
             label.setFont(new Font("Arabic", Font.BOLD, 11));
-        } else {
+        }else{
             label.setFont(new Font("Arabic", Font.BOLD, 13));
         }
         label.setHorizontalAlignment( JLabel.CENTER );
