@@ -138,9 +138,4 @@ public abstract class Tour implements Serializable, TourPackage{
     public void setDistance(int distance) {
         this.distance = distance;
     }
-    
-    public abstract int getSeat();
-    public abstract int getSeatAvailable();
-    public abstract void setBookSeat(int bookSeat);
-    public abstract double getPrice();
 }
