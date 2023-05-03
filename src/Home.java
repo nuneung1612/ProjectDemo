@@ -462,6 +462,7 @@ public class Home implements ActionListener, WindowFocusListener, ItemListener{
         }
         
         if (ae.getSource().equals(home)){
+            prof.setText(user.getUsername());
             fr.setTitle("Java Tour");
             
             fr.remove(centerbg);
@@ -475,8 +476,8 @@ public class Home implements ActionListener, WindowFocusListener, ItemListener{
         }
         
         if (ae.getSource().equals(ticket)){
+            prof.setText(user.getUsername());
             fr.setTitle("JavaTour - Ticket");
-            
             fr.remove(centerbg);
             fr.remove(profilePanel);
             fr.remove(ticketPanel);

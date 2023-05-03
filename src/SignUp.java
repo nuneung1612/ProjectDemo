@@ -10,9 +10,6 @@
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.util.LinkedList;
 public class SignUp implements ActionListener {
 
@@ -144,84 +141,23 @@ public class SignUp implements ActionListener {
         fr.pack();
         fr.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 }
-    public boolean checkName(String name){
-        if (name.equals("")){
-            return false;
-        }
-        for (int i = 0; i < name.length(); i++){
-            if(Character.isAlphabetic(name.charAt(i)) == false){
-                return false;
-            }
-        }
-        return true;
-    }
-    public boolean checkTel(String tel){
-        return (tel.length() == 10 && tel.charAt(0) == '0' && ( tel.charAt(1) == '9' || tel.charAt(1) == '8' || tel.charAt(1) == '6'));
-    }
-    
-    public boolean checkPass(String pass){
-        boolean hasNum = false;
-        boolean hasChar = false;
-        if(pass.length()<8){
-            return false;
-        }
-        for(int i = 1; i< pass.length(); i++){
-            if (Character.isAlphabetic(pass.charAt(i))){
-                hasChar =true;
-            }
-            if (Character.isDigit(pass.charAt(i))){
-                hasNum = true;
-            }
-            if (hasChar && hasNum ){
-                return true;
-            }
-        }
-        return false;
-    }
-  public boolean checkUser(String username){
-  
-        try(FileInputStream fin = new FileInputStream("UserData.dat");
-            ObjectInputStream in = new ObjectInputStream(fin);){
-            userData = (LinkedList)in.readObject();
-        }catch(IOException | ClassNotFoundException e){
-            System.out.println(e);
-        }
-        if (userData  == null){
-            return true;
-        }
-        if(username.equals("")){
-            usertag = "Invalid username";
-            warnuser.setText(usertag);
-            return false;
-        }
-        for (int i = 0; i < userData.size(); i++){
-            if (((User)userData.get(i)).getUsername().equals(username)){
-                usertag = "This username has already used";
-                warnuser.setText(usertag);
-                    return false;
-                }
-        }
-             return true;
-    }
-    public boolean checkEmail(String email) {
-           String ePattern = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$";
-           java.util.regex.Pattern p = java.util.regex.Pattern.compile(ePattern);
-           java.util.regex.Matcher m = p.matcher(email);
-           return m.matches();
-    }
     @Override
     public void actionPerformed(ActionEvent ev){
         if (ev.getSource() == signupbtn){
-            warnname.setVisible(!checkName(name.getText()));
-            warnlast.setVisible(!checkName(lastname.getText()));
-            warnpass.setVisible(!checkPass(String.valueOf(pass.getPassword())));
-            warntel.setVisible(!checkTel(tel.getText()));
-         
-            warnuser.setVisible(!checkUser(username.getText()));
-            warnemail.setVisible(!checkEmail(email.getText()));
-            passrequire.setVisible(checkPass(String.valueOf(pass.getPassword())));
+            CheckingAccount ch = new CheckingAccount();
+            boolean usname;
+            warnname.setVisible(!ch.checkName(name.getText()));
+            warnlast.setVisible(!ch.checkName(lastname.getText()));
+            warnpass.setVisible(!ch.checkPass(String.valueOf(pass.getPassword())));
+            warntel.setVisible(!ch.checkTel(tel.getText()));
             
-            if(checkName(name.getText()) && checkName(lastname.getText()) && checkPass(String.valueOf(pass.getPassword())) && checkTel(tel.getText()) && checkUser(username.getText()) && checkEmail(email.getText())){
+            usname = !ch.checkUser(username.getText());
+            warnuser.setText(ch.getUsertag());
+            warnuser.setVisible(usname);
+            warnemail.setVisible(!ch.checkEmail(email.getText()));
+            passrequire.setVisible(ch.checkPass(String.valueOf(pass.getPassword())));
+            
+            if(ch.checkName(name.getText()) && ch.checkName(lastname.getText()) && ch.checkPass(String.valueOf(pass.getPassword())) && ch.checkTel(tel.getText()) && ch.checkUser(username.getText()) && ch.checkEmail(email.getText())){
                 new User(name.getText(),lastname.getText(),email.getText(),tel.getText(),username.getText(),String.valueOf(pass.getPassword()));
                  JOptionPane.showConfirmDialog(null, "Sign up success!", "Notification", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE);
                 fr.dispose();

@@ -214,84 +214,20 @@ public Profile(User user){
         }
     
 }
-     public boolean checkName(String name){
-        if (name.equals("")){
-            return false;
-        }
-        for (int i = 0; i < name.length(); i++){
-            if(Character.isAlphabetic(name.charAt(i)) == false){
-                return false;
-            }
-        }
-        return true;
-    }
-    public boolean checkTel(String tel){
-        return (tel.length() == 10 && tel.charAt(0) == '0' && ( tel.charAt(1) == '9' || tel.charAt(1) == '8' || tel.charAt(1) == '6'));
-    }
-    
-    public boolean checkPass(String pass){
-        boolean hasNum = false;
-        boolean hasChar = false;
-        if(pass.length()<8){
-            return false;
-        }
-        for(int i = 1; i< pass.length(); i++){
-            if (Character.isAlphabetic(pass.charAt(i))){
-                hasChar =true;
-            }
-            if (Character.isDigit(pass.charAt(i))){
-                hasNum = true;
-            }
-            if (hasChar && hasNum ){
-                return true;
-            }
-        }
-        return false;
-    }
-  public boolean checkUser(String username){
-          
-        if (userData  == null){
-            return true;
-        }
-        if(username.equals("")){
-            usertag = "Invalid username";
-            warnuser.setText(usertag);
-            return false;
-        }
-        for (int i = 0; i < userData.size(); i++){
-            if (((User)userData.get(i)).getUsername().equals(username)){
-                usertag = "This username has already used";
-                warnuser.setText(usertag);
-                    return false;
-                }
-        }
-             return true;
-    }
-    public boolean checkEmail(String email) {
-           String ePattern = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$";
-           java.util.regex.Pattern p = java.util.regex.Pattern.compile(ePattern);
-           java.util.regex.Matcher m = p.matcher(email);
-           return m.matches();
-    }
-    public boolean checkOldPass(String oldpass){
-        return user.getPassword().equals(oldpass);
-    }
-    
     @Override
     public void actionPerformed(ActionEvent ev){
     
     if(ev.getSource().equals(save)){
         
-          
-         warnname.setVisible(!checkName(name.getText()));
-         warnlast.setVisible(!checkName(last.getText()));
-         warntel.setVisible(!checkTel(tel.getText()));
-       //  warnuser.setVisible(!checkUser(username.getText()));
-         warnemail.setVisible(!checkEmail(email.getText()));
-         warnpass.setVisible(!checkPass(pass.getText()));
+         CheckingAccount ch = new CheckingAccount();
+         warnname.setVisible(!ch.checkName(name.getText()));
+         warnlast.setVisible(!ch.checkName(last.getText()));
+         warntel.setVisible(!ch.checkTel(tel.getText()));
+         warnemail.setVisible(!ch.checkEmail(email.getText()));
+         warnpass.setVisible(!ch.checkPass(pass.getText()));
          if(user.getUsername().equals(username.getText())){
             warnuser.setVisible(false);
-             if(checkName(name.getText()) && checkName(last.getText()) && checkPass(pass.getText()) && checkTel(tel.getText()) && checkEmail(email.getText())){
+             if(ch.checkName(name.getText()) && ch.checkName(last.getText()) && ch.checkPass(pass.getText()) && ch.checkTel(tel.getText()) && ch.checkEmail(email.getText())){
                 
                 try{
                 int index = -1;
@@ -313,34 +249,40 @@ public Profile(User user){
                     System.out.println("User not found");
                 }
                 
-                //System.out.println("save");
+
                 JOptionPane.showConfirmDialog(null, "Update profile success!", "Notification", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE);
-                //test
-//                System.out.println(user.getName());
-//                System.out.println(user.getLastName());
-//                System.out.println(user.getUsername());
-//                System.out.println(user.getPassword());
+
              }
          
          }
     else{
-         warnuser.setVisible(!checkUser(username.getText()));
-        if(checkName(name.getText()) && checkName(last.getText()) && checkPass(pass.getText()) && checkTel(tel.getText()) && checkUser(username.getText()) && checkEmail(email.getText())){
+         boolean uscheck;
+         uscheck = ch.checkUser(username.getText());
+         warnuser.setText(ch.getUsertag());
+         warnuser.setVisible(!uscheck);
+        if(ch.checkName(name.getText()) && ch.checkName(last.getText()) && ch.checkPass(pass.getText()) && ch.checkTel(tel.getText()) && ch.checkUser(username.getText()) && ch.checkEmail(email.getText())){
             
+                  try{
+                int index = -1;
+                for (int i = 0; i < userData.size() && userData.size() != 0; i++){
+                    if ((userData.get(i)).getUsername().equals(user.getUsername())){
+                        index = i;
+                        break;
+                    }
+                }
                 user.setName(name.getText());
                 user.setLastName(last.getText());
                 user.setTelNumber(tel.getText());
                 user.setEmail(email.getText());
                 user.setPassword(pass.getText());
+                user.setUserName(username.getText());
+                userData.set(index, user);
+                }catch(IndexOutOfBoundsException e){
+                    System.out.println("User not found");
+                }
 
                 JOptionPane.showConfirmDialog(null, "Update profile success!", "Notification", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE);
-                //test
-//          
-//                System.out.println(user.getName());
-//                System.out.println(user.getLastName());
-//                System.out.println(user.getUsername());
-//                System.out.println(user.getPassword());
-
+                
 }    
         }
     }
