@@ -17,13 +17,9 @@ public class TourTable extends JFrame {
     private JScrollPane scrollPane;
     private JTable table;
     private LinkedList <Tour>tourData = new LinkedList<Tour>();
-    private ImageIcon imdel = new ImageIcon(getClass().getResource("images/bin.png")); ;
     
     public TourTable(String type, User user) {
         p = new JPanel();
-        
-        Image sized = imdel.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
-        ImageIcon imdel1 = new ImageIcon(sized);
 
         scrollPane = new JScrollPane();
         p.add(scrollPane);
