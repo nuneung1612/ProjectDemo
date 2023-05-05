@@ -17,6 +17,9 @@ public class TourTable extends JFrame {
     private JScrollPane scrollPane;
     private JTable table;
     private LinkedList <Tour>tourData = new LinkedList<Tour>();
+    ImageIcon imbin = new ImageIcon(getClass().getResource("images/bin.png"));
+    Image sizebin = imbin.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
+    ImageIcon imbins = new ImageIcon(sizebin);
     
     public TourTable(String type, User user) {
         p = new JPanel();
@@ -59,7 +62,15 @@ public class TourTable extends JFrame {
         }catch(IOException | ClassNotFoundException e){
             System.out.println(e);
         }
-        table.getColumnModel().getColumn(6).setCellRenderer(new ButtonRenderer());
+        
+        if (type.equals("Delete")){
+            table.getColumnModel().getColumn(6).setCellRenderer(new ButtonRenderer(imbins));
+            table.getColumnModel().getColumn(6).setCellEditor(new ButtonEditor(new JCheckBox(), table, user, imbins));
+        }
+        else{
+            table.getColumnModel().getColumn(6).setCellRenderer(new ButtonRenderer());
+            table.getColumnModel().getColumn(6).setCellEditor(new ButtonEditor(new JCheckBox(), table, user));
+        }
         table.setDefaultEditor(Object.class, null);
         
         
@@ -74,7 +85,7 @@ public class TourTable extends JFrame {
             model.setValueAt((tourData.get(i)).getPrice()+"", row, 5);
             model.setValueAt(type, row, 6);
         }
-        table.getColumnModel().getColumn(6).setCellEditor(new ButtonEditor(new JCheckBox(), table, user));
+        
     }
     public TourTable(String type, LinkedList filter, User user) {
             p = new JPanel();

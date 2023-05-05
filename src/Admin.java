@@ -12,7 +12,7 @@ import java.awt.event.*;
 import java.io.*;
 import javax.swing.*;
 import java.util.*;
-public class Admin implements ActionListener, WindowListener{
+public class Admin implements ActionListener, WindowFocusListener{
     private JFrame fr;
     private JPanel p1,p2,p3,p4,p5,tourTable,userTable;
     private JButton b1,b2,b3;
@@ -193,7 +193,7 @@ public class Admin implements ActionListener, WindowListener{
         b2.addActionListener(this);
         b3.addActionListener(this);
          
-        fr.addWindowListener(this);
+        fr.addWindowFocusListener(this);
         
         p1.setLayout(new GridLayout(2,1));
         p1.add(b1);     p1.add(b2);
@@ -287,22 +287,7 @@ public class Admin implements ActionListener, WindowListener{
     }
 
     @Override
-    public void windowOpened(WindowEvent e) {}
-
-    @Override
-    public void windowClosing(WindowEvent e) {}
-
-    @Override
-    public void windowClosed(WindowEvent e) {}
-
-    @Override
-    public void windowIconified(WindowEvent e) {}
-
-    @Override
-    public void windowDeiconified(WindowEvent e) {}
-
-    @Override
-    public void windowActivated(WindowEvent e) {
+    public void windowGainedFocus(WindowEvent e) {
         fr.remove(tourTable);
         tourTable = new TourTable("Delete",user).getTable();
         fr.add(tourTable);
@@ -311,6 +296,5 @@ public class Admin implements ActionListener, WindowListener{
     }
 
     @Override
-    public void windowDeactivated(WindowEvent e) {}
-    
+    public void windowLostFocus(WindowEvent e) {}
 }

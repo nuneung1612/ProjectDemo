@@ -11,9 +11,23 @@ import java.awt.*;
 import javax.swing.*;
 import javax.swing.table.*;
 public class ButtonRenderer extends JButton implements TableCellRenderer {
+    public ImageIcon type;
+    public ButtonRenderer(){
+        this.type = null;
+    }
+    public ButtonRenderer(ImageIcon type){
+        this.type = type;
+    }
      public Component getTableCellRendererComponent(JTable table, Object value,
             boolean isSelected, boolean hasFocus, int row, int column) {
-        setText(value == null ? "" : value.toString());
+        if (type != null){
+            this.setContentAreaFilled(false);
+            this.setBorderPainted(false);
+            setIcon(type);
+        }else{
+            setText(value == null ? "" : value.toString());
+        }
+        
         return this;
     }
 }
