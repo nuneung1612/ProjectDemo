@@ -12,6 +12,8 @@ import java.util.*;
 public class User implements Serializable {
     private String name,lastName,email,telNumber,userName,password;
     private LinkedList userData = new LinkedList();
+    private FileIO file = new FileIO();
+    private static final long serialVersionUID = 1234567890L;
     
     public User(){
         name = "Admin";
@@ -29,19 +31,9 @@ public class User implements Serializable {
         this.password = password;
         this.userName = userName;
         this.telNumber = telNumber;
-        try(FileInputStream fin = new FileInputStream("UserData.dat");
-            ObjectInputStream in = new ObjectInputStream(fin);){
-            userData = (LinkedList)in.readObject();
-        }catch(IOException | ClassNotFoundException e){
-            System.out.println(e);
-        }
+        userData = file.loadUserData();
         userData.add(this);
-        try(FileOutputStream fOut = new FileOutputStream("UserData.dat");
-            ObjectOutputStream oout = new ObjectOutputStream(fOut);){
-            oout.writeObject(userData);
-        }catch(IOException e){
-            System.out.println(e);
-        }
+        file.saveUserData(userData);
     }
     
     public void setName(String name){

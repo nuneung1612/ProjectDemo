@@ -16,6 +16,7 @@ import java.util.LinkedList;
 public class CheckingAccount {
      private LinkedList userData = new LinkedList();
      private String usertag;
+     private FileIO file = new FileIO();
 
       public boolean checkName(String name){
         if (name.equals("")){
@@ -51,13 +52,8 @@ public class CheckingAccount {
         }
         return false;
     }
-  public boolean checkUser(String username){
-        try(FileInputStream fin = new FileInputStream("UserData.dat");
-            ObjectInputStream in = new ObjectInputStream(fin);){
-            userData = (LinkedList)in.readObject();
-        }catch(IOException | ClassNotFoundException e){
-            System.out.println(e);
-        }
+    public boolean checkUser(String username){
+        userData = file.loadUserData();
         if (userData  == null){
             return true;
         }

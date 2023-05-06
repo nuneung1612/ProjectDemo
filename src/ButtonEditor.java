@@ -16,9 +16,11 @@ class ButtonEditor extends DefaultCellEditor implements ActionListener {
    protected JButton btn;
    private String lbl;
    private LinkedList <Tour>tourData = new LinkedList<Tour>();
+   private LinkedList userData = new LinkedList();
    private JTable table;
    private User user;
    private ImageIcon icon;
+   private FileIO file = new FileIO();
 
    public ButtonEditor(JCheckBox txt, JTable table, User user) {
     super(txt);
@@ -59,12 +61,8 @@ class ButtonEditor extends DefaultCellEditor implements ActionListener {
   
     @Override
       public void actionPerformed(ActionEvent e) {
-        try(FileInputStream fin = new FileInputStream("TourData.dat");
-            ObjectInputStream in = new ObjectInputStream(fin);){
-            tourData = (LinkedList)in.readObject();
-        }catch(IOException | ClassNotFoundException ex){
-            System.out.println(e);
-        }
+        tourData = file.loadTourData();
+        userData = file.loadUserData();
         
         int row = table.getSelectedRow();
         if (table.getColumnModel().getColumn(table.getColumnCount()-1).getHeaderValue().equals("Enter")){
@@ -82,12 +80,14 @@ class ButtonEditor extends DefaultCellEditor implements ActionListener {
                 tourData.remove(row);
             }
         }
-        try(FileOutputStream fOut = new FileOutputStream("TourData.dat");
-            ObjectOutputStream oout = new ObjectOutputStream(fOut);){
-            oout.writeObject(tourData);
-        }catch(IOException ex){
-            System.out.println(e);
+        else if (table.getColumnModel().getColumn(table.getColumnCount()-1).getHeaderValue().equals("Remove")){
+            int x = JOptionPane.showConfirmDialog(null, "Are you sure?", "Remove", JOptionPane.YES_NO_OPTION);
+            if (x == JOptionPane.YES_OPTION){
+                userData.remove(row);
+            }
         }
+        file.saveTourData(tourData);
+        file.saveUserData(userData);
     }
 }
 

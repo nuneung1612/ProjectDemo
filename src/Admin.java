@@ -11,17 +11,21 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
 import javax.swing.*;
+import javax.swing.event.*;
 import java.util.*;
-public class Admin implements ActionListener, WindowFocusListener{
+public class Admin implements ActionListener, WindowFocusListener, DocumentListener{
     private JFrame fr;
-    private JPanel p1,p2,p3,p4,p5,tourTable,userTable;
+    private JPanel p1,p2,p3,p4,p5,p6,p7,p8,tourTable,userTable;
     private JButton b1,b2,b3;
-    private JLabel l1,l2,l3,l4,l5,l6,l7,l8;
+    private JLabel l1,l2,l3,l4,l5,l6,l7,l8,l9;
     private JComboBox cbStart, cbEnd, cbDay,cbMonth,cbYear,cbTourType, cbTimeOuth, cbTimeOutm, cbTimeArriveh,cbTimeArrivem;
+    private JTextField txt1;
     private int num = 0;
     private LinkedList <Tour> tourData = new LinkedList<Tour>();
+    private LinkedList <User> userData = new LinkedList<User>();
     private Tour tour;
     private User user = new User();
+    private FileIO file = new FileIO();
     
     public Admin(){
         fr = new JFrame("Admin");
@@ -30,6 +34,9 @@ public class Admin implements ActionListener, WindowFocusListener{
         p3 = new JPanel();
         p4 = new JPanel();
         p5 = new JPanel();
+        p6 = new JPanel();
+        p7 = new JPanel();
+        p8 = new JPanel();
         b1 = new JButton("User");
         b2 = new JButton("Tour");
         b3 = new JButton("Add");
@@ -41,6 +48,9 @@ public class Admin implements ActionListener, WindowFocusListener{
         l6 = new JLabel(":");
         l7 = new JLabel("TimeArrive");
         l8 = new JLabel(":");
+        l9 = new JLabel("Search User");
+        txt1 = new JTextField(10);
+        
         cbStart = new JComboBox();
         cbEnd = new JComboBox();
         cbDay = new JComboBox();
@@ -192,6 +202,7 @@ public class Admin implements ActionListener, WindowFocusListener{
         b1.addActionListener(this);
         b2.addActionListener(this);
         b3.addActionListener(this);
+        txt1.getDocument().addDocumentListener(this);
          
         fr.addWindowFocusListener(this);
         
@@ -212,9 +223,17 @@ public class Admin implements ActionListener, WindowFocusListener{
         p4.setLayout(new GridLayout(3,1));
         p4.add(p2);     p4.add(p3);     p4.add(p5);
         
+        p6.add(p4, BorderLayout.NORTH);
+        p6.add(tourTable);
+        
+        p7.setLayout(new FlowLayout());
+        p7.add(l9);     p7.add(txt1);
+        
+        p8.add(p7,BorderLayout.NORTH);
+        p8.add(userTable);
+        
         fr.add(p1, BorderLayout.WEST);
-        fr.add(p4, BorderLayout.NORTH);
-        fr.add(tourTable);
+        fr.add(p6);
         
         fr.setSize(1000,600);
         fr.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -223,12 +242,7 @@ public class Admin implements ActionListener, WindowFocusListener{
     }
     
     public void actionPerformed(ActionEvent ae){
-        try(FileInputStream fin = new FileInputStream("TourData.dat");
-            ObjectInputStream in = new ObjectInputStream(fin);){
-            tourData = (LinkedList)in.readObject();
-        }catch(IOException | ClassNotFoundException e){
-            System.out.println(e);
-        }
+        tourData = file.loadTourData();
         if (tourData.size() != 0){
             num = Integer.parseInt((tourData.get(tourData.size() - 1)).getBusID());
         }
@@ -239,16 +253,14 @@ public class Admin implements ActionListener, WindowFocusListener{
         String timeArrive = (String)cbTimeArriveh.getSelectedItem()+":"+(String)cbTimeArrivem.getSelectedItem();
         int distance = Math.abs(cbStart.getSelectedIndex()-cbEnd.getSelectedIndex());
         if (ae.getSource().equals(b1)){
-            fr.remove(tourTable);
-            fr.remove(p4);
-            fr.add(userTable);
+            fr.remove(p6);
+            fr.add(p8);
             fr.revalidate();
             fr.repaint();
         }
         else if (ae.getSource().equals(b2)){
-            fr.remove(userTable);
-            fr.add(p4, BorderLayout.NORTH);
-            fr.add(tourTable);
+            fr.remove(p8);
+            fr.add(p6);
             fr.revalidate();
             fr.repaint();
         }
@@ -265,36 +277,79 @@ public class Admin implements ActionListener, WindowFocusListener{
                 tour = new FirstClassTour((String)cbDay.getSelectedItem(), (String)cbMonth.getSelectedItem(), 
                         (String)cbYear.getSelectedItem(), id, (String)cbStart.getSelectedItem(),(String)cbEnd.getSelectedItem(),timeOut,timeArrive,distance);
             }
-            try(FileInputStream fin = new FileInputStream("TourData.dat");
-                ObjectInputStream in = new ObjectInputStream(fin);){
-                tourData = ((LinkedList)in.readObject());
-            }catch(IOException | ClassNotFoundException e){
-                System.out.println(e);
-            }
+            tourData = file.loadTourData();
             tourData.add(tour);
-            try(FileOutputStream fOut = new FileOutputStream("TourData.dat");
-                ObjectOutputStream oout = new ObjectOutputStream(fOut);){
-                oout.writeObject(tourData);
-            }catch(IOException e){
-            System.out.println(e);
+            file.saveTourData(tourData);
+            JOptionPane.showMessageDialog(null, "Add complete", "Add", JOptionPane.PLAIN_MESSAGE);
+        }
+    }
+
+    public LinkedList userSearch(){
+        userData = file.loadUserData();
+        String text = txt1.getText();
+        LinkedList filter = new LinkedList();
+        for (int i = 0; i < userData.size(); i++){
+            if (text.length() > userData.get(i).getUsername().length()){
+                continue;
             }
-            fr.remove(tourTable);
+            if (text.equals(userData.get(i).getUsername().substring(0, text.length()).toLowerCase())){
+                filter.add(i);
+            }
+        }
+        return filter;
+    }
+    @Override
+    public void windowGainedFocus(WindowEvent e) {
+        if (fr.isAncestorOf(p6)) {
+            p6.remove(tourTable);
+            fr.remove(p6);
             tourTable = new TourTable("Delete",user).getTable();
-            fr.add(tourTable);
+            p6.add(tourTable);
+            fr.add(p6);
+            fr.revalidate();
+            fr.repaint();
+        }else{
+            p8.remove(userTable);
+            fr.remove(p8);
+            userTable = new UserTable().getTable();
+            p8.add(userTable);
+            fr.add(p8);
             fr.revalidate();
             fr.repaint();
         }
     }
-
+    
+    
     @Override
-    public void windowGainedFocus(WindowEvent e) {
-        fr.remove(tourTable);
-        tourTable = new TourTable("Delete",user).getTable();
-        fr.add(tourTable);
+    public void insertUpdate(DocumentEvent e) {
+        LinkedList filter = userSearch();
+        p8.remove(userTable);
+        fr.remove(p8);
+        userTable = new UserTable(filter).getTable();
+        p8.add(userTable);
+        fr.add(p8);
         fr.revalidate();
         fr.repaint();
+        txt1.requestFocus();
+        }
+
+    @Override
+    public void removeUpdate(DocumentEvent e) {
+        LinkedList filter = userSearch();
+        p8.remove(userTable);
+        fr.remove(p8);
+        userTable = new UserTable(filter).getTable();
+        p8.add(userTable);
+        fr.add(p8);
+        fr.revalidate();
+        fr.repaint();
+        txt1.requestFocus();
     }
 
+    @Override
+    public void changedUpdate(DocumentEvent e) {}
+
+    
     @Override
     public void windowLostFocus(WindowEvent e) {}
 }

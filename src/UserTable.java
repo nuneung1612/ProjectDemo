@@ -17,6 +17,7 @@ public class UserTable {
     private JScrollPane scrollPane;
     private JTable table;
     private LinkedList userData = new LinkedList();
+    private FileIO file = new FileIO();
     
     public UserTable() {
         p = new JPanel();
@@ -28,28 +29,68 @@ public class UserTable {
         scrollPane.setViewportView(table);
         // Model for Table
         DefaultTableModel model = (DefaultTableModel)table.getModel();
+        model.addColumn("Username");
         model.addColumn("Name");
         model.addColumn("LastName");
         model.addColumn("Email");
         model.addColumn("Tel.");
-        model.addColumn("Username");
+        model.addColumn("Remove");
+        
+        scrollPane.setPreferredSize(new Dimension(800, 400));
+        table.setRowHeight(50);
+        table.getColumnModel().getColumn(5).setCellRenderer(new ButtonRenderer());
+        table.setDefaultEditor(Object.class, null);
+        table.getColumnModel().getColumn(5).setCellEditor(new ButtonEditor(new JCheckBox(), table, new User()));
         // Data Row
-        try(FileInputStream fin = new FileInputStream("UserData.dat");
-            ObjectInputStream in = new ObjectInputStream(fin);){
-            userData = (LinkedList)in.readObject();
-        }catch(IOException | ClassNotFoundException e){
-            System.out.println(e);
-        }
+        userData = file.loadUserData();
         for (int i = 0; i < userData.size() && userData.size() != 0; i++){
             int row = table.getRowCount();
             model.addRow(new Object[0]);
-            model.setValueAt(((User)userData.get(i)).getName(), row, 0);
-            model.setValueAt(((User)userData.get(i)).getLastName(), row, 1);
-            model.setValueAt(((User)userData.get(i)).getEmail(), row, 2);
-            model.setValueAt(((User)userData.get(i)).getTelNumber(), row, 3);
-            model.setValueAt(((User)userData.get(i)).getUsername()+"", row, 4);
+            model.setValueAt(((User)userData.get(i)).getUsername()+"", row, 0);
+            model.setValueAt(((User)userData.get(i)).getName(), row, 1);
+            model.setValueAt(((User)userData.get(i)).getLastName(), row, 2);
+            model.setValueAt(((User)userData.get(i)).getEmail(), row, 3);
+            model.setValueAt(((User)userData.get(i)).getTelNumber(), row, 4);
+            model.setValueAt("Remove", row, 5);
         }
-       }
+    }
+    public UserTable(LinkedList filter) {
+        p = new JPanel();
+        // ScrollPane for Table
+        scrollPane = new JScrollPane();
+        p.add(scrollPane);
+        // Table
+        table = new JTable();
+        scrollPane.setViewportView(table);
+        // Model for Table
+        DefaultTableModel model = (DefaultTableModel)table.getModel();
+        model.addColumn("Username");
+        model.addColumn("Name");
+        model.addColumn("LastName");
+        model.addColumn("Email");
+        model.addColumn("Tel.");
+        model.addColumn("Remove");
+        
+        scrollPane.setPreferredSize(new Dimension(800, 400));
+        table.setRowHeight(50);
+        table.getColumnModel().getColumn(5).setCellRenderer(new ButtonRenderer());
+        table.setDefaultEditor(Object.class, null);
+        table.getColumnModel().getColumn(5).setCellEditor(new ButtonEditor(new JCheckBox(), table, new User()));
+        // Data Row
+        userData = file.loadUserData();
+        for (int i = 0; i < filter.size() && filter.size() != 0; i++){
+            int row = table.getRowCount();
+            int num = (int)filter.get(i);
+            model.addRow(new Object[0]);
+            model.setValueAt(((User)userData.get(num)).getUsername()+"", row, 0);
+            model.setValueAt(((User)userData.get(num)).getName(), row, 1);
+            model.setValueAt(((User)userData.get(num)).getLastName(), row, 2);
+            model.setValueAt(((User)userData.get(num)).getEmail(), row, 3);
+            model.setValueAt(((User)userData.get(num)).getTelNumber(), row, 4);
+            model.setValueAt("Remove", row, 5);
+        }
+    }
+    
     public JPanel getTable(){
         return p;
     }

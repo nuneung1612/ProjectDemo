@@ -17,6 +17,7 @@ public class TourTable extends JFrame {
     private JScrollPane scrollPane;
     private JTable table;
     private LinkedList <Tour>tourData = new LinkedList<Tour>();
+    private FileIO file = new FileIO();
     ImageIcon imbin = new ImageIcon(getClass().getResource("images/bin.png"));
     Image sizebin = imbin.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
     ImageIcon imbins = new ImageIcon(sizebin);
@@ -56,12 +57,7 @@ public class TourTable extends JFrame {
         }
         
         // Data Row
-        try(FileInputStream fin = new FileInputStream("TourData.dat");
-            ObjectInputStream in = new ObjectInputStream(fin);){
-            tourData = (LinkedList)in.readObject();
-        }catch(IOException | ClassNotFoundException e){
-            System.out.println(e);
-        }
+        tourData = file.loadTourData();
         
         if (type.equals("Delete")){
             table.getColumnModel().getColumn(6).setCellRenderer(new ButtonRenderer(imbins));
@@ -119,12 +115,7 @@ public class TourTable extends JFrame {
                 table.getColumnModel().getColumn(i).setCellRenderer(new CustomResizableText());
             }
             
-            try(FileInputStream fin = new FileInputStream("TourData.dat");
-                ObjectInputStream in = new ObjectInputStream(fin);){
-                tourData = (LinkedList)in.readObject();
-            }catch(IOException | ClassNotFoundException e){
-                System.out.println(e);
-            }
+            tourData = file.loadTourData();
             for (int i = 0; i < filter.size() ; i++){
                 int num = (int)filter.get(i);
                 int row = table.getRowCount();

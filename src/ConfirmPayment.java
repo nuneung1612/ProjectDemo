@@ -25,18 +25,14 @@ public class ConfirmPayment implements ActionListener{
     private User user;
     private LinkedList<String> booking = new LinkedList<String>();
     private LinkedList<Tour> tourData = new LinkedList<Tour>();
+    private FileIO file = new FileIO();
     
     public ConfirmPayment(Tour tour, User user, LinkedList<String> booking){
         this.tour = tour;
         this.user = user;
         this.booking = booking;
         
-        try(FileInputStream fin = new FileInputStream("TourData.dat");
-            ObjectInputStream in = new ObjectInputStream(fin);){
-            tourData = (LinkedList)in.readObject();
-        }catch(IOException | ClassNotFoundException e){
-            System.out.println(e);
-        }
+        tourData = file.loadTourData();
         
         desktopPane = new JDesktopPane();
         frame1 = new JInternalFrame("Ticket Detail",false,false,false,false);
@@ -160,13 +156,7 @@ public class ConfirmPayment implements ActionListener{
                 }catch(IndexOutOfBoundsException ex){
                     System.out.println("Tour not found");
                 }
-                
-                try(FileOutputStream fOut = new FileOutputStream("tourData.dat");
-                    ObjectOutputStream oout = new ObjectOutputStream(fOut);){
-                    oout.writeObject(tourData);
-                }catch(IOException ex){
-                    System.out.println(ex);
-                }
+                file.saveTourData(tourData);
                 
                 JOptionPane.showMessageDialog(null, "Booking complete.", "Booking",JOptionPane.INFORMATION_MESSAGE);
                 fr.dispose();

@@ -28,6 +28,7 @@ public class Login implements ActionListener {
     private LinkedList userData = new LinkedList();
     private JLabel invalid;
     private ImageIcon logo1, logo2;
+    private FileIO file = new FileIO();
     
     
     public Login(){
@@ -107,12 +108,7 @@ public class Login implements ActionListener {
         if(username.equals("") || password.equals("")){
             return false;
         }
-        try(FileInputStream fin = new FileInputStream("UserData.dat");
-            ObjectInputStream in = new ObjectInputStream(fin);){
-            userData = (LinkedList)in.readObject();
-        }catch(IOException | ClassNotFoundException e){
-            System.out.println(e);
-        }
+        userData = file.loadUserData();
         for (int i = 0; i < userData.size(); i++){
             if (((User)userData.get(i)).getUsername().equals(username)){
                 if (((User)userData.get(i)).getPassword().equals(password)){

@@ -16,20 +16,17 @@ public class Home implements ActionListener, WindowFocusListener, ItemListener{
     private LinkedList <User>userData = new LinkedList<User>();
     private LinkedList filter = new LinkedList();
     private User user;
+    private FileIO file = new FileIO();
     
     
     public Home(String username){
-        try(FileInputStream fin = new FileInputStream("UserData.dat");
-            ObjectInputStream in = new ObjectInputStream(fin);){
-            userData = (LinkedList)in.readObject();
-        }catch(IOException | ClassNotFoundException e){
-            System.out.println(e);
-        }
+        userData = file.loadUserData();
+        tourData = file.loadTourData();
         for (int i = 0; i < userData.size() && userData.size() != 0; i++){
             if ((userData.get(i)).getUsername().equals(username)){
                 this.user = userData.get(i);
-        }
             }
+        }
         
         fr = new JFrame("Home");
         p1 = new JPanel();
@@ -332,15 +329,6 @@ public class Home implements ActionListener, WindowFocusListener, ItemListener{
         fr.setSize(1000,600);
         fr.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         fr.setVisible(true);
-        
-        try(FileInputStream fin = new FileInputStream("TourData.dat");
-            ObjectInputStream in = new ObjectInputStream(fin);){
-            tourData = (LinkedList)in.readObject();
-        }catch(IOException | ClassNotFoundException e){
-            System.out.println(e);
-        }
-        
-        
         
     }
     public LinkedList filterSearch(String start, String end, String type, String day, String month, String year, int seat, String timeOut, String timeArrive){

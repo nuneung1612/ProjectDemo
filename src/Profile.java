@@ -27,6 +27,7 @@ public class Profile implements ActionListener {
     private ImageIcon imch, imcp, imcs, imch1, imcp1, imcs1;
     private Font lbfont = new Font("Times New Roman", Font.BOLD, 18);
     private Font textfont = new Font("Times New Roman", Font.PLAIN, 16);
+    private FileIO file = new FileIO();
     
 public Profile(User user){
     this.user = user;
@@ -206,13 +207,7 @@ public Profile(User user){
     //fr.setVisible(true);
     //fr.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     
-    try(FileInputStream fin = new FileInputStream("UserData.dat");
-            ObjectInputStream in = new ObjectInputStream(fin);){
-            userData = (LinkedList)in.readObject();
-        }catch(IOException | ClassNotFoundException e){
-            System.out.println(e);
-        }
-    
+    userData = file.loadUserData();
 }
     @Override
     public void actionPerformed(ActionEvent ev){
@@ -282,16 +277,10 @@ public Profile(User user){
                 }
 
                 JOptionPane.showConfirmDialog(null, "Update profile success!", "Notification", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE);
-                
-}    
-        }
+        }    
     }
-    try(FileOutputStream fOut = new FileOutputStream("UserData.dat");
-                ObjectOutputStream oout = new ObjectOutputStream(fOut);){
-                    oout.writeObject(userData);
-                }catch(IOException e){
-                    System.out.println(e);
-                }
+    }
+    file.saveUserData(userData);
     }
     public JPanel getFrame(){
         return this.p4;

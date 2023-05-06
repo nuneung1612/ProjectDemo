@@ -18,6 +18,7 @@ public class TicketTable extends JFrame {
     private JScrollPane scrollPane;
     private JTable table;
     private LinkedList <Ticket>ticketData = new LinkedList<Ticket>();
+    private FileIO file = new FileIO();
     
     public TicketTable(User user) {
         p = new JPanel();
@@ -49,12 +50,7 @@ public class TicketTable extends JFrame {
         }
         
         // Data Row
-        try(FileInputStream fin = new FileInputStream("TicketData.dat");
-            ObjectInputStream in = new ObjectInputStream(fin);){
-            ticketData = (LinkedList)in.readObject();
-        }catch(IOException | ClassNotFoundException e){
-            System.out.println(e);
-        }
+        ticketData = file.loadTicketData();
         
         table.getColumnModel().getColumn(6).setCellRenderer(new ButtonRenderer());
         table.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);

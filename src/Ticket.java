@@ -14,24 +14,16 @@ public class Ticket implements Serializable{
     private Tour tour;
     private String seat;
     private LinkedList ticketData = new LinkedList();
+    private FileIO file = new FileIO();
+    private static final long serialVersionUID = 1234567890L;
     
     public Ticket(String owner, Tour tour,String seat){
         this.owner = owner;
         this.tour = tour;
         this.seat = seat;
-        try(FileInputStream fin = new FileInputStream("TicketData.dat");
-                ObjectInputStream in = new ObjectInputStream(fin);){
-                ticketData = ((LinkedList)in.readObject());
-            }catch(IOException | ClassNotFoundException e){
-                System.out.println(e);
-            }
-            ticketData.add(this);
-            try(FileOutputStream fOut = new FileOutputStream("TicketData.dat");
-                ObjectOutputStream oout = new ObjectOutputStream(fOut);){
-                oout.writeObject(ticketData);
-            }catch(IOException e){
-            System.out.println(e);
-            }
+        ticketData = file.loadTicketData();
+        ticketData.add(this);
+        file.saveTicketData(ticketData);
     }
 
     public LinkedList getTicketData() {
