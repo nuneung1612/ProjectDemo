@@ -7,8 +7,6 @@
  *
  * @author s6203101111142
  */
-import java.io.*;
-import java.util.LinkedList;
 public class BusinessTour extends Tour {
     private int seat = 21;
     private double price;

@@ -9,10 +9,8 @@
  */
 import java.awt.*;
 import java.awt.event.*;
-import java.io.*;
 import java.util.LinkedList;
 import javax.swing.*;
-import javax.swing.table.*;
 public class Booking implements ActionListener, ItemListener {
     
     private JDialog fr;

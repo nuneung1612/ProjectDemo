@@ -10,7 +10,6 @@
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
-import java.io.*;
 import java.util.*;
     //unfinised
 public class Profile implements ActionListener {
@@ -27,7 +26,6 @@ public class Profile implements ActionListener {
     private ImageIcon imch, imcp, imcs, imch1, imcp1, imcs1;
     private Font lbfont = new Font("Times New Roman", Font.BOLD, 18);
     private Font textfont = new Font("Times New Roman", Font.PLAIN, 16);
-    private FileIO file = new FileIO();
     
 public Profile(User user){
     this.user = user;
@@ -207,7 +205,7 @@ public Profile(User user){
     //fr.setVisible(true);
     //fr.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     
-    userData = file.loadUserData();
+    userData = FileIO.loadUserData();
 }
     @Override
     public void actionPerformed(ActionEvent ev){
@@ -280,7 +278,7 @@ public Profile(User user){
         }    
     }
     }
-    file.saveUserData(userData);
+    FileIO.saveUserData(userData);
     }
     public JPanel getFrame(){
         return this.p4;

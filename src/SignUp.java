@@ -10,7 +10,6 @@
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
-import java.util.LinkedList;
 public class SignUp implements ActionListener {
 
     private JDialog fr;
@@ -22,7 +21,6 @@ public class SignUp implements ActionListener {
     private Font signupfont = new Font("Times New Roman", Font.BOLD, 36);
     private Font passfont = new Font("Times New Roman", Font.PLAIN, 10);
     private JLabel signlogo, passrequire;
-    private LinkedList userData = new LinkedList();
     private String usertag = "Invalid username";
     
     public SignUp(){

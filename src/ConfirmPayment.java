@@ -11,7 +11,6 @@ import java.awt.*;
 import javax.swing.*;
 import java.util.*;
 import java.awt.event.*;
-import java.io.*;
 public class ConfirmPayment implements ActionListener{
     private JDesktopPane desktopPane;
     private JDialog fr;
@@ -25,14 +24,13 @@ public class ConfirmPayment implements ActionListener{
     private User user;
     private LinkedList<String> booking = new LinkedList<String>();
     private LinkedList<Tour> tourData = new LinkedList<Tour>();
-    private FileIO file = new FileIO();
     
     public ConfirmPayment(Tour tour, User user, LinkedList<String> booking){
         this.tour = tour;
         this.user = user;
         this.booking = booking;
         
-        tourData = file.loadTourData();
+        tourData = FileIO.loadTourData();
         
         desktopPane = new JDesktopPane();
         frame1 = new JInternalFrame("Ticket Detail",false,false,false,false);
@@ -156,7 +154,7 @@ public class ConfirmPayment implements ActionListener{
                 }catch(IndexOutOfBoundsException ex){
                     System.out.println("Tour not found");
                 }
-                file.saveTourData(tourData);
+                FileIO.saveTourData(tourData);
                 
                 JOptionPane.showMessageDialog(null, "Booking complete.", "Booking",JOptionPane.INFORMATION_MESSAGE);
                 fr.dispose();

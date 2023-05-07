@@ -1,4 +1,4 @@
-/*
+ /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
@@ -14,16 +14,15 @@ public class Ticket implements Serializable{
     private Tour tour;
     private String seat;
     private LinkedList ticketData = new LinkedList();
-    private FileIO file = new FileIO();
     private static final long serialVersionUID = 1234567890L;
     
     public Ticket(String owner, Tour tour,String seat){
         this.owner = owner;
         this.tour = tour;
         this.seat = seat;
-        ticketData = file.loadTicketData();
+        ticketData = FileIO.loadTicketData();
         ticketData.add(this);
-        file.saveTicketData(ticketData);
+        FileIO.saveTicketData(ticketData);
     }
 
     public LinkedList getTicketData() {

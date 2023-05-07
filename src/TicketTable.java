@@ -8,7 +8,6 @@
  * @author s6203101111142
  */
 import java.awt.*;
-import java.io.*;
 import javax.swing.*;
 import javax.swing.table.*;
 import java.util.*;
@@ -18,7 +17,6 @@ public class TicketTable extends JFrame {
     private JScrollPane scrollPane;
     private JTable table;
     private LinkedList <Ticket>ticketData = new LinkedList<Ticket>();
-    private FileIO file = new FileIO();
     
     public TicketTable(User user) {
         p = new JPanel();
@@ -50,7 +48,7 @@ public class TicketTable extends JFrame {
         }
         
         // Data Row
-        ticketData = file.loadTicketData();
+        ticketData = FileIO.loadTicketData();
         
         table.getColumnModel().getColumn(6).setCellRenderer(new ButtonRenderer());
         table.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);

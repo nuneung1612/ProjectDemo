@@ -10,7 +10,6 @@
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
-import java.io.*;
 import java.util.*;
 
 public class Login implements ActionListener {
@@ -28,8 +27,6 @@ public class Login implements ActionListener {
     private LinkedList userData = new LinkedList();
     private JLabel invalid;
     private ImageIcon logo1, logo2;
-    private FileIO file = new FileIO();
-    
     
     public Login(){
         loginbtn = new JButton("Log in");
@@ -108,7 +105,7 @@ public class Login implements ActionListener {
         if(username.equals("") || password.equals("")){
             return false;
         }
-        userData = file.loadUserData();
+        userData = FileIO.loadUserData();
         for (int i = 0; i < userData.size(); i++){
             if (((User)userData.get(i)).getUsername().equals(username)){
                 if (((User)userData.get(i)).getPassword().equals(password)){

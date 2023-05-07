@@ -12,7 +12,6 @@ import java.util.*;
 public class User implements Serializable {
     private String name,lastName,email,telNumber,userName,password;
     private LinkedList userData = new LinkedList();
-    private FileIO file = new FileIO();
     private static final long serialVersionUID = 1234567890L;
     
     public User(){
@@ -31,9 +30,9 @@ public class User implements Serializable {
         this.password = password;
         this.userName = userName;
         this.telNumber = telNumber;
-        userData = file.loadUserData();
+        userData = FileIO.loadUserData();
         userData.add(this);
-        file.saveUserData(userData);
+        FileIO.saveUserData(userData);
     }
     
     public void setName(String name){

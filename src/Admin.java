@@ -9,7 +9,6 @@
  */
 import java.awt.*;
 import java.awt.event.*;
-import java.io.*;
 import javax.swing.*;
 import javax.swing.event.*;
 import java.util.*;
@@ -25,7 +24,6 @@ public class Admin implements ActionListener, WindowFocusListener, DocumentListe
     private LinkedList <User> userData = new LinkedList<User>();
     private Tour tour;
     private User user = new User();
-    private FileIO file = new FileIO();
     
     public Admin(){
         fr = new JFrame("Admin");
@@ -242,7 +240,7 @@ public class Admin implements ActionListener, WindowFocusListener, DocumentListe
     }
     
     public void actionPerformed(ActionEvent ae){
-        tourData = file.loadTourData();
+        tourData = FileIO.loadTourData();
         if (tourData.size() != 0){
             num = Integer.parseInt((tourData.get(tourData.size() - 1)).getBusID());
         }
@@ -277,15 +275,15 @@ public class Admin implements ActionListener, WindowFocusListener, DocumentListe
                 tour = new FirstClassTour((String)cbDay.getSelectedItem(), (String)cbMonth.getSelectedItem(), 
                         (String)cbYear.getSelectedItem(), id, (String)cbStart.getSelectedItem(),(String)cbEnd.getSelectedItem(),timeOut,timeArrive,distance);
             }
-            tourData = file.loadTourData();
+            tourData = FileIO.loadTourData();
             tourData.add(tour);
-            file.saveTourData(tourData);
+            FileIO.saveTourData(tourData);
             JOptionPane.showMessageDialog(null, "Add complete", "Add", JOptionPane.PLAIN_MESSAGE);
         }
     }
 
     public LinkedList userSearch(){
-        userData = file.loadUserData();
+        userData = FileIO.loadUserData();
         String text = txt1.getText();
         LinkedList filter = new LinkedList();
         for (int i = 0; i < userData.size(); i++){

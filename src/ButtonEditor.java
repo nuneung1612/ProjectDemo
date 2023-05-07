@@ -9,7 +9,6 @@
  */
 import java.awt.*;
 import java.awt.event.*;
-import java.io.*;
 import java.util.LinkedList;
 import javax.swing.*;
 class ButtonEditor extends DefaultCellEditor implements ActionListener {
@@ -20,7 +19,6 @@ class ButtonEditor extends DefaultCellEditor implements ActionListener {
    private JTable table;
    private User user;
    private ImageIcon icon;
-   private FileIO file = new FileIO();
 
    public ButtonEditor(JCheckBox txt, JTable table, User user) {
     super(txt);
@@ -61,8 +59,8 @@ class ButtonEditor extends DefaultCellEditor implements ActionListener {
   
     @Override
       public void actionPerformed(ActionEvent e) {
-        tourData = file.loadTourData();
-        userData = file.loadUserData();
+        tourData = FileIO.loadTourData();
+        userData = FileIO.loadUserData();
         
         int row = table.getSelectedRow();
         if (table.getColumnModel().getColumn(table.getColumnCount()-1).getHeaderValue().equals("Enter")){
@@ -86,8 +84,8 @@ class ButtonEditor extends DefaultCellEditor implements ActionListener {
                 userData.remove(row);
             }
         }
-        file.saveTourData(tourData);
-        file.saveUserData(userData);
+        FileIO.saveTourData(tourData);
+        FileIO.saveUserData(userData);
     }
 }
 

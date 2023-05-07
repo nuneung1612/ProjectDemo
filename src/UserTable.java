@@ -8,7 +8,6 @@
  * @author s6203101111142
  */
 import java.awt.*;
-import java.io.*;
 import javax.swing.*;
 import javax.swing.table.*;
 import java.util.*;
@@ -17,7 +16,6 @@ public class UserTable {
     private JScrollPane scrollPane;
     private JTable table;
     private LinkedList userData = new LinkedList();
-    private FileIO file = new FileIO();
     
     public UserTable() {
         p = new JPanel();
@@ -42,7 +40,7 @@ public class UserTable {
         table.setDefaultEditor(Object.class, null);
         table.getColumnModel().getColumn(5).setCellEditor(new ButtonEditor(new JCheckBox(), table, new User()));
         // Data Row
-        userData = file.loadUserData();
+        userData = FileIO.loadUserData();
         for (int i = 0; i < userData.size() && userData.size() != 0; i++){
             int row = table.getRowCount();
             model.addRow(new Object[0]);
@@ -77,7 +75,7 @@ public class UserTable {
         table.setDefaultEditor(Object.class, null);
         table.getColumnModel().getColumn(5).setCellEditor(new ButtonEditor(new JCheckBox(), table, new User()));
         // Data Row
-        userData = file.loadUserData();
+        userData = FileIO.loadUserData();
         for (int i = 0; i < filter.size() && filter.size() != 0; i++){
             int row = table.getRowCount();
             int num = (int)filter.get(i);
@@ -90,7 +88,6 @@ public class UserTable {
             model.setValueAt("Remove", row, 5);
         }
     }
-    
     public JPanel getTable(){
         return p;
     }

@@ -31,7 +31,7 @@ public abstract class Tour implements Serializable, TourPackage{
     
     public Tour(String day, String month, String year, String busID, String start, String end, String type, String timeOut, String timeArrive, int distance){
         this.date = day+"/"+month+"/"+year;
-        this.busID = busID;
+        this.busID = busID; 
         this.start = start;
         this.end = end;
         this.type = type;

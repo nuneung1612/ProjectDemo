@@ -1,8 +1,4 @@
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.util.LinkedList;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -13,10 +9,10 @@ import java.util.LinkedList;
  *
  * @author User
  */
+import java.util.LinkedList;
 public class CheckingAccount {
      private LinkedList userData = new LinkedList();
      private String usertag;
-     private FileIO file = new FileIO();
 
       public boolean checkName(String name){
         if (name.equals("")){
@@ -53,12 +49,12 @@ public class CheckingAccount {
         return false;
     }
     public boolean checkUser(String username){
-        userData = file.loadUserData();
+        userData = FileIO.loadUserData();
         if (userData  == null){
             return true;
         }
         if(username.equals("")){
-            usertag = "Invalid username";
+            usertag = "Invalid username"; 
             return false;
         }
         for (int i = 0; i < userData.size(); i++){

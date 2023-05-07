@@ -1,9 +1,7 @@
 import java.awt.*;
 import java.awt.event.*;
-import java.io.*;
 import java.util.LinkedList;
 import javax.swing.*;
-import javax.swing.table.*;
 public class Home implements ActionListener, WindowFocusListener, ItemListener{
     private JFrame fr;
     private JPanel p1,p2,p3,p4,inlefttop,p6,centerbg,tourTable,inleftbottom,leftbg,inpro,inhome,profilePanel,ticketPanel;
@@ -16,12 +14,11 @@ public class Home implements ActionListener, WindowFocusListener, ItemListener{
     private LinkedList <User>userData = new LinkedList<User>();
     private LinkedList filter = new LinkedList();
     private User user;
-    private FileIO file = new FileIO();
     
     
     public Home(String username){
-        userData = file.loadUserData();
-        tourData = file.loadTourData();
+        userData = FileIO.loadUserData();
+        tourData = FileIO.loadTourData();
         for (int i = 0; i < userData.size() && userData.size() != 0; i++){
             if ((userData.get(i)).getUsername().equals(username)){
                 this.user = userData.get(i);

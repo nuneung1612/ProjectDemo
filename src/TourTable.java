@@ -8,7 +8,6 @@
  * @author s6203101111142
  */
 import java.awt.*;
-import java.io.*;
 import javax.swing.*;
 import javax.swing.table.*;
 import java.util.*;
@@ -17,7 +16,6 @@ public class TourTable extends JFrame {
     private JScrollPane scrollPane;
     private JTable table;
     private LinkedList <Tour>tourData = new LinkedList<Tour>();
-    private FileIO file = new FileIO();
     ImageIcon imbin = new ImageIcon(getClass().getResource("images/bin.png"));
     Image sizebin = imbin.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
     ImageIcon imbins = new ImageIcon(sizebin);
@@ -57,7 +55,7 @@ public class TourTable extends JFrame {
         }
         
         // Data Row
-        tourData = file.loadTourData();
+        tourData = FileIO.loadTourData();
         
         if (type.equals("Delete")){
             table.getColumnModel().getColumn(6).setCellRenderer(new ButtonRenderer(imbins));
@@ -115,7 +113,7 @@ public class TourTable extends JFrame {
                 table.getColumnModel().getColumn(i).setCellRenderer(new CustomResizableText());
             }
             
-            tourData = file.loadTourData();
+            tourData = FileIO.loadTourData();
             for (int i = 0; i < filter.size() ; i++){
                 int num = (int)filter.get(i);
                 int row = table.getRowCount();

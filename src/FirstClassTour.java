@@ -7,11 +7,9 @@
  *
  * @author s6203101111142
  */
-import java.io.*;
-import java.util.LinkedList;
 public class FirstClassTour extends Tour {
     private int seat = 20;
-    private double price = 1000;
+    private double price;
     private boolean availableSeat[] = new boolean[20];
     
     public FirstClassTour(String day, String month, String year, String busID, String start, String end, String timeOut, String timeArrive, int distance){

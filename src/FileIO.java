@@ -9,8 +9,8 @@
  */
 import java.io.*;
 import java.util.*;
-public class FileIO implements Serializable {
-    public void saveUserData(LinkedList user){
+public class FileIO{
+    public static void saveUserData(LinkedList user){
         try(FileOutputStream fOut = new FileOutputStream("UserData.dat");
             ObjectOutputStream oout = new ObjectOutputStream(fOut);){
             oout.writeObject(user);
@@ -19,16 +19,16 @@ public class FileIO implements Serializable {
         }
     }
     
-    public void saveTourData(LinkedList tour){
+    public static void saveTourData(LinkedList tour){
         try(FileOutputStream fOut = new FileOutputStream("TourData.dat");
             ObjectOutputStream oout = new ObjectOutputStream(fOut);){
             oout.writeObject(tour);
         }catch(IOException e){
-        System.out.println(e);
+        System.out.println(e); 
         }
     }
     
-    public void saveTicketData(LinkedList ticket){
+    public static void saveTicketData(LinkedList ticket){
         try(FileOutputStream fOut = new FileOutputStream("TicketData.dat");
             ObjectOutputStream oout = new ObjectOutputStream(fOut);){
             oout.writeObject(ticket);
@@ -37,7 +37,7 @@ public class FileIO implements Serializable {
         }
     }
     
-    public LinkedList loadUserData(){
+    public static LinkedList loadUserData(){
         try(FileInputStream fin = new FileInputStream("UserData.dat");
             ObjectInputStream in = new ObjectInputStream(fin);){
             return ((LinkedList)in.readObject());
@@ -47,7 +47,7 @@ public class FileIO implements Serializable {
         }
     }
     
-    public LinkedList loadTourData(){
+    public static  LinkedList loadTourData(){
         try(FileInputStream fin = new FileInputStream("TourData.dat");
             ObjectInputStream in = new ObjectInputStream(fin);){
             return ((LinkedList)in.readObject());
@@ -57,7 +57,7 @@ public class FileIO implements Serializable {
         }
     }
     
-    public LinkedList loadTicketData(){
+    public static LinkedList loadTicketData(){
         try(FileInputStream fin = new FileInputStream("TicketData.dat");
             ObjectInputStream in = new ObjectInputStream(fin);){
             return ((LinkedList)in.readObject());
