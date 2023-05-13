@@ -11,14 +11,14 @@ import java.awt.*;
 import javax.swing.*;
 import javax.swing.table.*;
 import java.util.*;
-public class TourTable extends JFrame {
+public class TourTable{
     private JPanel p;
     private JScrollPane scrollPane;
     private JTable table;
     private LinkedList <Tour>tourData = new LinkedList<Tour>();
-    ImageIcon imbin = new ImageIcon(getClass().getResource("images/bin.png"));
-    Image sizebin = imbin.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
-    ImageIcon imbins = new ImageIcon(sizebin);
+    private ImageIcon imbin = new ImageIcon(getClass().getResource("images/bin.png"));
+    private Image sizebin = imbin.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
+    private ImageIcon imbins = new ImageIcon(sizebin);
     
     public TourTable(String type, User user) {
         p = new JPanel();

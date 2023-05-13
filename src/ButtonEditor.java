@@ -12,7 +12,7 @@ import java.awt.event.*;
 import java.util.LinkedList;
 import javax.swing.*;
 class ButtonEditor extends DefaultCellEditor implements ActionListener {
-   protected JButton btn;
+   private JButton btn;
    private String lbl;
    private LinkedList <Tour>tourData = new LinkedList<Tour>();
    private LinkedList userData = new LinkedList();

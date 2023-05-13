@@ -12,7 +12,7 @@ import javax.swing.*;
 import javax.swing.table.*;
 import java.util.*;
 
-public class TicketTable extends JFrame {
+public class TicketTable{
     private JPanel p;
     private JScrollPane scrollPane;
     private JTable table;
