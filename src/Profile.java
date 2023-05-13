@@ -11,34 +11,28 @@ import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
 import java.util.*;
-    //unfinised
+
 public class Profile implements ActionListener {
-    private JFrame fr;
-    private JPanel p1, p2, p3, p4 ,p5;
+    //private JFrame fr;
+    private JPanel p1;
     private JTextField name, last, tel, email, username, pass;
-   // private JPasswordField oldpass newpass;
-    private JLabel nametxt, lasttxt, teltxt,emailtxt,usertxt,passtxt,pic;
-    private JLabel warnname, warnlast, warntel, warnemail, warnpass, empt1, empt2, warnuser;
+    private JLabel nametxt, lasttxt, teltxt,emailtxt,usertxt,passtxt, profile;
+    private JLabel warnname, warnlast, warntel, warnemail, warnpass, warnuser;
     private LinkedList <User> userData = new LinkedList<User>();
-    private JButton home, pro, setting, save;
+    private JButton save;
     private User user;
     private String usertag = "Invalid username";
-    private ImageIcon imch, imcp, imcs, imch1, imcp1, imcs1;
     private Font lbfont = new Font("Times New Roman", Font.BOLD, 18);
     private Font textfont = new Font("Times New Roman", Font.PLAIN, 16);
+    private Font logo = new Font("Times New Roman", Font.BOLD, 60);
     
 public Profile(User user){
     this.user = user;
-    fr = new JFrame("Java Touer - Profile");
     p1 = new JPanel();
-    p2 = new JPanel();
-    p3 = new JPanel();
-    p4 = new JPanel();
-    p5 = new JPanel();
-    p4.setBackground(Color.white);
+    p1.setBackground(Color.white);
+    
             
-    Color blue1 = new Color(76, 177, 221 );
-
+   
     name = new JTextField(this.user.getName());
     last = new JTextField(this.user.getLastName());
     tel = new JTextField(this.user.getTelNumber());
@@ -52,17 +46,18 @@ public Profile(User user){
     teltxt = new JLabel("Tel:");
     nametxt = new JLabel("Name:");
     lasttxt = new JLabel("Last Name:");
-    pic = new JLabel("pic p3 north");
-  
+    profile = new JLabel("Profile");
+ 
     warnpass = new JLabel("Invalid password."); 
     warnname= new JLabel("Invalid name");
     warnlast = new JLabel("Invalid lastname");
     warnemail = new JLabel("Invalid email");
     warntel = new JLabel("Invalid phone number");
     warnuser =new JLabel(usertag);
-    empt1 =  new JLabel();
-    empt2 = new JLabel();
-    
+
+    profile.setFont(logo);
+    profile.setBounds(355,33,300,100);
+    profile.setForeground(Color.orange);
 
     
     nametxt.setFont(lbfont);
@@ -114,31 +109,12 @@ public Profile(User user){
     
     //Button
     save = new JButton("save");
-    imch = new ImageIcon(getClass().getResource("images/home.png"));
-    imcp = new ImageIcon(getClass().getResource("images/profile.png"));
-    imcs = new ImageIcon(getClass().getResource("images/setting.png"));
-    Image sizeh = imch.getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH);    
-    Image sizep = imcp.getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH);
-    Image sizes = imcs.getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH);
-    imch1 = new ImageIcon(sizeh);
-    imcp1 = new ImageIcon(sizep);
-    imcs1 = new ImageIcon(sizes);
-    home = new JButton(imch1);
-    pro = new JButton(imcp1);
-    setting = new JButton(imcs1);
     
     save.setBounds(397,480,70,30);
     save.setFont(lbfont);
     save.setBackground(Color.orange);
     save.setForeground(Color.black);
-    
-    
-    home.setBackground(blue1);
-    pro.setBackground(Color.white);
-    
-    
-    setting.setBackground(blue1);
-    
+
     warnname.setForeground(Color.red);
     warnlast.setForeground(Color.red);
     warnemail.setForeground(Color.red);
@@ -155,55 +131,26 @@ public Profile(User user){
     
     
     save.addActionListener(this);
-    home.addActionListener(this);
+
     
-//    p2.setBackground(Color.orange);
+    
+    
+
     
     p1.setLayout(null);
-//    p1.add(p2, BorderLayout.WEST);
-    p1.add(p4);
+    p1.add(profile);
+    p1.add(nametxt); p1.add(lasttxt);
+    p1.add(name); p1.add(last);
+    p1.add(warnname); p1.add(warnlast);
+    p1.add(emailtxt);p1.add(teltxt);
+    p1.add(email); p1.add(tel);
+    p1.add(warnemail); p1.add(warntel);
+    p1.add(usertxt); p1.add(passtxt);
+    p1.add(username); p1.add(pass);
+    p1.add(warnuser); p1.add(warnpass);
+    p1.add(save);
     
-//    p2.setLayout(new GridLayout(6,1));
-//    p2.add(home); p2.add(pro); p2.add(setting);
-    
-//    p3.setLayout(new BorderLayout());
-//    p3.add(p4,BorderLayout.CENTER);
-    
-    p4.setLayout(null);
-    p4.add(nametxt); p4.add(lasttxt);
-    p4.add(name); p4.add(last);
-    p4.add(warnname); p4.add(warnlast);
-    p4.add(emailtxt);p4.add(teltxt);
-    p4.add(email); p4.add(tel);
-    p4.add(warnemail); p4.add(warntel);
-    p4.add(usertxt); p4.add(passtxt);
-    p4.add(username); p4.add(pass);
-    p4.add(warnuser); p4.add(warnpass);
-    p4.add(save);
-    
-//    
-//    p4.add(nametxt); p4.add(lasttxt);
-//    p4.add(name); p4.add(last);
-//    p4.add(warnname); p4.add(warnlast);
-//    p4.add(emailtxt); p4.add(teltxt);
-//    p4.add(email); p4.add(tel);
-//    p4.add(warnemail); p4.add(warntel);
-//    p4.add(usertxt); p4.add(passtxt);
-//    p4.add(username); p4.add(pass);
-//    p4.add(warnuser); p4.add(warnpass);
-//    p4.add(empt2);p4.add(p5);
-//    
-//    p5.setLayout(new FlowLayout());
-//    p5.add(save);
-    
-    
-    //p4.add(warn)
-    
-    //fr.setResizable(false);
-    //fr.setContentPane(p1);
-    //fr.setSize(1000,600);
-    //fr.setVisible(true);
-    //fr.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
     
     userData = FileIO.loadUserData();
 }
@@ -281,15 +228,8 @@ public Profile(User user){
     FileIO.saveUserData(userData);
     }
     public JPanel getFrame(){
-        return this.p4;
+        return this.p1;
     }
+   
 
-//    public static void main(String[] args) {
-//        
-//        User a = new User("Pranpreeya","Mengmungmee", "gyugg21@gmail.com","0959677761","nuneung1122","nuneung112");
-//        User b = new User("Pranpreeya","Mengmungmee", "gyugg21@gmail.com","0959677761","nuneung1","nuneung112");
-//        new Profile(a);
-//        
-//        
-//    }
 }

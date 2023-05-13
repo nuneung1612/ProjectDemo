@@ -14,6 +14,7 @@ public class Home implements ActionListener, WindowFocusListener, ItemListener{
     private LinkedList <User>userData = new LinkedList<User>();
     private LinkedList filter = new LinkedList();
     private User user;
+    private Setting settingView;
     
     
     public Home(String username){
@@ -40,7 +41,8 @@ public class Home implements ActionListener, WindowFocusListener, ItemListener{
         inhome = new JPanel();
         bSearch = new JButton("Search");
         profilePanel = new Profile(user).getFrame();
-        ticketPanel = new TicketTable(user).getTable();
+        settingView = new Setting(user);
+        ticketPanel= new TicketTable(user).getTable();
         
         
         //b2 = new JButton("Tour");
@@ -274,6 +276,7 @@ public class Home implements ActionListener, WindowFocusListener, ItemListener{
         home.addActionListener(this);
         fr.addWindowFocusListener(this);
         ticket.addActionListener(this);
+        setting.addActionListener(this);
         cbTimeOuth.addItemListener(this);
         cbTimeArriveh.addItemListener(this);
          
@@ -437,6 +440,7 @@ public class Home implements ActionListener, WindowFocusListener, ItemListener{
             fr.remove(centerbg);
             fr.remove(profilePanel);
             fr.remove(ticketPanel);
+            fr.remove(settingView.getPanel());
             
             profilePanel = new Profile(user).getFrame();
             
@@ -453,6 +457,7 @@ public class Home implements ActionListener, WindowFocusListener, ItemListener{
             fr.remove(centerbg);
             fr.remove(profilePanel);
             fr.remove(ticketPanel);
+            fr.remove(settingView.getPanel());
   
             fr.add(centerbg);
             
@@ -466,6 +471,7 @@ public class Home implements ActionListener, WindowFocusListener, ItemListener{
             fr.remove(centerbg);
             fr.remove(profilePanel);
             fr.remove(ticketPanel);
+            fr.remove(settingView.getPanel());
             
             ticketPanel = new TicketTable(user).getTable();
             fr.add(ticketPanel);
@@ -474,7 +480,51 @@ public class Home implements ActionListener, WindowFocusListener, ItemListener{
             fr.repaint();
             
         }
-        
+        if (ae.getSource().equals(setting)){
+            fr.setTitle("Java Tour - Setting");
+            fr.remove(centerbg);
+            fr.remove(profilePanel);
+            fr.remove(ticketPanel);
+            fr.remove(settingView.getPanel());
+            
+           settingView = new Setting(user);
+           settingView.getDelete().addActionListener(this);
+           settingView.getLogout().addActionListener(this);
+            fr.add(settingView.getPanel());
+            fr.revalidate();
+            fr.repaint();
+        }
+        if (ae.getSource().equals(settingView.getLogout())){
+            
+           int val = JOptionPane.showConfirmDialog(null, "Are you sure?", "Notification", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
+             if(val == JOptionPane.YES_OPTION){
+                fr.dispose();
+                new Login();
+            }
+           
+        }
+         if (ae.getSource().equals(settingView.getDelete())){
+            int val = JOptionPane.showConfirmDialog(null, "Warning:Your account will be permanently deleted.", "Notification", JOptionPane.OK_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE);
+                if(val == JOptionPane.OK_OPTION){
+                    LinkedList<User> userData = FileIO.loadUserData();
+                    try{
+                        int index = -1;
+                        for (int i = 0; i < userData.size(); i++){
+                            if ((userData.get(i)).getUsername().equals(user.getUsername())){
+                                index = i;
+                                break;
+                            }
+                        }
+                        userData.remove(index);
+                    }catch(IndexOutOfBoundsException ex){
+                            System.out.println("User not found");
+                        }
+                    FileIO.saveUserData(userData);
+                    fr.dispose();
+                    new Login();
+                }
+        }
+      
     }
         public JPanel getFrame(){
             return this.centerbg;
