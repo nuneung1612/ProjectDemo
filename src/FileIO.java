@@ -36,6 +36,14 @@ public class FileIO{
         System.out.println(e);
         }
     }
+       public static void saveAdminData(AdminAcc admin){
+        try(FileOutputStream fOut = new FileOutputStream("AdminAcc.dat");
+            ObjectOutputStream oout = new ObjectOutputStream(fOut);){
+            oout.writeObject(admin);
+        }catch(IOException e){
+        System.out.println(e);
+        }
+    }
     
     public static LinkedList loadUserData(){
         try(FileInputStream fin = new FileInputStream("UserData.dat");
@@ -64,6 +72,15 @@ public class FileIO{
         }catch(IOException | ClassNotFoundException e){
             System.out.println(e);
             return new LinkedList();
+        }
+    }
+        public static AdminAcc loadAdminData(){
+        try(FileInputStream fin = new FileInputStream("AdminAcc.dat");
+            ObjectInputStream in = new ObjectInputStream(fin);){
+            return ((AdminAcc)in.readObject());
+        }catch(IOException | ClassNotFoundException e){
+            System.out.println(e);
+            return new AdminAcc();
         }
     }
 }

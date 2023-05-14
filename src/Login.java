@@ -25,6 +25,7 @@ public class Login implements ActionListener {
     private Font logofont = new Font("Times New Roman", Font.BOLD, 40);
     private JLabel logo;
     private LinkedList userData = new LinkedList();
+//    private AdminAcc admin = new AdminAcc();
     private JLabel invalid;
     private ImageIcon logo1, logo2;
     
@@ -146,23 +147,24 @@ public class Login implements ActionListener {
                    
         }
         if(ev.getSource() == adminbtn){
-            boolean checkAdmin = false;
-            while(checkAdmin == false){
-                 String val = JOptionPane.showInputDialog(null,"Please enter the password:","Admin password",JOptionPane.INFORMATION_MESSAGE);
-                 if(val.equals("admin1234")) 
-                 {
-                     checkAdmin = true;
-                     new Admin();
-                      fr.dispose();
-                 
-                 }
-                 else{
-                     JOptionPane.showConfirmDialog(null, "Wrong password, try again.", "Alert", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
-                 }
-           
-            }
-        }
-    
+                    boolean checkAdmin = false;
+                    AdminAcc admin = FileIO.loadAdminData();
+                    while(checkAdmin == false){
+                         String val = JOptionPane.showInputDialog(null,"Please enter the password:","Admin password",JOptionPane.INFORMATION_MESSAGE);
+                         if(val.equals(admin.getPassword())) 
+                         {
+                             checkAdmin = true;
+                             new Admin(admin);
+                              fr.dispose();
+
+                         }
+                         else{
+                             JOptionPane.showConfirmDialog(null, "Wrong password, try again.", "Error", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+                         }
+
+                    }
+
+         }
     }
     public static void main(String[] args) {
         new Login();

@@ -17,7 +17,7 @@ public class Setting{
     private JPanel p1;
     private JButton logout, delete;
     private JLabel set;
-  
+    private ImageIcon imglogout;
     
     public Setting(User user){
         this.user = user;
@@ -25,16 +25,19 @@ public class Setting{
         
         Font lbfont = new Font("Times New Roman", Font.BOLD, 16);
         Font logo = new Font("Times New Roman", Font.BOLD, 60);
+        imglogout = new ImageIcon(getClass().getResource("images/logout.png"));
+        Image sizelog = imglogout.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+        ImageIcon imglogout1 = new ImageIcon(sizelog);
         fr = new JFrame();
         p1 = new JPanel(null);
-        logout = new JButton("Log out");
+        logout = new JButton("Log out",imglogout1);
         delete = new JButton("Delete Account");
         set = new JLabel("Setting");
         set.setForeground(Color.orange);
         set.setFont(logo);
-        set.setBounds(355,33,300,100);
+        set.setBounds(350,33,300,100);
         logout.setFont(lbfont);
-        logout.setBounds(380,200,100,60);
+        logout.setBounds(360,200,140,60);
         logout.setBackground(Color.LIGHT_GRAY);
         delete.setBounds(360,300,140,60);
         delete.setFont(lbfont);

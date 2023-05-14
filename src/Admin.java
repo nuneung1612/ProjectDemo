@@ -14,8 +14,8 @@ import javax.swing.event.*;
 import java.util.*;
 public class Admin implements ActionListener, WindowFocusListener, DocumentListener{
     private JFrame fr;
-    private JPanel p1,p2,p3,p4,p5,p6,p7,p8,tourTable,userTable;
-    private JButton b1,b2,b3;
+    private JPanel p1,p2,p3,p4,p5,p6,p7,p8,tourTable,userTable,p9;
+    private JButton b1,b2,b3,b4,logout,resetpass;
     private JLabel l1,l2,l3,l4,l5,l6,l7,l8,l9;
     private JComboBox cbStart, cbEnd, cbDay,cbMonth,cbYear,cbTourType, cbTimeOuth, cbTimeOutm, cbTimeArriveh,cbTimeArrivem;
     private JTextField txt1;
@@ -24,8 +24,27 @@ public class Admin implements ActionListener, WindowFocusListener, DocumentListe
     private LinkedList <User> userData = new LinkedList<User>();
     private Tour tour;
     private User user = new User();
+    //new
+    private ImageIcon imguser, imgtable, imgsetting, imglogout;
+    private AdminAcc admin;
     
-    public Admin(){
+    public Admin(AdminAcc admin){
+        this.admin = admin;
+        imguser = new ImageIcon(getClass().getResource("images/useredit.png"));
+        imgtable = new ImageIcon(getClass().getResource("images/table.png"));
+        imgsetting = new ImageIcon(getClass().getResource("images/setting.png"));
+        imglogout = new ImageIcon(getClass().getResource("images/logout.png"));
+        Image sizeuser = imguser.getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH);
+        Image sizetable = imgtable.getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH);
+        Image sizeset = imgsetting.getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH);
+        Image sizelog = imglogout.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+        
+        ImageIcon imguser1 = new ImageIcon(sizeuser);
+        ImageIcon imgtable1 = new ImageIcon(sizetable);
+        ImageIcon imgsetting1 = new ImageIcon(sizeset);
+        ImageIcon imglogout1 = new ImageIcon(sizelog);
+        Color re = new Color(255,102,102);
+        Font lbfont = new Font("Times New Roman", Font.BOLD, 14);
         fr = new JFrame("Admin");
         p1 = new JPanel();
         p2 = new JPanel();
@@ -35,9 +54,13 @@ public class Admin implements ActionListener, WindowFocusListener, DocumentListe
         p6 = new JPanel();
         p7 = new JPanel();
         p8 = new JPanel();
-        b1 = new JButton("User");
-        b2 = new JButton("Tour");
+        p9 = new JPanel();
+        b1 = new JButton("Edit user",imguser1);
+        b2 = new JButton("Tour table",imgtable1);
         b3 = new JButton("Add");
+        b4 = new JButton(imgsetting1);
+        logout = new JButton("Log out",imglogout1);
+        resetpass = new JButton("Reset Password");
         l1 = new JLabel("start");
         l2 = new JLabel("End");
         l3 = new JLabel("date");
@@ -49,6 +72,7 @@ public class Admin implements ActionListener, WindowFocusListener, DocumentListe
         l9 = new JLabel("Search User");
         txt1 = new JTextField(10);
         
+        
         cbStart = new JComboBox();
         cbEnd = new JComboBox();
         cbDay = new JComboBox();
@@ -59,8 +83,25 @@ public class Admin implements ActionListener, WindowFocusListener, DocumentListe
         cbTimeOutm = new JComboBox();
         cbTimeArriveh = new JComboBox();
         cbTimeArrivem = new JComboBox();
-        
-        
+        b1.setContentAreaFilled(false); b1.setBorderPainted(false);
+        b1.setVerticalTextPosition(SwingConstants.BOTTOM);
+        b1.setHorizontalTextPosition(SwingConstants.CENTER);
+        b2.setContentAreaFilled(false); b2.setBorderPainted(false);
+        b2.setVerticalTextPosition(SwingConstants.BOTTOM);
+        b2.setHorizontalTextPosition(SwingConstants.CENTER);
+        b4.setContentAreaFilled(false); b4.setBorderPainted(false);
+        b3.setBackground(Color.orange);
+        Color yellow = new Color(247, 208, 96);
+        p1.setBackground(yellow);
+        logout.setBounds(360,200,140,60);
+        logout.setBackground(Color.LIGHT_GRAY);
+        logout.setFont(lbfont);
+       
+        resetpass.setBounds(360,300,140,60);
+        resetpass.setBackground(re);
+        resetpass.setForeground(Color.white);
+        resetpass.setFont(lbfont);
+        p9.setBackground(Color.white);
         
         tourTable = new TourTable("Delete", user).getTable();
         userTable = new UserTable().getTable();
@@ -200,12 +241,18 @@ public class Admin implements ActionListener, WindowFocusListener, DocumentListe
         b1.addActionListener(this);
         b2.addActionListener(this);
         b3.addActionListener(this);
+        b4.addActionListener(this);
+        logout.addActionListener(this);
+        resetpass.addActionListener(this);
         txt1.getDocument().addDocumentListener(this);
          
         fr.addWindowFocusListener(this);
+        fr.setResizable(false);
         
-        p1.setLayout(new GridLayout(2,1));
+        p1.setLayout(new GridLayout(6,1));
         p1.add(b1);     p1.add(b2);
+        p1.add(new JLabel()); p1.add(new JLabel());
+        p1.add(new JLabel()); p1.add(b4);
         
         p2.setLayout(new FlowLayout());
         p2.add(l1);     p2.add(cbStart);    p2.add(l2);     p2.add(cbEnd);
@@ -230,6 +277,9 @@ public class Admin implements ActionListener, WindowFocusListener, DocumentListe
         p8.add(p7,BorderLayout.NORTH);
         p8.add(userTable);
         
+        p9.setLayout(null);
+        p9.add(logout); p9.add(resetpass);
+        
         fr.add(p1, BorderLayout.WEST);
         fr.add(p6);
         
@@ -252,12 +302,14 @@ public class Admin implements ActionListener, WindowFocusListener, DocumentListe
         int distance = Math.abs(cbStart.getSelectedIndex()-cbEnd.getSelectedIndex());
         if (ae.getSource().equals(b1)){
             fr.remove(p6);
+            fr.remove(p9);
             fr.add(p8);
             fr.revalidate();
             fr.repaint();
         }
         else if (ae.getSource().equals(b2)){
             fr.remove(p8);
+            fr.remove(p9);
             fr.add(p6);
             fr.revalidate();
             fr.repaint();
@@ -279,6 +331,40 @@ public class Admin implements ActionListener, WindowFocusListener, DocumentListe
             tourData.add(tour);
             FileIO.saveTourData(tourData);
             JOptionPane.showMessageDialog(null, "Add complete", "Add", JOptionPane.PLAIN_MESSAGE);
+        }
+        else if(ae.getSource().equals(b4)){
+            fr.remove(p6);
+            fr.remove(p8);
+            fr.add(p9);
+            fr.revalidate();
+            fr.repaint();
+        
+        }
+        else if(ae.getSource().equals(logout)){
+             int val = JOptionPane.showConfirmDialog(null, "Are you sure?", "Notification", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
+             if(val == JOptionPane.YES_OPTION){
+                fr.dispose();
+                new Login();
+            }
+             
+        }
+        else if(ae.getSource().equals(resetpass)){
+            boolean checkold = false;
+            String old;
+            while(checkold==false){
+                old = JOptionPane.showInputDialog(null,"Please enter the old password:","Reset admin password",JOptionPane.INFORMATION_MESSAGE);
+                if(old.equals(admin.getPassword())){
+                    String newpass = JOptionPane.showInputDialog(null,"Please enter the new password:","Reset admin password",JOptionPane.INFORMATION_MESSAGE);
+                    admin.setPassword(newpass);
+                    FileIO.saveAdminData(admin);
+                    
+                    break;
+                }
+                else{
+                     JOptionPane.showConfirmDialog(null, "Wrong password, try again.", "Error", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+                 }
+            }
+            
         }
     }
 
@@ -306,7 +392,7 @@ public class Admin implements ActionListener, WindowFocusListener, DocumentListe
             fr.add(p6);
             fr.revalidate();
             fr.repaint();
-        }else{
+        }else if(fr.isAncestorOf(p8)){
             p8.remove(userTable);
             fr.remove(p8);
             userTable = new UserTable().getTable();
@@ -314,9 +400,13 @@ public class Admin implements ActionListener, WindowFocusListener, DocumentListe
             fr.add(p8);
             fr.revalidate();
             fr.repaint();
-        }
+        }else if(fr.isAncestorOf(p9)){
+            
+            fr.add(p9);
+            fr.revalidate();
+            fr.repaint();
     }
-    
+    }
     
     @Override
     public void insertUpdate(DocumentEvent e) {
@@ -350,4 +440,5 @@ public class Admin implements ActionListener, WindowFocusListener, DocumentListe
     
     @Override
     public void windowLostFocus(WindowEvent e) {}
+  
 }
