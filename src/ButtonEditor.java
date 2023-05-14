@@ -16,6 +16,7 @@ class ButtonEditor extends DefaultCellEditor implements ActionListener {
    private String lbl;
    private LinkedList <Tour>tourData = new LinkedList<Tour>();
    private LinkedList userData = new LinkedList();
+   private LinkedList <Ticket>ticketData = new LinkedList<Ticket>();
    private JTable table;
    private User user;
    private ImageIcon icon;
@@ -61,6 +62,7 @@ class ButtonEditor extends DefaultCellEditor implements ActionListener {
       public void actionPerformed(ActionEvent e) {
         tourData = FileIO.loadTourData();
         userData = FileIO.loadUserData();
+        ticketData = FileIO.loadTicketData();
         
         int row = table.getSelectedRow();
         if (table.getColumnModel().getColumn(table.getColumnCount()-1).getHeaderValue().equals("Enter")){
@@ -82,6 +84,14 @@ class ButtonEditor extends DefaultCellEditor implements ActionListener {
             int x = JOptionPane.showConfirmDialog(null, "Are you sure?", "Remove", JOptionPane.YES_NO_OPTION);
             if (x == JOptionPane.YES_OPTION){
                 userData.remove(row);
+            }
+        }
+        else if (table.getColumnModel().getColumn(table.getColumnCount()-1).getHeaderValue().equals("Detail")){
+            String id = ((String)table.getValueAt(row, 4)).substring(0,4);
+            for (int i = 0; i < ticketData.size() && ticketData.size() != 0; i++){
+                if (ticketData.get(i).getTicketID().equals(id)){
+                    new TicketDetail(ticketData.get(i), user);
+                }
             }
         }
         FileIO.saveTourData(tourData);

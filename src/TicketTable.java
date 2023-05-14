@@ -51,10 +51,13 @@ public class TicketTable{
         ticketData = FileIO.loadTicketData();
         
         table.getColumnModel().getColumn(6).setCellRenderer(new ButtonRenderer());
-        table.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
+        table.getColumnModel().getColumn(6).setCellEditor(new ButtonEditor(new JCheckBox(), table, user));
         table.setDefaultEditor(Object.class, null);
         
         for (int i = 0; i < ticketData.size() && ticketData.size() != 0; i++){
+            if(!(user.getUsername().equals(ticketData.get(i).getOwner()))){
+                continue;
+            }
             int row = table.getRowCount();
             model.addRow(new Object[0]);
             
@@ -62,12 +65,10 @@ public class TicketTable{
             model.setValueAt(ticketData.get(i).getTour().getEnd(), row, 1);
             model.setValueAt(ticketData.get(i).getTour().getDate(), row, 2);
             model.setValueAt(ticketData.get(i).getTour().getTimeOut()+" ➔ " + ticketData.get(i).getTour().getTimeArrive(), row, 3);
-            model.setValueAt(ticketData.get(i).getTour().getType(), row, 4);
+            model.setValueAt(ticketData.get(i).getTicketID()+"-"+ticketData.get(i).getTour().getType(), row, 4);
             model.setValueAt(ticketData.get(i).getSeat(), row, 5);
             model.setValueAt("Detail", row, 6);
         }
-        table.getColumnModel().getColumn(6).setCellEditor(new ButtonEditor(new JCheckBox(), table, user));
-        table.setDefaultRenderer(String.class, centerRenderer);
     }
     
     public JPanel getTable(){

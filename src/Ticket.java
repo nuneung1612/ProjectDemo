@@ -10,17 +10,24 @@
 import java.io.*;
 import java.util.LinkedList;
 public class Ticket implements Serializable{
+    private String ticketID;
     private String owner;
     private Tour tour;
     private String seat;
-    private LinkedList ticketData = new LinkedList();
+    private LinkedList <Ticket>ticketData = new LinkedList<Ticket>();
     private static final long serialVersionUID = 1234567890L;
     
     public Ticket(String owner, Tour tour,String seat){
+        int num = 0;
         this.owner = owner;
         this.tour = tour;
         this.seat = seat;
         ticketData = FileIO.loadTicketData();
+        if (ticketData.size() != 0){
+            num = Integer.parseInt((ticketData.get(ticketData.size() - 1)).getTicketID());
+        }
+        num += 1;
+        ticketID = String.format("%04d", num);
         ticketData.add(this);
         FileIO.saveTicketData(ticketData);
     }
@@ -56,4 +63,13 @@ public class Ticket implements Serializable{
     public void setSeat(String seat) {
         this.seat = seat;
     }
+
+    public String getTicketID() {
+        return ticketID;
+    }
+
+    public void setTicketID(String ticketID) {
+        this.ticketID = ticketID;
+    }
+    
 }
