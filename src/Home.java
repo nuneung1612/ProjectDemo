@@ -550,15 +550,25 @@ public class Home implements ActionListener, WindowFocusListener, ItemListener{
 
     @Override
     public void windowGainedFocus(WindowEvent e) {
-        centerbg.remove(tourTable);
-        if (filter.isEmpty()){
-            tourTable = new TourTable("Enter", user).getTable();
-        }else{
-            tourTable = new TourTable("Enter",filter, user).getTable();
+        if (fr.isAncestorOf(centerbg)){
+            centerbg.remove(tourTable);
+            if (filter.isEmpty()){
+                tourTable = new TourTable("Enter", user).getTable();
+            }else{
+                tourTable = new TourTable("Enter",filter, user).getTable();
+            }
+            centerbg.add(tourTable);
+            centerbg.revalidate();
         }
-        centerbg.add(tourTable);
-
-        centerbg.revalidate();
+        else if (fr.isAncestorOf(ticketPanel)){
+            fr.remove(ticketPanel);
+            ticketPanel = new TicketTable(user).getTable();
+            fr.add(ticketPanel);
+            
+            fr.revalidate();
+            fr.repaint();
+        }
+        
     }
 
     @Override

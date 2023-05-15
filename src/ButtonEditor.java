@@ -87,7 +87,8 @@ class ButtonEditor extends DefaultCellEditor implements ActionListener {
             }
         }
         else if (table.getColumnModel().getColumn(table.getColumnCount()-1).getHeaderValue().equals("Detail")){
-            String id = ((String)table.getValueAt(row, 4)).substring(0,4);
+            String id = ((String)table.getValueAt(row, 0));
+            System.out.println(id);
             for (int i = 0; i < ticketData.size() && ticketData.size() != 0; i++){
                 if (ticketData.get(i).getTicketID().equals(id)){
                     new TicketDetail(ticketData.get(i), user);

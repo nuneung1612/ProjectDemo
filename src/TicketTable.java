@@ -29,22 +29,26 @@ public class TicketTable{
         scrollPane.setPreferredSize(new Dimension(800, 400));
         table.setRowHeight(50);
         
-        
-        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-        centerRenderer.setHorizontalAlignment( JLabel.CENTER );
-        
         // Model for Table
         DefaultTableModel model = (DefaultTableModel)table.getModel();
-        model.addColumn("From");
-        model.addColumn("To");
+        model.addColumn("ID");
+        model.addColumn("Route");
         model.addColumn("Date");
         model.addColumn("Time");
         model.addColumn("Type");
         model.addColumn("Seat");
         model.addColumn("Detail");
         
+        table.getColumnModel().getColumn(0).setPreferredWidth(10);
+        table.getColumnModel().getColumn(1).setPreferredWidth(220);
+        table.getColumnModel().getColumn(2).setPreferredWidth(40);
+        table.getColumnModel().getColumn(3).setPreferredWidth(40);
+        table.getColumnModel().getColumn(4).setPreferredWidth(20);
+        table.getColumnModel().getColumn(5).setPreferredWidth(20);
+        table.getColumnModel().getColumn(6).setPreferredWidth(20);
+        
         for (int i = 0; i < 6; i++){
-            table.getColumnModel().getColumn(i).setCellRenderer( centerRenderer );
+            table.getColumnModel().getColumn(i).setCellRenderer(new CustomResizableText());
         }
         
         // Data Row
@@ -61,11 +65,11 @@ public class TicketTable{
             int row = table.getRowCount();
             model.addRow(new Object[0]);
             
-            model.setValueAt(ticketData.get(i).getTour().getStart(), row, 0);
-            model.setValueAt(ticketData.get(i).getTour().getEnd(), row, 1);
+            model.setValueAt(ticketData.get(i).getTicketID(), row, 0);
+            model.setValueAt(ticketData.get(i).getTour().getStart()+" ➔ "+ticketData.get(i).getTour().getEnd(), row, 1);
             model.setValueAt(ticketData.get(i).getTour().getDate(), row, 2);
             model.setValueAt(ticketData.get(i).getTour().getTimeOut()+" ➔ " + ticketData.get(i).getTour().getTimeArrive(), row, 3);
-            model.setValueAt(ticketData.get(i).getTicketID()+"-"+ticketData.get(i).getTour().getType(), row, 4);
+            model.setValueAt(ticketData.get(i).getTour().getType(), row, 4);
             model.setValueAt(ticketData.get(i).getSeat(), row, 5);
             model.setValueAt("Detail", row, 6);
         }

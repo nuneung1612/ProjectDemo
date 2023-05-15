@@ -39,6 +39,9 @@ public class UserTable {
         table.getColumnModel().getColumn(5).setCellRenderer(new ButtonRenderer());
         table.setDefaultEditor(Object.class, null);
         table.getColumnModel().getColumn(5).setCellEditor(new ButtonEditor(new JCheckBox(), table, new User()));
+        for(int i = 0; i<5;i++){
+            table.getColumnModel().getColumn(i).setCellRenderer(new CustomResizableText());
+        }
         // Data Row
         userData = FileIO.loadUserData();
         for (int i = 0; i < userData.size() && userData.size() != 0; i++){
