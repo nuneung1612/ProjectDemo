@@ -19,6 +19,10 @@ public class TourTable{
     private ImageIcon imbin = new ImageIcon(getClass().getResource("images/bin.png"));
     private Image sizebin = imbin.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
     private ImageIcon imbins = new ImageIcon(sizebin);
+    private ImageIcon imdetail = new ImageIcon(getClass().getResource("images/view-details.png"));
+    private Image sizedetail = imdetail.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
+    private ImageIcon imdetails = new ImageIcon(sizedetail);
+    
     
     public TourTable(String type, User user) {
         p = new JPanel();
@@ -37,8 +41,8 @@ public class TourTable{
         model.addColumn("Date");
         model.addColumn("Time");
         model.addColumn("Route");
-        model.addColumn("Available Seat");
         model.addColumn("Price");
+        model.addColumn("Available");
         model.addColumn(type);
         
         table.getColumnModel().getColumn(0).setPreferredWidth(100);
@@ -57,14 +61,10 @@ public class TourTable{
         // Data Row
         tourData = FileIO.loadTourData();
         
-        if (type.equals("Delete")){
-            table.getColumnModel().getColumn(6).setCellRenderer(new ButtonRenderer(imbins));
-            table.getColumnModel().getColumn(6).setCellEditor(new ButtonEditor(new JCheckBox(), table, user, imbins));
-        }
-        else{
-            table.getColumnModel().getColumn(6).setCellRenderer(new ButtonRenderer());
-            table.getColumnModel().getColumn(6).setCellEditor(new ButtonEditor(new JCheckBox(), table, user));
-        }
+        table.getColumnModel().getColumn(5).setCellRenderer(new ButtonRenderer(imdetails));
+        table.getColumnModel().getColumn(5).setCellEditor(new ButtonEditor(new JCheckBox(), table, user, imdetails));
+        table.getColumnModel().getColumn(6).setCellRenderer(new ButtonRenderer(imbins));
+        table.getColumnModel().getColumn(6).setCellEditor(new ButtonEditor(new JCheckBox(), table, user, imbins));
         table.setDefaultEditor(Object.class, null);
         
         
@@ -75,9 +75,9 @@ public class TourTable{
             model.setValueAt((tourData.get(i)).getDate(), row, 1);
             model.setValueAt((tourData.get(i)).getTimeOut()+" ➔ " + (tourData.get(i)).getTimeArrive(), row, 2);
             model.setValueAt((tourData.get(i)).getStart()+" ➔ "+ (tourData.get(i)).getEnd(), row, 3);
-            model.setValueAt((tourData.get(i)).getSeatAvailable()+"", row, 4);
-            model.setValueAt((tourData.get(i)).getPrice()+"", row, 5);
-            model.setValueAt(type, row, 6);
+            model.setValueAt((tourData.get(i)).getPrice()+"", row, 4);
+            model.setValueAt("", row, 5);
+            model.setValueAt("", row, 6);
         }
         
     }
@@ -97,7 +97,7 @@ public class TourTable{
             model.addColumn("Date");
             model.addColumn("Time");
             model.addColumn("Route");
-            model.addColumn("Available Seat");
+            model.addColumn("Available");
             model.addColumn("Price");
             model.addColumn(type);
             

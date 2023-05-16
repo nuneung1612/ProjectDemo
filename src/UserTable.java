@@ -16,6 +16,9 @@ public class UserTable {
     private JScrollPane scrollPane;
     private JTable table;
     private LinkedList <User> userData = new LinkedList<User>();
+    private ImageIcon imremove = new ImageIcon(getClass().getResource("images/remove-user.png"));
+    private Image sizeremove = imremove.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
+    private ImageIcon imremoves = new ImageIcon(sizeremove);
     
     public UserTable() {
         p = new JPanel();
@@ -42,9 +45,10 @@ public class UserTable {
         
         scrollPane.setPreferredSize(new Dimension(800, 400));
         table.setRowHeight(50);
-        table.getColumnModel().getColumn(4).setCellRenderer(new ButtonRenderer());
+        table.getColumnModel().getColumn(4).setCellRenderer(new ButtonRenderer(imremoves));
         table.setDefaultEditor(Object.class, null);
-        table.getColumnModel().getColumn(4).setCellEditor(new ButtonEditor(new JCheckBox(), table, new User()));
+        table.getColumnModel().getColumn(4).setCellEditor(new ButtonEditor(new JCheckBox(), table, new User(),imremoves));
+        
         for(int i = 0; i<4;i++){
             table.getColumnModel().getColumn(i).setCellRenderer(new CustomResizableText());
         }
@@ -58,7 +62,7 @@ public class UserTable {
                     " "+userData.get(i).getLastName().substring(0, 1).toUpperCase()+userData.get(i).getLastName().substring(1).toLowerCase(), row, 1);
             model.setValueAt((userData.get(i)).getEmail(), row, 2);
             model.setValueAt((userData.get(i)).getTelNumber(), row, 3);
-            model.setValueAt("Remove", row, 4);
+            model.setValueAt("", row, 4);
         }
     }
     public UserTable(LinkedList filter) {
@@ -86,9 +90,9 @@ public class UserTable {
         
         scrollPane.setPreferredSize(new Dimension(800, 400));
         table.setRowHeight(50);
-        table.getColumnModel().getColumn(4).setCellRenderer(new ButtonRenderer());
+        table.getColumnModel().getColumn(4).setCellRenderer(new ButtonRenderer(imremoves));
         table.setDefaultEditor(Object.class, null);
-        table.getColumnModel().getColumn(4).setCellEditor(new ButtonEditor(new JCheckBox(), table, new User()));
+        table.getColumnModel().getColumn(4).setCellEditor(new ButtonEditor(new JCheckBox(), table, new User(),imremoves));
         for(int i = 0; i<4;i++){
             table.getColumnModel().getColumn(i).setCellRenderer(new CustomResizableText());
         }

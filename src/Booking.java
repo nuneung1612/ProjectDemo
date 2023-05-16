@@ -15,7 +15,7 @@ public class Booking implements ActionListener, ItemListener {
     
     private JDialog fr;
     private JPanel p, p1;
-    private JLabel l1,l2,l3,l4,l5,l6,l7,l8,l9,l10,lA,lB,lC,lD,lTotal;
+    private JLabel l1,l2,l3,l4,l5,l6,l7,l8,l9,l10,lA,lB,lC,lD,lTotal,lAvailable;
     private Tour tour;
     private JButton b1;
     private JCheckBox seatA1,seatA2,seatA3,seatA4,seatA5,seatA6,seatA7,seatA8,seatA9,seatA10;
@@ -29,8 +29,9 @@ public class Booking implements ActionListener, ItemListener {
     private User user;
     
    
-    public Booking(Tour tour, User user){
+    public Booking(Tour tour, User user, boolean book){
         fr = new JDialog(fr, "Booking(" + tour.getBusID()+"/"+tour.getType()+")",true);
+        fr.setResizable(false);
         this.tour = tour;
         this.user = user;
         
@@ -51,6 +52,7 @@ public class Booking implements ActionListener, ItemListener {
         lC = new JLabel("C");
         lD = new JLabel("D");
         lTotal = new JLabel("Total: "+this.selectSeat+" is select.");
+        lAvailable = new JLabel(tour.getSeatAvailable()+" Seat Available");
         b1 = new JButton("Submit");
         
         b1.addActionListener(this);
@@ -107,15 +109,29 @@ public class Booking implements ActionListener, ItemListener {
         p = setSeatPanel(tour);
         
         p1.setLayout(new FlowLayout());
-        p1.add(lTotal);     p1.add(b1);
         p.setBackground(Color.white);
         p1.setBackground(Color.white);
-               
         
-        fr.add(p);
-        fr.add(p1, BorderLayout.SOUTH);
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int screenWidth = screenSize.width;
+        int screenHeight = screenSize.height;
+        
+        int x = (screenWidth - 300) / 2;
+        int y = (screenHeight - 800) / 2;
+        
+        if (book){
+            p1.add(lTotal);     p1.add(b1);
+            fr.add(p);
+            fr.add(p1, BorderLayout.SOUTH);
+        }
+        else{
+            p1.add(lAvailable);
+            fr.add(p);
+            fr.add(p1, BorderLayout.NORTH);
+        }
 
         fr.setSize(300,600);
+        fr.setLocation(x, y);
         fr.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         fr.setVisible(true);
     }

@@ -65,32 +65,41 @@ class ButtonEditor extends DefaultCellEditor implements ActionListener {
         ticketData = FileIO.loadTicketData();
         
         int row = table.getSelectedRow();
-        if (table.getColumnModel().getColumn(table.getColumnCount()-1).getHeaderValue().equals("Enter")){
+        if (table.getColumnModel().getColumn(table.getColumnCount()-1).getHeaderValue().equals("Enter") && table.getSelectedColumn() == table.getColumnCount()-1){
             String id = ((String)table.getValueAt(row, 0)).substring(0,4);
             for (int i = 0; i < tourData.size() && tourData.size() != 0; i++){
                 if (tourData.get(i).getBusID().equals(id)){
-                    new Booking((tourData.get(i)),user);
+                    new Booking((tourData.get(i)),user, true);
                     break;
                 }
             }
         }
-         else if (table.getColumnModel().getColumn(table.getColumnCount()-1).getHeaderValue().equals("Delete")){
+         else if (table.getColumnModel().getColumn(table.getColumnCount()-1).getHeaderValue().equals("Delete") && table.getSelectedColumn() == table.getColumnCount()-1){
             int x = JOptionPane.showConfirmDialog(null, "Are you sure?", "Delete", JOptionPane.YES_NO_OPTION);
             if (x == JOptionPane.YES_OPTION){
                 tourData.remove(row);
             }
         }
-        else if (table.getColumnModel().getColumn(table.getColumnCount()-1).getHeaderValue().equals("Remove")){
+        else if (table.getColumnModel().getColumn(table.getColumnCount()-1).getHeaderValue().equals("Remove") && table.getSelectedColumn() == table.getColumnCount()-1){
             int x = JOptionPane.showConfirmDialog(null, "Are you sure?", "Remove", JOptionPane.YES_NO_OPTION);
             if (x == JOptionPane.YES_OPTION){
                 userData.remove(row);
             }
         }
-        else if (table.getColumnModel().getColumn(table.getColumnCount()-1).getHeaderValue().equals("Detail")){
+        else if (table.getColumnModel().getColumn(table.getColumnCount()-1).getHeaderValue().equals("Detail") && table.getSelectedColumn() == table.getColumnCount()-1){
             String id = ((String)table.getValueAt(row, 0));
             for (int i = 0; i < ticketData.size() && ticketData.size() != 0; i++){
                 if (ticketData.get(i).getTicketID().equals(id)){
                     new TicketDetail(ticketData.get(i), user);
+                }
+            }
+        }
+        else if (table.getColumnModel().getColumn(table.getColumnCount()-2).getHeaderValue().equals("Available") && table.getSelectedColumn() == table.getColumnCount()-2){
+            String id = ((String)table.getValueAt(row, 0)).substring(0,4);
+            for (int i = 0; i < tourData.size() && tourData.size() != 0; i++){
+                if (tourData.get(i).getBusID().equals(id)){
+                    new Booking((tourData.get(i)),user, false);
+                    break;
                 }
             }
         }

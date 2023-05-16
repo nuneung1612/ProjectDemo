@@ -4,7 +4,7 @@ import java.util.LinkedList;
 import javax.swing.*;
 public class Home implements ActionListener, WindowFocusListener, ItemListener{
     private JFrame fr;
-    private JPanel p1,p2,p3,p4,inlefttop,p6,centerbg,tourTable,inleftbottom,leftbg,inpro,inhome,profilePanel,ticketPanel;
+    private JPanel p1,p2,p3,p4,inlefttop,p6,centerbg,tourTable,inleftbottom,leftbg,inpro,inhome,profilePanel,ticketPanel,p5;
     private JButton bSearch,b2,b3, profile, home, setting, ticket;
     private ImageIcon imch, imcp, imcs, imt;
     private JLabel l1,l2,l3,l4,l5,l6,l7,l8,l9,free1,prof,hm,set;
@@ -26,11 +26,17 @@ public class Home implements ActionListener, WindowFocusListener, ItemListener{
             }
         }
         
+        for(int i = 0; i < tourData.size() && tourData.size() != 0; i++){
+            filter.add(i);
+        }
+        
         fr = new JFrame("Home");
+        fr.setResizable(false);
         p1 = new JPanel();
         p2 = new JPanel();
         p3 = new JPanel();
         p4 = new JPanel();
+        p5 = new JPanel();
         inlefttop = new JPanel();
         p6 = new JPanel();
         centerbg = new JPanel();
@@ -106,7 +112,7 @@ public class Home implements ActionListener, WindowFocusListener, ItemListener{
         cbTimeOutm = new JComboBox();
         cbTimeArriveh = new JComboBox();
         cbTimeArrivem = new JComboBox();
-        tourTable = new TourTable("Enter",user).getTable();
+        tourTable = new TourTable("Enter",filter ,user).getTable();
         
         cbTimeArrivem.setEnabled(false);
         cbTimeOutm.setEnabled(false);
@@ -297,6 +303,9 @@ public class Home implements ActionListener, WindowFocusListener, ItemListener{
         p4.setLayout(new GridLayout(3,1));
         p4.add(p2);     p4.add(p3);  p4.add(p6);
         
+        p5.add(ticketPanel);
+        
+        
         tourTable.setBackground(cream);
         centerbg.setLayout(new FlowLayout());
         centerbg.add(p4); centerbg.add(tourTable);
@@ -326,7 +335,15 @@ public class Home implements ActionListener, WindowFocusListener, ItemListener{
         fr.add(centerbg, BorderLayout.CENTER);
         fr.add(leftbg, BorderLayout.WEST);   
         
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int screenWidth = screenSize.width;
+        int screenHeight = screenSize.height;
+        
+        int x = (screenWidth - 1000) / 2;
+        int y = (screenHeight - 600) / 2;
+        
         fr.setSize(1000,600);
+        fr.setLocation(x,y);
         fr.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         fr.setVisible(true);
         
@@ -553,10 +570,11 @@ public class Home implements ActionListener, WindowFocusListener, ItemListener{
         if (fr.isAncestorOf(centerbg)){
             centerbg.remove(tourTable);
             if (filter.isEmpty()){
-                tourTable = new TourTable("Enter", user).getTable();
-            }else{
-                tourTable = new TourTable("Enter",filter, user).getTable();
+                for(int i = 0; i < tourData.size() && tourData.size() != 0; i++){
+                    filter.add(i);
+                }
             }
+            tourTable = new TourTable("Enter",filter, user).getTable();
             centerbg.add(tourTable);
             centerbg.revalidate();
         }
