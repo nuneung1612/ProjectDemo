@@ -51,9 +51,11 @@ public class Booking implements ActionListener, ItemListener {
         lC = new JLabel("C");
         lD = new JLabel("D");
         lTotal = new JLabel("Total: "+this.selectSeat+" is select.");
-        b1 = new JButton("Summit");
+        b1 = new JButton("Submit");
         
         b1.addActionListener(this);
+        b1.setBackground(Color.orange);
+        b1.setBorderPainted(false);
 
         
         seatA1 = new JCheckBox("A1");   seatA2 = new JCheckBox("A2");   seatA3 = new JCheckBox("A3");   seatA4 = new JCheckBox("A4");
@@ -66,6 +68,18 @@ public class Booking implements ActionListener, ItemListener {
         seatC9 = new JCheckBox("C9");   seatC10 = new JCheckBox("C10"); seatD1 = new JCheckBox("D1");   seatD2 = new JCheckBox("D2");
         seatD3 = new JCheckBox("D3");   seatD4 = new JCheckBox("D4");   seatD5 = new JCheckBox("D5");   seatD6 = new JCheckBox("D6");
         seatD7 = new JCheckBox("D7");   seatD8 = new JCheckBox("D8");   seatD9 = new JCheckBox("D9");   seatD10 = new JCheckBox("D10");
+        
+        
+        seatA1.setOpaque(false);   seatA2.setOpaque(false);  seatA3.setOpaque(false);   seatA4.setOpaque(false);
+        seatA5.setOpaque(false);   seatA6.setOpaque(false); seatA7.setOpaque(false);   seatA8.setOpaque(false);
+        seatA9.setOpaque(false);   seatA10.setOpaque(false); seatB1.setOpaque(false);   seatB2.setOpaque(false);
+        seatB3.setOpaque(false);  seatB4.setOpaque(false); seatB5.setOpaque(false);seatB6.setOpaque(false);
+        seatB7.setOpaque(false);  seatB8.setOpaque(false);  seatB9.setOpaque(false);   seatB10.setOpaque(false);
+        seatC1.setOpaque(false); seatC2.setOpaque(false);seatC3.setOpaque(false);   seatC4.setOpaque(false);
+        seatC5.setOpaque(false);  seatC6.setOpaque(false);  seatC7.setOpaque(false);seatC8.setOpaque(false);
+        seatC9.setOpaque(false); seatC10.setOpaque(false);seatD1.setOpaque(false);seatD2.setOpaque(false);
+        seatD3.setOpaque(false);  seatD4.setOpaque(false);   seatD5.setOpaque(false);  seatD6.setOpaque(false);
+        seatD7.setOpaque(false);   seatD8.setOpaque(false);   seatD9.setOpaque(false);  seatD10.setOpaque(false);
         
         seatA1.addItemListener(this);     seatA2.addItemListener(this);     seatA3.addItemListener(this);     seatA4.addItemListener(this);
         seatA5.addItemListener(this);     seatA6.addItemListener(this);     seatA7.addItemListener(this);     seatA8.addItemListener(this);
@@ -91,8 +105,12 @@ public class Booking implements ActionListener, ItemListener {
         
         setSeat(tour);
         p = setSeatPanel(tour);
+        
         p1.setLayout(new FlowLayout());
         p1.add(lTotal);     p1.add(b1);
+        p.setBackground(Color.white);
+        p1.setBackground(Color.white);
+               
         
         fr.add(p);
         fr.add(p1, BorderLayout.SOUTH);
@@ -122,6 +140,7 @@ public class Booking implements ActionListener, ItemListener {
         if (tour.getSeat()%7 == 0){
             p.setLayout(new GridLayout(7,5));
             for (int i = 0; i < 7; i++){
+                
                 p.add(seatArray.get(i));
                 p.add(new JLabel());
                 p.add(new JLabel());

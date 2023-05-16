@@ -112,7 +112,7 @@ public class Admin implements ActionListener, WindowFocusListener, DocumentListe
         tourTable = new TourTable("Delete", user).getTable();
         userTable = new UserTable().getTable();
         
-        cbStart.addItem("Bankkok"); cbStart.addItem("Krabi"); cbStart.addItem("Kanchanaburi");
+        cbStart.addItem("Bangkok"); cbStart.addItem("Krabi"); cbStart.addItem("Kanchanaburi");
         cbStart.addItem("Kalasin"); cbStart.addItem("Kamphaeng Phet"); cbStart.addItem("Khon Kaen");
         cbStart.addItem("Chanthaburi"); cbStart.addItem("Chachoengsao"); cbStart.addItem("Chonburi");
         cbStart.addItem("Chainat"); cbStart.addItem("Chaiyaphum"); cbStart.addItem("Khon Kaen");
