@@ -26,6 +26,9 @@ public class ButtonRenderer extends JButton implements TableCellRenderer {
             setIcon(type);
         }else{
             setText(value == null ? "" : value.toString());
+            this.setBackground(Color.orange);
+            this.setBorderPainted(false);
+            
         }
         
         return this;

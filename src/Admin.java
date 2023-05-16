@@ -16,7 +16,7 @@ public class Admin implements ActionListener, WindowFocusListener, DocumentListe
     private JFrame fr;
     private JPanel p1,p2,p3,p4,p5,p6,p7,p8,tourTable,userTable,p9;
     private JButton b1,b2,b3,b4,logout,resetpass;
-    private JLabel l1,l2,l3,l4,l5,l6,l7,l8,l9;
+    private JLabel l1,l2,l3,l4,l5,l6,l7,l8,l9,head;
     private JComboBox cbStart, cbEnd, cbDay,cbMonth,cbYear,cbTourType, cbTimeOuth, cbTimeOutm, cbTimeArriveh,cbTimeArrivem;
     private JTextField txt1;
     private int num = 0;
@@ -30,6 +30,7 @@ public class Admin implements ActionListener, WindowFocusListener, DocumentListe
     
     public Admin(AdminAcc admin){
         this.admin = admin;
+        Font logo = new Font("Times New Roman", Font.BOLD, 60);
         imguser = new ImageIcon(getClass().getResource("images/useredit.png"));
         imgtable = new ImageIcon(getClass().getResource("images/table.png"));
         imgsetting = new ImageIcon(getClass().getResource("images/setting.png"));
@@ -44,7 +45,7 @@ public class Admin implements ActionListener, WindowFocusListener, DocumentListe
         ImageIcon imgsetting1 = new ImageIcon(sizeset);
         ImageIcon imglogout1 = new ImageIcon(sizelog);
         Color re = new Color(255,102,102);
-        Font lbfont = new Font("Times New Roman", Font.BOLD, 14);
+        Font lbfont = new Font("Times New Roman", Font.BOLD, 15);
         fr = new JFrame("Admin");
         p1 = new JPanel();
         p2 = new JPanel();
@@ -70,6 +71,7 @@ public class Admin implements ActionListener, WindowFocusListener, DocumentListe
         l7 = new JLabel("TimeArrive");
         l8 = new JLabel(":");
         l9 = new JLabel("Search User");
+        head = new JLabel("Setting");
         txt1 = new JTextField(10);
         
         
@@ -93,6 +95,10 @@ public class Admin implements ActionListener, WindowFocusListener, DocumentListe
         b3.setBackground(Color.orange);
         Color yellow = new Color(247, 208, 96);
         p1.setBackground(yellow);
+        
+        head.setFont(logo);
+        head.setBounds(350,33,300,100);
+        head.setForeground(Color.orange);
         logout.setBounds(360,200,140,60);
         logout.setBackground(Color.LIGHT_GRAY);
         logout.setFont(lbfont);
@@ -184,7 +190,7 @@ public class Admin implements ActionListener, WindowFocusListener, DocumentListe
         cbTimeOutm.addItem("00");     cbTimeOutm.addItem("01");     cbTimeOutm.addItem("02");
         cbTimeOutm.addItem("03");     cbTimeOutm.addItem("04");     cbTimeOutm.addItem("05");
         cbTimeOutm.addItem("06");     cbTimeOutm.addItem("07");     cbTimeOutm.addItem("08");   cbTimeOutm.addItem("09");
-        cbTimeOutm.addItem("10");     cbTimeOutm.addItem("11");     cbTimeOutm.addItem("012");
+        cbTimeOutm.addItem("10");     cbTimeOutm.addItem("11");     cbTimeOutm.addItem("12");
         cbTimeOutm.addItem("13");     cbTimeOutm.addItem("14");     cbTimeOutm.addItem("15");
         cbTimeOutm.addItem("16");     cbTimeOutm.addItem("17");     cbTimeOutm.addItem("18");
         cbTimeOutm.addItem("19");     cbTimeOutm.addItem("20");     cbTimeOutm.addItem("21");
@@ -214,7 +220,7 @@ public class Admin implements ActionListener, WindowFocusListener, DocumentListe
         cbTimeArrivem.addItem("00");     cbTimeArrivem.addItem("01");     cbTimeArrivem.addItem("02");
         cbTimeArrivem.addItem("03");     cbTimeArrivem.addItem("04");     cbTimeArrivem.addItem("05");
         cbTimeArrivem.addItem("06");     cbTimeArrivem.addItem("07");     cbTimeArrivem.addItem("08");   cbTimeArrivem.addItem("09");
-        cbTimeArrivem.addItem("10");     cbTimeArrivem.addItem("11");     cbTimeArrivem.addItem("012");
+        cbTimeArrivem.addItem("10");     cbTimeArrivem.addItem("11");     cbTimeArrivem.addItem("12");
         cbTimeArrivem.addItem("13");     cbTimeArrivem.addItem("14");     cbTimeArrivem.addItem("15");
         cbTimeArrivem.addItem("16");     cbTimeArrivem.addItem("17");     cbTimeArrivem.addItem("18");
         cbTimeArrivem.addItem("19");     cbTimeArrivem.addItem("20");     cbTimeArrivem.addItem("21");
@@ -278,7 +284,7 @@ public class Admin implements ActionListener, WindowFocusListener, DocumentListe
         p8.add(userTable);
         
         p9.setLayout(null);
-        p9.add(logout); p9.add(resetpass);
+        p9.add(logout); p9.add(resetpass); p9.add(head);
         
         fr.add(p1, BorderLayout.WEST);
         fr.add(p6);
