@@ -12,6 +12,7 @@ import java.util.*;
 public class User implements Serializable {
     private String name,lastName,email,telNumber,userName,password;
     private LinkedList userData = new LinkedList();
+    private LinkedList <Ticket>ticketData = new LinkedList<Ticket>();
     private static final long serialVersionUID = 1234567890L;
     
     public User(){
@@ -81,5 +82,13 @@ public class User implements Serializable {
     
     public String getPassword(){
         return this.password;
+    }
+    
+    public LinkedList<Ticket> getTicketData() {
+        return ticketData;
+    }
+
+    public void setTicketData(LinkedList<Ticket> ticketData) {
+        this.ticketData = ticketData;
     }
 }

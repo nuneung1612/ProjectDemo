@@ -14,7 +14,6 @@ public class Ticket implements Serializable{
     private String owner;
     private Tour tour;
     private String seat;
-    private LinkedList <Ticket>ticketData = new LinkedList<Ticket>();
     private static final long serialVersionUID = 1234567890L;
     
     public Ticket(String owner, Tour tour,String seat){
@@ -22,22 +21,11 @@ public class Ticket implements Serializable{
         this.owner = owner;
         this.tour = tour;
         this.seat = seat;
-        ticketData = FileIO.loadTicketData();
-        if (ticketData.size() != 0){
-            num = Integer.parseInt((ticketData.get(ticketData.size() - 1)).getTicketID());
-        }
+        
+        num = FileIO.loadTicketID();
         num += 1;
         ticketID = String.format("%04d", num);
-        ticketData.add(this);
-        FileIO.saveTicketData(ticketData);
-    }
-
-    public LinkedList getTicketData() {
-        return ticketData;
-    }
-
-    public void setTicketData(LinkedList ticketData) {
-        this.ticketData = ticketData;
+        FileIO.saveTicketID(num);
     }
 
     public String getOwner() {

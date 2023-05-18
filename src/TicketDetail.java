@@ -17,8 +17,8 @@ public class TicketDetail {
     private JFrame fr;
     private JPanel p1,p2;
     private JLabel l1,l2,l3,l4,l5,l6,l7,eticket;
-    private LinkedList <Ticket>ticketData = new LinkedList<Ticket>();
     private LinkedList <Tour> tourData = new LinkedList<Tour>();
+    private LinkedList <User> userData = new LinkedList<User>();
     private ImageIcon barcode;
     
     public TicketDetail(Ticket ticket, User user){
@@ -38,8 +38,8 @@ public class TicketDetail {
         eticket.setFont(header);
         eticket.setForeground(Color.white);
         p2.setBackground(Color.orange);
-        ticketData = FileIO.loadTicketData();
         tourData = FileIO.loadTourData();
+        userData = FileIO.loadUserData();
         boolean expire = true;
         for (int i = 0; i< tourData.size(); i++){
             if(tourData.get(i).getBusID().equals(ticket.getTour().getBusID())){
@@ -73,12 +73,14 @@ public class TicketDetail {
         }
         if(expire){
             JOptionPane.showConfirmDialog(null, "Ticket Expire", "", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
-            for (int i = 0 ; i < ticketData.size(); i++){
-                if (ticket.getTicketID().equals(ticketData.get(i).getTicketID())){
-                    ticketData.remove(i);
-                    FileIO.saveTicketData(ticketData);
+            for (int i = 0 ; i < user.getTicketData().size(); i++){
+                if (ticket.getTicketID().equals(user.getTicketData().get(i).getTicketID())){
+                    user.getTicketData().remove(i);
                 }
             }
+            int index = userData.indexOf(user);
+            userData.set(index, user);
+            FileIO.saveUserData(userData);
         }        
     }
 }

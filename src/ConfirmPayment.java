@@ -29,6 +29,7 @@ public class ConfirmPayment implements ActionListener, ItemListener{
     private User user;
     private LinkedList<String> booking = new LinkedList<String>();
     private LinkedList<Tour> tourData = new LinkedList<Tour>();
+    private LinkedList <User> userData = new LinkedList<User>();
     
     public ConfirmPayment(Tour tour, User user, LinkedList<String> booking){
         
@@ -44,6 +45,7 @@ public class ConfirmPayment implements ActionListener, ItemListener{
         Font bookhead = new Font("Times New Roman", Font.BOLD,35);
         Font txtb = new Font("Serif", Font.PLAIN, 18);
         tourData = FileIO.loadTourData();
+        userData = FileIO.loadUserData();
         
         desktopPane = new JDesktopPane();
         frame1 = new JInternalFrame("Ticket Detail",false,false,false,false);
@@ -226,18 +228,34 @@ public class ConfirmPayment implements ActionListener, ItemListener{
             if (payment == true){
                 
                 for(String a: booking){
-                    new Ticket(user.getUsername(),tour,a);
+                    Ticket tic = new Ticket(user.getUsername(),tour,a);
+                    user.getTicketData().add(tic);
                     tour.setBookSeat(seatToNum(a));
                 }
+                
                 try{
-                int index = -1;
-                for (int i = 0; i < tourData.size() && tourData.size() != 0; i++){
-                    if ((tourData.get(i)).getBusID().equals(tour.getBusID())){
-                        index = i;
+                int indexUser = -1;
+                for (int i = 0; i < userData.size() && userData.size() != 0; i++){
+                    if ((userData.get(i)).getUsername().equals(user.getUsername())){
+                        indexUser = i;
                         break;
                     }
                 }
-                tourData.set(index, tour);
+                userData.set(indexUser, user);
+                }catch(IndexOutOfBoundsException ex){
+                    System.out.println("Tour not found");
+                }
+                FileIO.saveUserData(userData);
+                
+                try{
+                int indexTour = -1;
+                for (int i = 0; i < tourData.size() && tourData.size() != 0; i++){
+                    if ((tourData.get(i)).getBusID().equals(tour.getBusID())){
+                        indexTour = i;
+                        break;
+                    }
+                }
+                tourData.set(indexTour, tour);
                 }catch(IndexOutOfBoundsException ex){
                     System.out.println("Tour not found");
                 }
@@ -260,23 +278,14 @@ public class ConfirmPayment implements ActionListener, ItemListener{
              b1.setEnabled(true);
             
             JOptionPane.showMessageDialog(null, "Payment complete.", "Payment",JOptionPane.INFORMATION_MESSAGE);
-        
-        
-        
-        
         }
-
-     
-        
     }
     public void itemStateChanged(ItemEvent e) {
         
         if(e.getStateChange() == ItemEvent.SELECTED){
-                if(e.getSource().equals(bp1) || e.getSource().equals(bp2)||e.getSource().equals(bp3)||e.getSource().equals(bp4)){
-                    b3.setEnabled(true);
-                }
-                    
+            if(e.getSource().equals(bp1) || e.getSource().equals(bp2)||e.getSource().equals(bp3)||e.getSource().equals(bp4)){
+                b3.setEnabled(true);
+            }  
         }
-        
     }
 }

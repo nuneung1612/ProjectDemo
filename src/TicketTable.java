@@ -62,16 +62,13 @@ public class TicketTable{
         }
         
         // Data Row
-        ticketData = FileIO.loadTicketData();
+        ticketData = user.getTicketData();
         
         table.getColumnModel().getColumn(6).setCellRenderer(new ButtonRenderer());
         table.getColumnModel().getColumn(6).setCellEditor(new ButtonEditor(new JCheckBox(), table, user));
         table.setDefaultEditor(Object.class, null);
         
         for (int i = 0; i < ticketData.size() && ticketData.size() != 0; i++){
-            if(!(user.getUsername().equals(ticketData.get(i).getOwner()))){
-                continue;
-            }
             int row = table.getRowCount();
             model.addRow(new Object[0]);
             

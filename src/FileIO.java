@@ -28,15 +28,15 @@ public class FileIO{
         }
     }
     
-    public static void saveTicketData(LinkedList ticket){
-        try(FileOutputStream fOut = new FileOutputStream("TicketData.dat");
-            ObjectOutputStream oout = new ObjectOutputStream(fOut);){
-            oout.writeObject(ticket);
+    public static void saveTicketID(int id){
+        try(FileWriter fw = new FileWriter("TicketID.dat");){
+            fw.write(String.valueOf(id));
         }catch(IOException e){
-        System.out.println(e);
+            System.out.println(e);
         }
     }
-       public static void saveAdminData(AdminAcc admin){
+    
+    public static void saveAdminData(AdminAcc admin){
         try(FileOutputStream fOut = new FileOutputStream("AdminAcc.dat");
             ObjectOutputStream oout = new ObjectOutputStream(fOut);){
             oout.writeObject(admin);
@@ -64,17 +64,8 @@ public class FileIO{
             return new LinkedList();
         }
     }
-    
-    public static LinkedList loadTicketData(){
-        try(FileInputStream fin = new FileInputStream("TicketData.dat");
-            ObjectInputStream in = new ObjectInputStream(fin);){
-            return ((LinkedList)in.readObject());
-        }catch(IOException | ClassNotFoundException e){
-            System.out.println(e);
-            return new LinkedList();
-        }
-    }
-        public static AdminAcc loadAdminData(){
+
+    public static AdminAcc loadAdminData(){
         try(FileInputStream fin = new FileInputStream("AdminAcc.dat");
             ObjectInputStream in = new ObjectInputStream(fin);){
             return ((AdminAcc)in.readObject());
@@ -82,5 +73,19 @@ public class FileIO{
             System.out.println(e);
             return new AdminAcc();
         }
+    }
+    
+    public static int loadTicketID(){
+        int ch;
+        String text = "";
+        try(FileReader fr = new FileReader("TicketID.dat");){
+            while ((ch = fr.read()) != -1){
+                text += (char)ch;
+            }
+            return Integer.parseInt(text);
+        }catch(IOException e){
+            System.out.println(e);
+            return 0;
+        }    
     }
 }

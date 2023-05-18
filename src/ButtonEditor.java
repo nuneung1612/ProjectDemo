@@ -16,7 +16,6 @@ class ButtonEditor extends DefaultCellEditor implements ActionListener {
    private String lbl;
    private LinkedList <Tour>tourData = new LinkedList<Tour>();
    private LinkedList userData = new LinkedList();
-   private LinkedList <Ticket>ticketData = new LinkedList<Ticket>();
    private JTable table;
    private User user;
    private ImageIcon icon;
@@ -62,7 +61,6 @@ class ButtonEditor extends DefaultCellEditor implements ActionListener {
       public void actionPerformed(ActionEvent e) {
         tourData = FileIO.loadTourData();
         userData = FileIO.loadUserData();
-        ticketData = FileIO.loadTicketData();
         
         int row = table.getSelectedRow();
         if (table.getColumnModel().getColumn(table.getColumnCount()-1).getHeaderValue().equals("Enter") && table.getSelectedColumn() == table.getColumnCount()-1){
@@ -88,9 +86,9 @@ class ButtonEditor extends DefaultCellEditor implements ActionListener {
         }
         else if (table.getColumnModel().getColumn(table.getColumnCount()-1).getHeaderValue().equals("Detail") && table.getSelectedColumn() == table.getColumnCount()-1){
             String id = ((String)table.getValueAt(row, 0));
-            for (int i = 0; i < ticketData.size() && ticketData.size() != 0; i++){
-                if (ticketData.get(i).getTicketID().equals(id)){
-                    new TicketDetail(ticketData.get(i), user);
+            for (int i = 0; i < user.getTicketData().size() && user.getTicketData().size() != 0; i++){
+                if (user.getTicketData().get(i).getTicketID().equals(id)){
+                    new TicketDetail(user.getTicketData().get(i), user);
                 }
             }
         }
