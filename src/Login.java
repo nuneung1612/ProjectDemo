@@ -22,10 +22,8 @@ public class Login implements ActionListener {
     private JButton adminbtn;
     private JLabel usertxt;
     private JLabel passtxt;
-    private Font logofont = new Font("Times New Roman", Font.BOLD, 40);
     private JLabel logo;
     private LinkedList userData = new LinkedList();
-//    private AdminAcc admin = new AdminAcc();
     private JLabel invalid;
     private ImageIcon logo1, logo2;
     
@@ -39,7 +37,6 @@ public class Login implements ActionListener {
         usertxt = new JLabel("Username:");
         passtxt = new JLabel("Password:");
         adminbtn = new JButton("Admin");
-        //logo = new JLabel("JAVA Tour");
         invalid = new JLabel("Incorrect username or password.");
         logo1 = new ImageIcon(getClass().getResource("images/logo.png"));
         Image size = logo1.getImage().getScaledInstance(150, 150, Image.SCALE_SMOOTH);

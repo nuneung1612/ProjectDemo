@@ -14,7 +14,7 @@ import javax.swing.event.*;
 import java.util.*;
 public class Admin implements ActionListener, WindowFocusListener, DocumentListener{
     private JFrame fr;
-    private JPanel p1,p2,p3,p4,p5,p6,p7,p8,tourTable,userTable,p9,ph;
+    private JPanel p1,p2,p3,p4,p5,p6,p7,p8,tourTable,userTable,p9;
     private JButton b1,b2,b3,b4,logout,resetpass;
     private JLabel l1,l2,l3,l4,l5,l6,l7,l8,l9,head,tourhead;
     private JComboBox cbStart, cbEnd, cbDay,cbMonth,cbYear,cbTourType, cbTimeOuth, cbTimeOutm, cbTimeArriveh,cbTimeArrivem;
@@ -32,7 +32,7 @@ public class Admin implements ActionListener, WindowFocusListener, DocumentListe
         this.admin = admin;
         Color cream = new Color(243, 233, 159);
         Font logo = new Font("Times New Roman", Font.BOLD, 60);
-        Font header = new Font("Times New Roman", Font.BOLD, 40);
+        
         imguser = new ImageIcon(getClass().getResource("images/useredit.png"));
         imgtable = new ImageIcon(getClass().getResource("images/table.png"));
         imgsetting = new ImageIcon(getClass().getResource("images/setting.png"));
@@ -58,7 +58,6 @@ public class Admin implements ActionListener, WindowFocusListener, DocumentListe
         p7 = new JPanel();
         p8 = new JPanel();
         p9 = new JPanel();
-        ph = new JPanel(new FlowLayout());
         b1 = new JButton("Edit user",imguser1);
         b2 = new JButton("Tour table",imgtable1);
         b3 = new JButton("Add");
@@ -75,10 +74,7 @@ public class Admin implements ActionListener, WindowFocusListener, DocumentListe
         l8 = new JLabel(":");
         l9 = new JLabel("Search User");
         head = new JLabel("Setting");
-        tourhead = new JLabel("Tour Table Editor");
-        tourhead.setFont(header);
-        ph.add(tourhead);
-        ph.setBackground(cream);
+     
         txt1 = new JTextField(10);
         
         

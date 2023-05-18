@@ -35,7 +35,7 @@ public class TicketTable{
         scrollPane.setPreferredSize(new Dimension(800, 400));
         table.setRowHeight(50);
         
-        p2.setBackground(new Color(243, 233, 159));
+        p2.setBackground(Color.white);
         p2.add(l1, BorderLayout.NORTH);
         p2.add(p);
         
