@@ -75,9 +75,9 @@ public class Home implements ActionListener, WindowFocusListener, ItemListener{
         setting.setContentAreaFilled(false); setting.setBorderPainted(false);
         ticket.setContentAreaFilled(false); ticket.setBorderPainted(false);
         
-        l1 = new JLabel("Start");
+        l1 = new JLabel("From");
         l1.setFont(new Font("Arabic", Font.BOLD, 14));
-        l2 = new JLabel("End");
+        l2 = new JLabel("To");
         l2.setFont(new Font("Arabic", Font.BOLD, 14));
         l3 = new JLabel("Date  ");
         l3.setFont(new Font("Arabic", Font.BOLD, 14));
@@ -121,7 +121,7 @@ public class Home implements ActionListener, WindowFocusListener, ItemListener{
         Color cream = new Color(243, 233, 159);
         
         cbStart.addItem("(All)");
-        cbStart.addItem("Bankkok"); cbStart.addItem("Krabi"); cbStart.addItem("Kanchanaburi");
+        cbStart.addItem("Bangkok"); cbStart.addItem("Krabi"); cbStart.addItem("Kanchanaburi");
         cbStart.addItem("Kalasin"); cbStart.addItem("Kamphaeng Phet"); cbStart.addItem("Khon Kaen");
         cbStart.addItem("Chanthaburi"); cbStart.addItem("Chachoengsao"); cbStart.addItem("Chonburi");
         cbStart.addItem("Chainat"); cbStart.addItem("Chaiyaphum"); cbStart.addItem("Khon Kaen");
