@@ -4,11 +4,10 @@ import java.util.LinkedList;
 import javax.swing.*;
 public class Home implements ActionListener, WindowFocusListener, ItemListener{
     private JFrame fr;
-    private JPanel p1,p2,p3,p4,inlefttop,p6,centerbg,tourTable,inleftbottom,leftbg,inpro,inhome,profilePanel,ticketPanel,p5;
+    private JPanel p2,p3,p4,inlefttop,p6,centerbg,tourTable,inleftbottom,leftbg,inpro,inhome,profilePanel,ticketPanel,p5;
     private JButton bSearch,b2,b3, profile, home, setting, ticket;
     private ImageIcon imch, imcp, imcs, imt;
-    private JLabel l1,l2,l3,l4,l5,l6,l7,l8,l9,free1,prof,hm,set;
-    private JScrollPane scrollPane;
+    private JLabel l1,l2,l3,l4,l5,l6,l7,l8,l9,free1,prof;
     private JComboBox cbStart, cbEnd, cbDay,cbMonth,cbYear,cbTourType,cbSeat,cbTimeOuth, cbTimeOutm, cbTimeArriveh,cbTimeArrivem;
     private LinkedList <Tour> tourData = new LinkedList<Tour>();
     private LinkedList <User>userData = new LinkedList<User>();
@@ -32,7 +31,6 @@ public class Home implements ActionListener, WindowFocusListener, ItemListener{
         
         fr = new JFrame("Home");
         fr.setResizable(false);
-        p1 = new JPanel();
         p2 = new JPanel();
         p3 = new JPanel();
         p4 = new JPanel();
@@ -346,7 +344,7 @@ public class Home implements ActionListener, WindowFocusListener, ItemListener{
         fr.setLocation(x,y);
         fr.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         fr.setVisible(true);
-        ticketPanel.setBackground(cream);
+        ticketPanel.setBackground(Color.white);
     }
     public LinkedList filterSearch(String start, String end, String type, String day, String month, String year, int seat, String timeOut, String timeArrive){
         LinkedList filter = new LinkedList();
@@ -483,7 +481,7 @@ public class Home implements ActionListener, WindowFocusListener, ItemListener{
         }
         
         if (ae.getSource().equals(ticket)){
-            prof.setText(user.getUsername());
+         
             fr.setTitle("JavaTour - Ticket");
             fr.remove(centerbg);
             fr.remove(profilePanel);
@@ -492,7 +490,7 @@ public class Home implements ActionListener, WindowFocusListener, ItemListener{
             
             ticketPanel = new TicketTable(user).getTable();
             Color cream = new Color(243, 233, 159);
-            ticketPanel.setBackground(cream);
+            ticketPanel.setBackground(Color.white);
             fr.add(ticketPanel);
             
             fr.revalidate();
@@ -586,7 +584,7 @@ public class Home implements ActionListener, WindowFocusListener, ItemListener{
             fr.remove(ticketPanel);
             ticketPanel = new TicketTable(user).getTable();
            Color cream = new Color(243, 233, 159);
-            ticketPanel.setBackground(cream);
+            ticketPanel.setBackground(Color.white);
             fr.add(ticketPanel);
             
             fr.revalidate();
