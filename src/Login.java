@@ -55,9 +55,9 @@ public class Login implements ActionListener {
         fr.setLocation(x, y);
         pa.setBackground(Color.WHITE);
         
-       // logo.setFont(logofont);
+       
         logo.setBounds(55, 5, 200,170);
-        //logo.setForeground(Color.orange);
+        
         
      
         
@@ -144,7 +144,6 @@ public class Login implements ActionListener {
             }
         }
         if(ev.getSource()==signupbtn){
-            System.out.println("Sign up");
             new SignUp();
             invalid.setVisible(false);
             username.setText("");

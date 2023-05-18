@@ -117,7 +117,7 @@ public class Booking implements ActionListener, ItemListener {
         int screenHeight = screenSize.height;
         
         int x = (screenWidth - 300) / 2;
-        int y = (screenHeight - 800) / 2;
+        int y = (screenHeight - 600) / 2;
         
         if (book){
             p1.add(lTotal);     p1.add(b1);

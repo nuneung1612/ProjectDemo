@@ -67,7 +67,16 @@ public class TicketDetail {
                 fr.setSize(400,500);
                 fr.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 fr.setVisible(true);
-                
+                Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+                 int screenWidth = screenSize.width;
+                 int screenHeight = screenSize.height;
+        
+                 int x = (screenWidth - 400) / 2;
+                 int y = (screenHeight - 500) / 2;
+
+
+       
+                 fr.setLocation(x, y);
                 expire = false;
             }
         }
