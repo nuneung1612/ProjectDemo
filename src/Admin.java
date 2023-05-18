@@ -300,7 +300,15 @@ public class Admin implements ActionListener, WindowFocusListener, DocumentListe
         fr.add(p1, BorderLayout.WEST);
         fr.add(p6);
         
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int screenWidth = screenSize.width;
+        int screenHeight = screenSize.height;
+        
+        int x = (screenWidth - 1000) / 2;
+        int y = (screenHeight - 600) / 2;
+        
         fr.setSize(1000,600);
+        fr.setLocation(x, y);
         fr.setResizable(false);
         fr.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         fr.setVisible(true);

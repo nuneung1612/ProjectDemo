@@ -58,10 +58,16 @@ public class SignUp implements ActionListener {
        warnemail = new JLabel("Invalid email");
        warntel = new JLabel("Invalid phone number");
        
-       
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int screenWidth = screenSize.width;
+        int screenHeight = screenSize.height;
+        
+        int x = (screenWidth - 30) / 2;
+        int y = (screenHeight - 700) / 2;
        
 
         fr.setSize(310, 540);
+        fr.setLocation(x, y);
         pa.setBackground(Color.WHITE);
         
         signlogo.setFont(signupfont);

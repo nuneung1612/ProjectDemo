@@ -13,13 +13,19 @@ import javax.swing.table.*;
 import java.util.*;
 
 public class TicketTable{
-    private JPanel p;
+    private JPanel p,p2;
     private JScrollPane scrollPane;
     private JTable table;
+    private JLabel l1;
     private LinkedList <Ticket>ticketData = new LinkedList<Ticket>();
     
     public TicketTable(User user) {
         p = new JPanel();
+        p2 = new JPanel();
+        l1 = new JLabel("Ticket");
+        l1.setFont(new Font("Times New Roman", Font.BOLD, 60));
+        l1.setBounds(355,33,300,100);
+        l1.setForeground(Color.orange);
 
         scrollPane = new JScrollPane();
         p.add(scrollPane);
@@ -28,6 +34,10 @@ public class TicketTable{
         scrollPane.setViewportView(table);
         scrollPane.setPreferredSize(new Dimension(800, 400));
         table.setRowHeight(50);
+        
+        p2.setBackground(new Color(243, 233, 159));
+        p2.add(l1, BorderLayout.NORTH);
+        p2.add(p);
         
         // Model for Table
         DefaultTableModel model = (DefaultTableModel)table.getModel();
@@ -76,7 +86,7 @@ public class TicketTable{
     }
     
     public JPanel getTable(){
-        return this.p;
+        return this.p2;
     }
 }
 

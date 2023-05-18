@@ -50,6 +50,7 @@ public class ConfirmPayment implements ActionListener, ItemListener{
         frame2 = new JInternalFrame("Receipt",false,false,false,false);
         frame3 = new JInternalFrame("Payment",false,false,false,false);
         fr = new JDialog(fr, "Result", true);
+        fr.setResizable(false);
         
         booktxt = new JLabel("- Booking Detail -");
         booktxt.setFont(bookhead);
@@ -178,7 +179,15 @@ public class ConfirmPayment implements ActionListener, ItemListener{
         
         fr.add(desktopPane);
         
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int screenWidth = screenSize.width;
+        int screenHeight = screenSize.height;
+        
+        int x = (screenWidth - 1000) / 2;
+        int y = (screenHeight - 600) / 2;
+        
         fr.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        fr.setLocation(x, y);
         fr.setSize(1000,600);
         fr.setVisible(true);
         

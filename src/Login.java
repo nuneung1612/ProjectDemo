@@ -45,9 +45,17 @@ public class Login implements ActionListener {
         Image size = logo1.getImage().getScaledInstance(150, 150, Image.SCALE_SMOOTH);
         logo2 = new ImageIcon(size);
         logo = new JLabel(logo2);
+        
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int screenWidth = screenSize.width;
+        int screenHeight = screenSize.height;
+        
+        int x = (screenWidth - 300) / 2;
+        int y = (screenHeight - 500) / 2;
 
 
         fr.setSize(300, 500);
+        fr.setLocation(x, y);
         pa.setBackground(Color.WHITE);
         
        // logo.setFont(logofont);
