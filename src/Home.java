@@ -592,6 +592,7 @@ public class Home implements ActionListener, WindowFocusListener, ItemListener{
             fr.revalidate();
             fr.repaint();
         }
+        FileIO.saveUserData(userData);
         
     }
 
