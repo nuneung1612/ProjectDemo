@@ -21,7 +21,9 @@ public class TourTable{
     private ImageIcon imbins = new ImageIcon(sizebin);
     
     public TourTable(String type, User user) {
+        Color cream = new Color(243, 233, 159);
         p = new JPanel();
+        p.setBackground(cream);
 
         scrollPane = new JScrollPane();
         p.add(scrollPane);
@@ -45,7 +47,7 @@ public class TourTable{
         table.getColumnModel().getColumn(1).setPreferredWidth(40);
         table.getColumnModel().getColumn(2).setPreferredWidth(50);
         table.getColumnModel().getColumn(3).setPreferredWidth(220);
-        table.getColumnModel().getColumn(4).setPreferredWidth(10);
+        table.getColumnModel().getColumn(4).setPreferredWidth(50);
         table.getColumnModel().getColumn(5).setPreferredWidth(10);
         table.getColumnModel().getColumn(6).setPreferredWidth(30);
         
@@ -82,9 +84,12 @@ public class TourTable{
         
     }
     public TourTable(String type, LinkedList filter, User user) {
+            Color cream = new Color(243, 233, 159);
             p = new JPanel();
+            p.setBackground(cream);
             
             scrollPane = new JScrollPane();
+           
             p.add(scrollPane);
             
             JTable table = new JTable();
@@ -105,7 +110,7 @@ public class TourTable{
             table.getColumnModel().getColumn(1).setPreferredWidth(40);
             table.getColumnModel().getColumn(2).setPreferredWidth(50);
             table.getColumnModel().getColumn(3).setPreferredWidth(220);
-            table.getColumnModel().getColumn(4).setPreferredWidth(10);
+            table.getColumnModel().getColumn(4).setPreferredWidth(50);
             table.getColumnModel().getColumn(5).setPreferredWidth(10);
             table.getColumnModel().getColumn(6).setPreferredWidth(30);
 

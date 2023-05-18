@@ -14,9 +14,9 @@ import javax.swing.event.*;
 import java.util.*;
 public class Admin implements ActionListener, WindowFocusListener, DocumentListener{
     private JFrame fr;
-    private JPanel p1,p2,p3,p4,p5,p6,p7,p8,tourTable,userTable,p9;
+    private JPanel p1,p2,p3,p4,p5,p6,p7,p8,tourTable,userTable,p9,ph;
     private JButton b1,b2,b3,b4,logout,resetpass;
-    private JLabel l1,l2,l3,l4,l5,l6,l7,l8,l9,head;
+    private JLabel l1,l2,l3,l4,l5,l6,l7,l8,l9,head,tourhead;
     private JComboBox cbStart, cbEnd, cbDay,cbMonth,cbYear,cbTourType, cbTimeOuth, cbTimeOutm, cbTimeArriveh,cbTimeArrivem;
     private JTextField txt1;
     private int num = 0;
@@ -30,7 +30,9 @@ public class Admin implements ActionListener, WindowFocusListener, DocumentListe
     
     public Admin(AdminAcc admin){
         this.admin = admin;
+        Color cream = new Color(243, 233, 159);
         Font logo = new Font("Times New Roman", Font.BOLD, 60);
+        Font header = new Font("Times New Roman", Font.BOLD, 40);
         imguser = new ImageIcon(getClass().getResource("images/useredit.png"));
         imgtable = new ImageIcon(getClass().getResource("images/table.png"));
         imgsetting = new ImageIcon(getClass().getResource("images/setting.png"));
@@ -56,22 +58,27 @@ public class Admin implements ActionListener, WindowFocusListener, DocumentListe
         p7 = new JPanel();
         p8 = new JPanel();
         p9 = new JPanel();
+        ph = new JPanel(new FlowLayout());
         b1 = new JButton("Edit user",imguser1);
         b2 = new JButton("Tour table",imgtable1);
         b3 = new JButton("Add");
         b4 = new JButton(imgsetting1);
         logout = new JButton("Log out",imglogout1);
         resetpass = new JButton("Reset Password");
-        l1 = new JLabel("start");
-        l2 = new JLabel("End");
-        l3 = new JLabel("date");
+        l1 = new JLabel("From");
+        l2 = new JLabel("To");
+        l3 = new JLabel("Date");
         l4 = new JLabel("Type");
-        l5 = new JLabel("Timeout");
+        l5 = new JLabel("Time out");
         l6 = new JLabel(":");
-        l7 = new JLabel("TimeArrive");
+        l7 = new JLabel("Time Arrive");
         l8 = new JLabel(":");
         l9 = new JLabel("Search User");
         head = new JLabel("Setting");
+        tourhead = new JLabel("Tour Table Editor");
+        tourhead.setFont(header);
+        ph.add(tourhead);
+        ph.setBackground(cream);
         txt1 = new JTextField(10);
         
         
@@ -137,7 +144,7 @@ public class Admin implements ActionListener, WindowFocusListener, DocumentListe
         cbStart.addItem("Amnat Charoen"); cbStart.addItem("Udon Thani"); cbStart.addItem("Uttaradit");
         cbStart.addItem("Uthai Thani"); cbStart.addItem("Ubon Ratchathani");
         
-        cbEnd.addItem("Bankkok"); cbEnd.addItem("Krabi"); cbEnd.addItem("Kanchanaburi");
+        cbEnd.addItem("Bangkok"); cbEnd.addItem("Krabi"); cbEnd.addItem("Kanchanaburi");
         cbEnd.addItem("Kalasin"); cbEnd.addItem("Kamphaeng Phet"); cbEnd.addItem("Khon Kaen");
         cbEnd.addItem("Chanthaburi"); cbEnd.addItem("Chachoengsao"); cbEnd.addItem("Chonburi");
         cbEnd.addItem("Chainat"); cbEnd.addItem("Chaiyaphum"); cbEnd.addItem("Khon Kaen");
@@ -173,7 +180,7 @@ public class Admin implements ActionListener, WindowFocusListener, DocumentListe
         cbDay.addItem("25"); cbDay.addItem("26"); cbDay.addItem("27"); 
         cbDay.addItem("28"); cbDay.addItem("29"); cbDay.addItem("30"); 
         cbDay.addItem("31");
-        cbMonth.addItem("Jun"); cbMonth.addItem("Feb"); cbMonth.addItem("Mar");
+        cbMonth.addItem("Jan"); cbMonth.addItem("Feb"); cbMonth.addItem("Mar");
         cbMonth.addItem("Apr"); cbMonth.addItem("May"); cbMonth.addItem("Jun");
         cbMonth.addItem("Jul"); cbMonth.addItem("Aug"); cbMonth.addItem("Sep");
         cbMonth.addItem("Oct"); cbMonth.addItem("Nov"); cbMonth.addItem("Dec");
@@ -259,29 +266,33 @@ public class Admin implements ActionListener, WindowFocusListener, DocumentListe
         p1.add(b1);     p1.add(b2);
         p1.add(new JLabel()); p1.add(new JLabel());
         p1.add(new JLabel()); p1.add(b4);
+        p1.setBackground(Color.orange);
         
         p2.setLayout(new FlowLayout());
         p2.add(l1);     p2.add(cbStart);    p2.add(l2);     p2.add(cbEnd);
-        
+        p2.setBackground(cream);
         p3.setLayout(new FlowLayout());
         p3.add(l3);     p3.add(cbDay);    p3.add(cbMonth);    p3.add(cbYear);    p3.add(l4);
         p3.add(cbTourType); p3.add(b3);
-        
+        p3.setBackground(cream);
         p5.setLayout(new FlowLayout());
         p5.add(l5);     p5.add(cbTimeOuth); p5.add(l6);     p5.add(cbTimeOutm);
         p5.add(l7);     p5.add(cbTimeArriveh);      p5.add(l8); p5.add(cbTimeArrivem);
-        
+        p5.setBackground(cream);
         p4.setLayout(new GridLayout(3,1));
         p4.add(p2);     p4.add(p3);     p4.add(p5);
-        
+        p4.setBackground(cream);
+
         p6.add(p4, BorderLayout.NORTH);
         p6.add(tourTable);
+        p6.setBackground(cream);
         
         p7.setLayout(new FlowLayout());
         p7.add(l9);     p7.add(txt1);
-        
+        p7.setBackground(cream);
         p8.add(p7,BorderLayout.NORTH);
         p8.add(userTable);
+        p8.setBackground(cream);
         
         p9.setLayout(null);
         p9.add(logout); p9.add(resetpass); p9.add(head);
@@ -290,6 +301,7 @@ public class Admin implements ActionListener, WindowFocusListener, DocumentListe
         fr.add(p6);
         
         fr.setSize(1000,600);
+        fr.setResizable(false);
         fr.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         fr.setVisible(true);
         

@@ -18,10 +18,12 @@ public class UserTable {
     private LinkedList <User> userData = new LinkedList<User>();
     
     public UserTable() {
+        Color cream = new Color(243, 233, 159);
         p = new JPanel();
         // ScrollPane for Table
         scrollPane = new JScrollPane();
         p.add(scrollPane);
+        p.setBackground(cream);
         // Table
         table = new JTable();
         scrollPane.setViewportView(table);

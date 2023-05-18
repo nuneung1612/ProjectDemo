@@ -12,7 +12,6 @@ import javax.swing.*;
 
 
 public class Setting{
-    private JFrame fr;
     private User user;
     private JPanel p1;
     private JButton logout, delete;
@@ -28,7 +27,6 @@ public class Setting{
         imglogout = new ImageIcon(getClass().getResource("images/logout.png"));
         Image sizelog = imglogout.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
         ImageIcon imglogout1 = new ImageIcon(sizelog);
-        fr = new JFrame();
         p1 = new JPanel(null);
         logout = new JButton("Log out",imglogout1);
         delete = new JButton("Delete Account");
@@ -62,8 +60,6 @@ public class Setting{
      public JButton getDelete(){
          return this.delete;
      }
-    public static void main(String[] args) {
-      //  new Setting();
-    }
+
     
 }

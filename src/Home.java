@@ -44,9 +44,7 @@ public class Home implements ActionListener, WindowFocusListener, ItemListener{
         settingView = new Setting(user);
         ticketPanel= new TicketTable(user).getTable();
         
-        
-        //b2 = new JButton("Tour");
-        //b3 = new JButton("User");
+
         
         imch = new ImageIcon(getClass().getResource("images/home.png"));
         imcp = new ImageIcon(getClass().getResource("images/profile.png"));
@@ -61,13 +59,17 @@ public class Home implements ActionListener, WindowFocusListener, ItemListener{
         ImageIcon imcs1 = new ImageIcon(sizes);
         ImageIcon imt1 = new ImageIcon(sizet);
         profile = new JButton(imcp1);
-        home = new JButton(imch1);
+        home = new JButton("Home",imch1);
         setting = new JButton(imcs1);
-        ticket = new JButton(imt1);
+        ticket = new JButton(" My ticket",imt1);
         home.setContentAreaFilled(false); home.setBorderPainted(false);
+        home.setVerticalTextPosition(SwingConstants.BOTTOM);
+        home.setHorizontalTextPosition(SwingConstants.CENTER);
         profile.setContentAreaFilled(false); profile.setBorderPainted(false);
         setting.setContentAreaFilled(false); setting.setBorderPainted(false);
         ticket.setContentAreaFilled(false); ticket.setBorderPainted(false);
+        ticket.setVerticalTextPosition(SwingConstants.BOTTOM);
+        ticket.setHorizontalTextPosition(SwingConstants.CENTER);
         
         l1 = new JLabel("Start");
         l1.setFont(new Font("Arabic", Font.BOLD, 14));
@@ -89,12 +91,10 @@ public class Home implements ActionListener, WindowFocusListener, ItemListener{
         l9.setFont(new Font("Arabic", Font.BOLD, 14));
         free1 = new JLabel();
         prof = new JLabel(user.getUsername());
-        prof.setFont(new Font("Arabic", Font.BOLD, 12));
-        /*hm = new JLabel("Home");
-        hm.setFont(new Font("Arabic", Font.BOLD, 14));
-        set = new JLabel("Setting");
-        set.setFont(new Font("Arabic", Font.BOLD, 14));*/
-        
+        prof.setFont(new Font("Times New Roman", Font.BOLD, 14));
+   
+        bSearch.setBackground(Color.orange);
+        bSearch.setBorderPainted(false);
         cbStart = new JComboBox();
         cbEnd = new JComboBox();
         cbDay = new JComboBox();
@@ -115,7 +115,7 @@ public class Home implements ActionListener, WindowFocusListener, ItemListener{
         Color cream = new Color(243, 233, 159);
         
         cbStart.addItem("(All)");
-        cbStart.addItem("Bankkok"); cbStart.addItem("Krabi"); cbStart.addItem("Kanchanaburi");
+        cbStart.addItem("Bangkok"); cbStart.addItem("Krabi"); cbStart.addItem("Kanchanaburi");
         cbStart.addItem("Kalasin"); cbStart.addItem("Kamphaeng Phet"); cbStart.addItem("Khon Kaen");
         cbStart.addItem("Chanthaburi"); cbStart.addItem("Chachoengsao"); cbStart.addItem("Chonburi");
         cbStart.addItem("Chainat"); cbStart.addItem("Chaiyaphum"); cbStart.addItem("Khon Kaen");
@@ -141,7 +141,7 @@ public class Home implements ActionListener, WindowFocusListener, ItemListener{
         cbStart.addItem("Uthai Thani"); cbStart.addItem("Ubon Ratchathani");
         
         cbEnd.addItem("(All)");
-        cbEnd.addItem("Bankkok"); cbEnd.addItem("Krabi"); cbEnd.addItem("Kanchanaburi");
+        cbEnd.addItem("Bangkok"); cbEnd.addItem("Krabi"); cbEnd.addItem("Kanchanaburi");
         cbEnd.addItem("Kalasin"); cbEnd.addItem("Kamphaeng Phet"); cbEnd.addItem("Khon Kaen");
         cbEnd.addItem("Chanthaburi"); cbEnd.addItem("Chachoengsao"); cbEnd.addItem("Chonburi");
         cbEnd.addItem("Chainat"); cbEnd.addItem("Chaiyaphum"); cbEnd.addItem("Khon Kaen");
@@ -180,7 +180,7 @@ public class Home implements ActionListener, WindowFocusListener, ItemListener{
         cbDay.addItem("31");
         
         cbMonth.addItem("(All)");
-        cbMonth.addItem("Jun"); cbMonth.addItem("Feb"); cbMonth.addItem("Mar");
+        cbMonth.addItem("Jan"); cbMonth.addItem("Feb"); cbMonth.addItem("Mar");
         cbMonth.addItem("Apr"); cbMonth.addItem("May"); cbMonth.addItem("Jun");
         cbMonth.addItem("Jul"); cbMonth.addItem("Aug"); cbMonth.addItem("Sep");
         cbMonth.addItem("Oct"); cbMonth.addItem("Nov"); cbMonth.addItem("Dec");
@@ -329,7 +329,7 @@ public class Home implements ActionListener, WindowFocusListener, ItemListener{
         fr.setSize(1000,600);
         fr.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         fr.setVisible(true);
-        
+        ticketPanel.setBackground(cream);
     }
     public LinkedList filterSearch(String start, String end, String type, String day, String month, String year, int seat, String timeOut, String timeArrive){
         LinkedList filter = new LinkedList();
@@ -474,6 +474,8 @@ public class Home implements ActionListener, WindowFocusListener, ItemListener{
             fr.remove(settingView.getPanel());
             
             ticketPanel = new TicketTable(user).getTable();
+            Color cream = new Color(243, 233, 159);
+            ticketPanel.setBackground(cream);
             fr.add(ticketPanel);
             
             fr.revalidate();
@@ -550,6 +552,8 @@ public class Home implements ActionListener, WindowFocusListener, ItemListener{
 
     @Override
     public void windowGainedFocus(WindowEvent e) {
+        prof.setText(user.getUsername());
+        
         if (fr.isAncestorOf(centerbg)){
             centerbg.remove(tourTable);
             if (filter.isEmpty()){
@@ -563,6 +567,8 @@ public class Home implements ActionListener, WindowFocusListener, ItemListener{
         else if (fr.isAncestorOf(ticketPanel)){
             fr.remove(ticketPanel);
             ticketPanel = new TicketTable(user).getTable();
+           Color cream = new Color(243, 233, 159);
+            ticketPanel.setBackground(cream);
             fr.add(ticketPanel);
             
             fr.revalidate();
