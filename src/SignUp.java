@@ -146,8 +146,8 @@ public class SignUp implements ActionListener {
         fr.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 }
     @Override
-    public void actionPerformed(ActionEvent ev){
-        if (ev.getSource() == signupbtn){
+    public void actionPerformed(ActionEvent e){
+        if (e.getSource() == signupbtn){
             CheckingAccount ch = new CheckingAccount();
             boolean usname;
             warnname.setVisible(!ch.checkName(name.getText()));

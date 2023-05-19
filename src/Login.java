@@ -118,20 +118,16 @@ public class Login implements ActionListener {
                     return true;
                 }
                 else{
-                    text = "WrongPassword" ;
-                    System.out.println(text);
                     return false;
                 }
                 
             }
-            text = "UserNotFound";
         }
-        System.out.println(text);
         return false;
      }
     @Override
-    public void actionPerformed(ActionEvent ev){
-        if(ev.getSource() == loginbtn){
+    public void actionPerformed(ActionEvent e){
+        if(e.getSource() == loginbtn){
           
             if (checkUser(username.getText(), String.valueOf(pass.getPassword()))){
                 new Home(username.getText());
@@ -143,32 +139,28 @@ public class Login implements ActionListener {
             
             }
         }
-        if(ev.getSource()==signupbtn){
+        if(e.getSource()==signupbtn){
             new SignUp();
             invalid.setVisible(false);
             username.setText("");
             pass.setText("");
                    
         }
-        if(ev.getSource() == adminbtn){
-                    boolean checkAdmin = false;
-                    AdminAcc admin = FileIO.loadAdminData();
-                    while(checkAdmin == false){
-                         String val = JOptionPane.showInputDialog(null,"Please enter the password:","Admin password",JOptionPane.INFORMATION_MESSAGE);
-                         if(val.equals(admin.getPassword())) 
-                         {
-                             checkAdmin = true;
-                             new Admin(admin);
-                              fr.dispose();
-
-                         }
-                         else{
-                             JOptionPane.showConfirmDialog(null, "Wrong password, try again.", "Error", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
-                         }
-
-                    }
-
-         }
+        if(e.getSource() == adminbtn){
+            boolean checkAdmin = false;
+            AdminAcc admin = FileIO.loadAdminData();
+            while(checkAdmin == false){
+                String val = JOptionPane.showInputDialog(null,"Please enter the password:","Admin password",JOptionPane.INFORMATION_MESSAGE);
+                if(val.equals(admin.getPassword())){
+                    checkAdmin = true;
+                    new Admin(admin);
+                    fr.dispose();
+                }
+                else{
+                    JOptionPane.showConfirmDialog(null, "Wrong password, try again.", "Error", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }
     }
     public static void main(String[] args) {
         new Login();

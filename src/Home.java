@@ -532,10 +532,10 @@ public class Home implements ActionListener, WindowFocusListener, ItemListener{
                                 break;
                             }
                         }
-                        userData.remove(index);
+                    userData.remove(index);
                     }catch(IndexOutOfBoundsException ex){
-                            System.out.println("User not found");
-                        }
+                        System.out.println("User not found");
+                    }
                     FileIO.saveUserData(userData);
                     fr.dispose();
                     new Login();
@@ -543,8 +543,8 @@ public class Home implements ActionListener, WindowFocusListener, ItemListener{
         }
       
     }
-        public JPanel getFrame(){
-            return this.centerbg;
+    public JPanel getFrame(){
+        return this.centerbg;
     }
 
     @Override
@@ -593,7 +593,6 @@ public class Home implements ActionListener, WindowFocusListener, ItemListener{
         FileIO.saveUserData(userData);
         
     }
-
     @Override
     public void windowLostFocus(WindowEvent e) {}
 }

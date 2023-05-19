@@ -458,9 +458,7 @@ public class Admin implements ActionListener, WindowFocusListener, DocumentListe
 
     @Override
     public void changedUpdate(DocumentEvent e) {}
-
     
     @Override
     public void windowLostFocus(WindowEvent e) {}
-  
 }
