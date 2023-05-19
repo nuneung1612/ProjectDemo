@@ -10,6 +10,7 @@
  * @author User
  */
 import java.util.LinkedList;
+import java.util.regex.*;
 public class CheckingAccount {
      private LinkedList userData = new LinkedList();
      private String usertag;
@@ -66,9 +67,9 @@ public class CheckingAccount {
              return true;
     }
     public boolean checkEmail(String email) {
-           String ePattern = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$";
-           java.util.regex.Pattern p = java.util.regex.Pattern.compile(ePattern);
-           java.util.regex.Matcher m = p.matcher(email);
+           String ePattern = "[_a-zA-Z1-9]+(\\.[A-Za-z0-9]*)*@[A-Za-z0-9]+\\.[A-Za-z0-9]+(\\.[A-Za-z0-9]*)*";
+           Pattern p = Pattern.compile(ePattern);
+           Matcher m = p.matcher(email);
            return m.matches();
     }
     
